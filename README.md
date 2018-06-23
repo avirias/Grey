@@ -1,10 +1,8 @@
 # Grey
-
-A complete and open source music player designed in flutter. It is first complete music player designed in flutter.
-This app exploits Sqlite databse that enables faster loading of songs at startup. Only one time setup for loading songs is needed. This app comes with a lot of features and a more are coming soon.
+Music Player developed in flutter
 <br>
 <br>
-You can download appp from releases <a href="https://github.com/avirias/Grey/releases">Music Player</a>.
+Download releases here <a href="https://github.com/avirias/Grey/releases">Music Player</a>.
 
 # Screenshots
 <table>
