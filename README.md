@@ -1,30 +1,11 @@
-# Flutter Music Player
+# Grey
 
 A complete and open source music player designed in flutter. It is first complete music player designed in flutter.
 This app exploits Sqlite databse that enables faster loading of songs at startup. Only one time setup for loading songs is needed. This app comes with a lot of features and a more are coming soon.
 <br>
 <br>
-You can download appp from releases <a href="https://github.com/amangautam1/flutter-musicplayer/releases">Music Player</a>.
-# Features
-<li> Play local songs
-<li> Beautiful Home screen
-<li> Beautiful Now Playing
-<li> Sqlite database support
-<li> Search songs
-<li> Songs suggestions
-<li> Top tracks
-<li> Recent songs
-<li> Random song
-<li> Album view
-<li> Artist view
-<li> Playlist
-<li> Add to favourite
-<li> Shuffle
-<li> Queue
-<li> Play/pause
-<li> Next/prev
-<li> Song queue
-  
+You can download appp from releases <a href="https://github.com/avirias/Grey/releases">Music Player</a>.
+
 # Screenshots
 <table>
   <tr>
@@ -87,10 +68,6 @@ You can download appp from releases <a href="https://github.com/amangautam1/flut
 
 # Plugins
 Music player plugin used : <a href="https://github.com/iampawan/Flute-Music-Player">Flute-music</a>
-<br>
-For Sqlite :<a href="https://github.com/tekartik/sqflite">SQLite flutter plugin</a>
-
-Note: This app may contain few bugs, which will be fixed shortly.
 
 # Licence
 MIT License
@@ -120,8 +97,3 @@ SOFTWARE.
 For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
 
-
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/amangautam1/flutter-musicplayer/badge.svg?style=beer-square)](https://beerpay.io/amangautam1/flutter-musicplayer)  [![Beerpay](https://beerpay.io/amangautam1/flutter-musicplayer/make-wish.svg?style=flat-square)](https://beerpay.io/amangautam1/flutter-musicplayer?focus=wish)
