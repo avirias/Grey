@@ -66,9 +66,10 @@ class stateCardDetail extends State<ArtistCard> {
                   forceElevated: false,
                   floating: false,
                   pinned: true,
+
                   backgroundColor: accentColor,
                   flexibleSpace: new FlexibleSpaceBar(
-                    title: Text(widget.song.artist,style: TextStyle(color: Colors.white,fontSize: 18.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 2.0),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                    title: Text(widget.song.artist,style: TextStyle(color: Colors.white,fontSize: 17.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 2.0),maxLines: 1,overflow: TextOverflow.ellipsis,),
                     background: new Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
@@ -92,7 +93,7 @@ class stateCardDetail extends State<ArtistCard> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(left: 15.0, top: 15.0, bottom: 10.0),
-                            child: Text("Albums".toUpperCase(),style: TextStyle(fontSize: 19.0,fontWeight: FontWeight.w500,fontFamily: "Raleway",letterSpacing: 2.0),maxLines: 1),
+                            child: Text("Albums".toUpperCase(),style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.w600,fontFamily: "Raleway",letterSpacing: 1.8),maxLines: 1),
                           ),
                           Container(
                             //aspectRatio: 16/15,
@@ -101,7 +102,7 @@ class stateCardDetail extends State<ArtistCard> {
                               itemCount: albums.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, i) => Padding(
-                                    padding: const EdgeInsets.only(bottom: 35.0),
+                                    padding: const EdgeInsets.only(bottom: 30.0),
                                     child: new Card(
                                       elevation: 15.0,
                                       child: new InkResponse(
@@ -160,7 +161,7 @@ class stateCardDetail extends State<ArtistCard> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 15.0, top: 0.0, bottom: 10.0),
-                            child: Text("Songs".toUpperCase(),style: TextStyle(fontSize: 19.0,fontWeight: FontWeight.w500,fontFamily: "Raleway",letterSpacing: 2.0),maxLines: 1),
+                            child: Text("Songs".toUpperCase(),style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.w600,fontFamily: "Raleway",letterSpacing: 1.8),maxLines: 1),
                           ),
 
                         ],
@@ -178,17 +179,24 @@ class stateCardDetail extends State<ArtistCard> {
                         child: Container(
                           color: Colors.white,
                           child: new ListTile(
-                            leading: new Icon(Icons.keyboard_arrow_right,size: 25.0,),
+                            leading: CircleAvatar(
+                              child: avatar(getImage(songs[i]),songs[i].title)),
                             title: new Text(songs[i].title,
-                                maxLines: 1, style: new TextStyle(fontSize: 15.0),overflow: TextOverflow.fade,),
-                            subtitle: new Text(
-                                new Duration(milliseconds: songs[i].duration)
-                                    .toString()
-                                    .split('.')
-                                    .first.substring(3,7),
-                                style: new TextStyle(
-                                    fontSize: 12.0, color: Colors.grey)) ,
-                           //trailing:
+                                maxLines: 1, style: new TextStyle(fontSize: 15.0),overflow: TextOverflow.ellipsis,),
+                            subtitle: Row(
+                              children: <Widget>[
+                                Text(songs[i].album,style: new TextStyle(
+                                        fontSize: 12.0, color: Colors.grey)),
+                                
+                              ],
+                            ) ,
+                           trailing:new Text(
+                                    new Duration(milliseconds: songs[i].duration)
+                                        .toString()
+                                        .split('.')
+                                        .first.substring(3,7),
+                                    style: new TextStyle(
+                                        fontSize: 12.0, color: Colors.black54)),
                             onTap: () {
                               MyQueue.songs = songs;
                               Navigator.of(context).push(new MaterialPageRoute(

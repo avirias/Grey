@@ -68,12 +68,14 @@ class stateHome extends State<Home> {
     return new CustomScrollView(
       slivers: <Widget>[
         new SliverAppBar(
-          expandedHeight: 200.0,
+          expandedHeight: 180.0,
           floating: false,
+          elevation: 5.0,
           pinned: true,
-          title: new Text("Music Player"),
+          primary: true, 
+          title: new Text("Grey",style: TextStyle(color: Colors.white,fontSize: 18.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 2.0)),
           backgroundColor: accentColor,
-          brightness: Brightness.light,
+          brightness: Brightness.dark,
           actions: <Widget>[
             new IconButton(
                 icon: Icon(
@@ -90,7 +92,7 @@ class stateHome extends State<Home> {
                         children: <Widget>[
                           Text("Author",style: TextStyle(fontFamily: "Raleway",fontSize: 20.0,),),
                           Text("@avirias",style: TextStyle(fontFamily: "Raleway",fontSize: 18.0,fontWeight: FontWeight.w600)),
-                         /* Row(
+                         Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               IconButton(
@@ -104,7 +106,7 @@ class stateHome extends State<Home> {
                                 )
                             ],
                           )
-                        */
+                        
                         ],
                       );
                 }),
@@ -151,7 +153,7 @@ class stateHome extends State<Home> {
                     padding: EdgeInsets.only(left: 15.0,top: 15.0,bottom: 10.0),
                     child: Center(
                       child: Text(last.artist.toUpperCase() +" - "+last.title.toUpperCase(),
-                      style: TextStyle(height: 1.0,color: Colors.blueGrey[900],fontSize: 15.0,fontFamily: "Raleway",fontStyle: FontStyle.normal,fontWeight: FontWeight.w500,letterSpacing: 2.0),
+                      style: TextStyle(color: Colors.blueGrey[900],fontSize: 14.0,fontFamily: "Raleway",fontStyle: FontStyle.normal,fontWeight: FontWeight.w500,letterSpacing: 1.5),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: true,),
@@ -190,7 +192,7 @@ class stateHome extends State<Home> {
                             },
                             child: new Icon(
                               Icons.history,
-                              size: 60.0,
+                              size: 50.0,
                               color: accentColor,
                             ),
                           ),
@@ -221,7 +223,7 @@ class stateHome extends State<Home> {
                           },
                           child: new Icon(
                             Icons.insert_chart,
-                            size: 60.0,
+                            size: 50.0,
                             color: accentColor,
                           ),
                         ),
@@ -249,7 +251,7 @@ class stateHome extends State<Home> {
                             },
                             child: new Icon(
                               Icons.shuffle,
-                              size: 60.0,
+                              size: 50.0,
                               color: accentColor,
                             ),
                           ),

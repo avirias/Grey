@@ -57,7 +57,7 @@ class _songsState extends State<Songs> {
                             leading: avatar(getImage(songs[i]),songs[i].title),
                             title: new Text(songs[i].title,
                                 maxLines: 1,
-                                style: new TextStyle(fontSize: 18.0)),
+                                style: new TextStyle(fontSize: 16.0)),
                             subtitle: new Text(
                               songs[i].artist,
                               maxLines: 1,

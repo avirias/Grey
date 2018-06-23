@@ -272,7 +272,7 @@ class _stateNowPlaying extends State<NowPlaying> {
                                 width: 0.0,
                                 color: Colors.transparent)),
                         margin: const EdgeInsets.only(
-                            top: 30.0, left: 30.0, right: 30.0, bottom: 25.0),
+                            top: 28.0, left: 28.0, right: 28.0, bottom: 20.0),
                         child: new AspectRatio(
                           aspectRatio: 15 / 15,
                           child: getImage(song) != null
@@ -337,7 +337,7 @@ class _stateNowPlaying extends State<NowPlaying> {
                 Expanded(
                   child: Center(
                     child: Container(
-                      color: lightAccentColor.withOpacity(0.07),
+                      color: Colors.white.withOpacity(0.05),
                         child: Column(
                         children: <Widget>[
                           new Expanded(
@@ -347,7 +347,7 @@ class _stateNowPlaying extends State<NowPlaying> {
                             '${song.title.toUpperCase()}\n',
                             style: new TextStyle(
                               color: Colors.white,
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 3.0,
                               height: 1.5,
@@ -361,9 +361,9 @@ class _stateNowPlaying extends State<NowPlaying> {
                           new Text(
                             "${song.artist.toUpperCase()}\n",
                             style: new TextStyle(
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withOpacity(0.7),
                               fontSize: 14.0,
-                              letterSpacing: 2.0,
+                              letterSpacing:1.8,
                               height: 1.5,
                               fontFamily: "Raleway"
                               
@@ -381,7 +381,7 @@ class _stateNowPlaying extends State<NowPlaying> {
                   ),
                 ),
                 Expanded(
-                  child: Container(color: lightAccentColor.withOpacity(0.07),
+                  child: Container(color: Colors.white.withOpacity(0.05),
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 15.0),
                       child: new Row(
@@ -393,12 +393,12 @@ class _stateNowPlaying extends State<NowPlaying> {
                                   ? new Icon(
                                       Icons.favorite_border,
                                       color: Colors.white,
-                                      size: 18.0,
+                                      size: 15.0,
                                     )
                                   : new Icon(
                                       Icons.favorite,
                                       color: Colors.white,
-                                      size: 18.0,
+                                      size: 15.0,
                                     ),
                               onPressed: () {
                                 setFav(song);
@@ -409,7 +409,7 @@ class _stateNowPlaying extends State<NowPlaying> {
                             icon: new Icon(
                               Icons.skip_previous,
                               color: Colors.white,
-                              size: 35.0,
+                              size: 32.0,
                             ),
                             onPressed: prev,
                           ),
@@ -423,9 +423,9 @@ class _stateNowPlaying extends State<NowPlaying> {
                               icon: new Icon(
                                 isPlaying ? Icons.pause : Icons.play_arrow,
                                 color: Colors.white,
-                                size: 40.0,
+                                size: 35.0,
                               ),
-                              iconSize: 40.0,
+                              iconSize: 35.0,
                               onPressed: _playpause,
                             ),
                           ),
@@ -435,7 +435,7 @@ class _stateNowPlaying extends State<NowPlaying> {
                               icon: new Icon(
                                 Icons.skip_next,
                                 color: Colors.white,
-                                size: 35.0,
+                                size: 32.0,
                               ),
                               onPressed: next,
                             ),
@@ -444,12 +444,12 @@ class _stateNowPlaying extends State<NowPlaying> {
                                 ? Icon(
                                     Icons.repeat,
                                     color: Colors.white,
-                                    size: 18.0,
+                                    size: 15.0,
                                   )
                                 : Icon(
                                     Icons.repeat,
                                     color: Colors.white.withOpacity(0.5),
-                                    size: 18.0,
+                                    size: 15.0,
                                   ),
                             onPressed: () {
                               if (repeatOn == 1)
@@ -465,7 +465,7 @@ class _stateNowPlaying extends State<NowPlaying> {
                 ),
                 Container(
                   width: width,
-                  color: lightAccentColor.withOpacity(0.07),
+                  color: Colors.white.withOpacity(0.05),
                     child: FlatButton(
                     onPressed: _showBottomSheet,
                     highlightColor: lightAccentColor.withOpacity(0.1),

@@ -51,6 +51,7 @@ class stateCardDetail extends State<CardDetail> {
 
   @override
   Widget build(BuildContext context) {
+    int length = songs.length;
     return new Scaffold(
         body: isLoading
             ? new Center(
@@ -118,7 +119,9 @@ class stateCardDetail extends State<CardDetail> {
                                             style: new TextStyle(fontSize: 15.0),
                                             maxLines: 1,
                                           ),
-                                          new Text(songs.length.toString() + " songs",style: TextStyle(fontSize: 13.0),),
+                                          length!=1
+                                          ?new Text(songs.length.toString() +" Songs",style: TextStyle(fontSize: 13.0),)
+                                          :new Text(songs.length.toString() +" Song",style: TextStyle(fontSize: 13.0),)
                                         ],
                                       ),
                                     ),

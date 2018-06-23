@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/list_songs.dart';
+import 'package:musicplayer/theme.dart';
+
 
 class PlayList extends StatefulWidget {
   DatabaseClient db;
@@ -21,6 +25,7 @@ class _statePlaylist extends State<PlayList> {
     // TODO: implement initState
     mode=1;
     selected=1;
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -30,13 +35,12 @@ class _statePlaylist extends State<PlayList> {
     );
   }
 
-
-  Widget potrait() {  
-     return new ListView(
+  Widget potrait() {
+    return new ListView(
       children: <Widget>[
-        new ListTile(
-          leading: new Icon(Icons.call_received),
-          title: new Text("Recently played"),
+        new ListTile(                   
+          leading: new Icon(Icons.call_received,size: 28.0,color: xcolor,),
+          title: new Text("Recently played",style: TextStyle(fontSize: 18.0,letterSpacing: 1.2,fontFamily: "Raleway"),),
           subtitle: new Text("Songs"),
           onTap: () {
             Navigator
@@ -47,8 +51,8 @@ class _statePlaylist extends State<PlayList> {
           },
         ),
         new ListTile(
-          leading: new Icon(Icons.insert_chart),
-          title: new Text("Top tracks"),
+          leading: new Icon(Icons.insert_chart,size: 28.0,color: xcolor,),
+          title: new Text("Top tracks",style: TextStyle(fontSize: 18.0,letterSpacing: 1.2,fontFamily: "Raleway"),),
           subtitle: new Text("Songs"),
           onTap: () {
             Navigator
@@ -59,8 +63,8 @@ class _statePlaylist extends State<PlayList> {
           },
         ),
         new ListTile(
-          leading: new Icon(Icons.favorite),
-          title: new Text("Favourites"),
+          leading: new Icon(Icons.favorite,size: 28.0,color: xcolor,),
+          title: new Text("Favourites",style: TextStyle(fontSize: 18.0,letterSpacing: 1.2,fontFamily: "Raleway"),),
           subtitle: new Text("Songs"),
           onTap: () {
             Navigator

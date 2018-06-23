@@ -168,7 +168,7 @@ class DatabaseClient {
   Future<List<Song>> fetchAlbumByArtist(String artist) async{
 
     List<Map> results = await _db.rawQuery(
-        "select distinct albumid,album,artist,albumArt from songs where artist='$artist' group by album");
+        "select distinct albumid,album,artist,albumArt from songs where artist='$artist'");
     List<Song> songs = new List();
     results.forEach((s) {
       Song song = new Song.fromMap(s);

@@ -67,18 +67,23 @@ class _stateAlbum extends State<Album> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        song.album.toUpperCase(),
-                        style: new TextStyle(fontSize: 14.0,color: Colors.black.withOpacity(0.65)),
-                        maxLines: 1,
+                      Center(
+                        child: Text(
+                          song.album.toUpperCase(),
+                          style: new TextStyle(fontSize: 14.0,color: Colors.black.withOpacity(0.65),fontWeight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          song.artist.toUpperCase(),
-                          maxLines: 1,
-                          style: TextStyle(fontSize: 12.0, color: Colors.black54),
+                        child: Center(
+                          child: Text(
+                            song.artist.toUpperCase(),
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 12.0, color: Colors.black54),
+                          ),
                         ),
                       )
                     ],
@@ -111,7 +116,7 @@ class _stateAlbum extends State<Album> {
                           child: new GridView.count(
                   crossAxisCount: orientation==Orientation.portrait?2:4,
                   children: _buildGridCards(context),
-                  padding: EdgeInsets.all(2.0),
+                  padding: EdgeInsets.all(5.0),
                   childAspectRatio: 8.0 / 10.0,
                 ),
             )

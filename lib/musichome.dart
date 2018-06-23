@@ -35,7 +35,7 @@ class MusicHome extends StatefulWidget {
 class _musicState extends State<MusicHome> {
   int _selectedDrawerIndex = 0;
   List<Song> songs;
-  String title = "Music player";
+  String title = "";
   DatabaseClient db;
   bool isLoading = true;
   Song last;
@@ -145,16 +145,16 @@ class _musicState extends State<MusicHome> {
         appBar: _selectedDrawerIndex == 0
             ? null
             : new AppBar(
-                backgroundColor: accentColor,
-                title: new Text(title),
-                actions: <Widget>[
-                  IconButton(icon: Icon(Icons.search),color: Colors.white,onPressed: null,)
-                ],
+                elevation: 5.0,
+                backgroundColor: accentColor.withOpacity(0.8),
+                title: new Text(title,style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 1.5)),
+                
               ),
         floatingActionButton: new FloatingActionButton(
-            child: new Icon(Icons.play_circle_outline),
+            child: new FlutterLogo(colors: Colors.red,),
             backgroundColor: Colors.white,
             foregroundColor: accentColor,
+  
             onPressed: () async {
               var pref = await SharedPreferences.getInstance();
               var fp = pref.getBool("played");
@@ -194,7 +194,7 @@ class _musicState extends State<MusicHome> {
           onTap: (index) => _onSelectItem(index),
           currentIndex: _selectedDrawerIndex,
           type: BottomNavigationBarType.fixed,
-          fixedColor: accentColor.withOpacity(0.7),
+          fixedColor: accentColor.withOpacity(0.6),
           iconSize: 25.0,
         ),
       ),

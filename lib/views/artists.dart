@@ -55,7 +55,7 @@ class _stateArtist extends State<Artists> {
                     padding: const EdgeInsets.only(left: 8.0,right: 8.0),
                     child: Text(
                       song.artist.toUpperCase(),
-                      style: new TextStyle(fontSize: 15.0,fontWeight: FontWeight.w500,letterSpacing: 2.0),
+                      style: new TextStyle(fontFamily: "Raleway",fontSize: 13.0,fontWeight: FontWeight.w600,letterSpacing: 2.0),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

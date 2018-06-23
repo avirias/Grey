@@ -61,13 +61,13 @@ class _listSong extends State<ListSongs> {
   Widget getTitle(int mode) {
     switch (mode) {
       case 1:
-        return new Text("Recently played");
+        return new Text("Recently played",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 1.5));
         break;
       case 2:
-        return new Text("Top tracks");
+        return new Text("Top tracks",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 1.5));
         break;
       case 3:
-        return new Text("Favourites");
+        return new Text("Favourites",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 1.5));
         break;
       default:
         return null;
@@ -79,6 +79,7 @@ class _listSong extends State<ListSongs> {
     initSongs();
     return new Scaffold(
         appBar: widget.orientation==Orientation.portrait?new AppBar(
+
           title: getTitle(widget.mode),
           backgroundColor: accentColor,
 

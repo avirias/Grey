@@ -20,7 +20,7 @@ List fetch(String artist){
       Future<http.Response> fetchPost() {
   return http.get(url);
 }
-
+    Future<http.Response> str = fetchPost();
     final responsexml = xml.parse(url);
     print(responsexml);
     var images =  responsexml.findAllElements("image");
