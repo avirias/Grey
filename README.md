@@ -1,6 +1,7 @@
 # Grey
 Music Player developed in flutter
 <br>
+all thanks to Aman Gautam , check his repo <a href="https://github.com/amangautam1/flutter-musicplayer">  here </a>
 <br>
 Download releases <a href="https://github.com/avirias/Grey/releases">here</a>.
 
@@ -8,25 +9,30 @@ Download releases <a href="https://github.com/avirias/Grey/releases">here</a>.
 <table>
   <tr>
     <td>
-      <img src="screenshots/now_playing.png" height=400 width=250/>
+      <img src="screenshots/now_playing.png" height=450 width=253/>
+      <br>
       Now playing
     </td>
     <td>
-      <img src="screenshots/home1.png" height=400 width=250>
+      <img src="screenshots/home1.png" height=450 width=253>
+      <br>
       Home
       </td>
       <td>
-      <img src="screenshots/home2.png" height=400 width=250>
+      <img src="screenshots/home2.png" height=450 width=253>
+        <br>
       Home
       </td>
     </tr>
   <tr>
       <td>
-      <img src="screenshots/albums.png" height=400 width=250>
+      <img src="screenshots/albums.png" height=450 width=253>
+        <br>
       Album
       </td>
     <td>
-      <img src="screenshots/album_view.png" height=400 width=250>
+      <img src="screenshots/album_view.png" height=450 width=253>
+      <br>
       Album View
       </td>
     </tr>
