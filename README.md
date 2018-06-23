@@ -8,7 +8,7 @@ Download releases here <a href="https://github.com/avirias/Grey/releases">Music 
 <table>
   <tr>
     <td>
-      <img src="screenshots/now_playing.png" height=400 width=250/>
+      <img src="screenshots/now_playing.png" height=400 width=225/>
       Now playing
     </td>
     <td>
