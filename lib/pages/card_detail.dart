@@ -13,9 +13,8 @@ class CardDetail extends StatefulWidget {
   int id;
   var album;
   Song song;
-  int mode;
   DatabaseClient db;
-  CardDetail(this.db, this.song, this.mode);
+  CardDetail(this.db, this.song);
   @override
   State<StatefulWidget> createState() {
     return new stateCardDetail();
@@ -44,11 +43,7 @@ class stateCardDetail extends State<CardDetail> {
     image = widget.song.albumArt == null
         ? null
         : new File.fromUri(Uri.parse(widget.song.albumArt));
-    if (widget.mode == 0)
       songs = await widget.db.fetchSongsfromAlbum(widget.song.albumId);
-    else
-      songs = await widget.db.fetchSongsByArtist(widget.song.artist);
-    print(songs);
     setState(() {
       isLoading = false;
     });

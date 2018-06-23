@@ -3,8 +3,10 @@ import 'dart:math';
 
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:material_search/material_search.dart';
 import 'package:musicplayer/database/database_client.dart';
+import 'package:musicplayer/pages/artistcard.dart';
 import 'package:musicplayer/pages/card_detail.dart';
 import 'package:musicplayer/pages/list_songs.dart';
 import 'package:musicplayer/pages/material_search.dart';
@@ -87,7 +89,21 @@ class stateHome extends State<Home> {
 
                         children: <Widget>[
                           Text("Author",style: TextStyle(fontFamily: "Raleway",fontSize: 20.0,),),
-                          Text("@avirias",style: TextStyle(fontFamily: "Raleway",fontSize: 18.0,fontWeight: FontWeight.w600))
+                          Text("@avirias",style: TextStyle(fontFamily: "Raleway",fontSize: 18.0,fontWeight: FontWeight.w600)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              IconButton(
+                                icon: ImageIcon(AssetImage("images/GitHub-Mark.png")),
+                                onPressed: null,
+                                iconSize: 40.0,),
+                                IconButton(
+                                  icon: ImageIcon(AssetImage("images/flogo.png")),
+                                  onPressed: null,
+                                  iconSize: 40.0,
+                                )
+                            ],
+                          )
                         
                         ],
                       );
@@ -370,7 +386,7 @@ class stateHome extends State<Home> {
                         Navigator
                             .of(context)
                             .push(new MaterialPageRoute(builder: (context) {
-                          return new CardDetail(widget.db, topArtist[i], 1);
+                          return new ArtistCard(widget.db, topArtist[i]);
                         }));
                       },
                     ),
@@ -474,7 +490,7 @@ class stateHome extends State<Home> {
                     Navigator
                         .of(context)
                         .push(new MaterialPageRoute(builder: (context) {
-                      return new CardDetail(widget.db, topAlbum[i], 0);
+                      return new CardDetail(widget.db, topAlbum[i]);
                     }));
                   },
                 ),
@@ -651,7 +667,7 @@ class stateHome extends State<Home> {
                     Navigator
                         .of(context)
                         .push(new MaterialPageRoute(builder: (context) {
-                      return new CardDetail(widget.db, albums[i], 0);
+                      return new CardDetail(widget.db, albums[i]);
                     }));
                   },
                 ),
@@ -736,4 +752,15 @@ class stateHome extends State<Home> {
       ),
     );
   }
-}
+
+  launchUrl() async {
+     const url1 = "https://github.com/avirias/Grey";
+
+    if (await canLaunch(url1)) {
+      await launch(url1);
+    } else {
+      throw 'could not open';
+    }
+  }
+  }
+

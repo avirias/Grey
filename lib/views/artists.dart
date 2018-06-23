@@ -1,6 +1,7 @@
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
+import 'package:musicplayer/pages/artistcard.dart';
 import 'package:musicplayer/pages/card_detail.dart';
 
 class Artists extends StatefulWidget {
@@ -33,6 +34,9 @@ class _stateArtist extends State<Artists> {
   List<Card> _buildGridCards(BuildContext context) {
     return songs.map((song) {
       return Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 18.0),
+        elevation: 10.0,
         child: new InkResponse(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,12 +50,15 @@ class _stateArtist extends State<Artists> {
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(4.0, 8.0, 0.0, 0.0),
-                  child: Text(
-                    song.artist,
-                    style: new TextStyle(fontSize: 18.0),
-                    maxLines: 1,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                    child: Text(
+                      song.artist.toUpperCase(),
+                      style: new TextStyle(fontSize: 15.0,fontWeight: FontWeight.w500,letterSpacing: 2.0),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ),
@@ -61,7 +68,7 @@ class _stateArtist extends State<Artists> {
             Navigator
                 .of(context)
                 .push(new MaterialPageRoute(builder: (context) {
-              return new CardDetail(widget.db, song, 1);
+              return new ArtistCard(widget.db, song);
             }));
           },
         ),
@@ -76,11 +83,11 @@ class _stateArtist extends State<Artists> {
         child: isLoading
             ? new Center(child: new CircularProgressIndicator())
             : Scrollbar(
-                          child: new GridView.count(
+                  child: new GridView.count(
                   crossAxisCount:orientation==Orientation.portrait? 2:4,
                   children: _buildGridCards(context),
-                  padding: EdgeInsets.all(2.0),
-                  childAspectRatio: 8.0 / 10.0,
+                  padding: EdgeInsets.all(10.0),
+                  childAspectRatio: 8.0 / 9.5,
                 ),
             ));
   }

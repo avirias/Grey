@@ -94,7 +94,7 @@ class _stateAlbum extends State<Album> {
             Navigator
                 .of(context)
                 .push(new MaterialPageRoute(builder: (context) {
-              return new CardDetail(widget.db, song, 0);
+              return new CardDetail(widget.db, song);
             }));
           },
         ),
