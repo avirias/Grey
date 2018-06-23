@@ -13,21 +13,25 @@ Download releases here <a href="https://github.com/avirias/Grey/releases">Music 
       Now playing
     </td>
     <td>
-      <img src="screenshots/home1.png" height=400 width=250>
+      <img src="screenshots/home1.png" height=450 width=253>
+      <br>
       Home
       </td>
       <td>
-      <img src="screenshots/home2.png" height=400 width=250>
+      <img src="screenshots/home2.png" height=450 width=253>
+        <br>
       Home
       </td>
     </tr>
   <tr>
       <td>
-      <img src="screenshots/albums.png" height=400 width=250>
+      <img src="screenshots/albums.png" height=450 width=253>
+        <br>
       Album
       </td>
     <td>
-      <img src="screenshots/album_view.png" height=400 width=250>
+      <img src="screenshots/album_view.png" height=450 width=253>
+      <br>
       Album View
       </td>
     </tr>
