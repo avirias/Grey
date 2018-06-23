@@ -22,7 +22,7 @@ Download releases here <a href="https://github.com/avirias/Grey/releases">Music 
     </tr>
   <tr>
       <td>
-      <img src="screenshots/album.png" height=400 width=250>
+      <img src="screenshots/albums.png" height=400 width=250>
       Album
       </td>
     <td>
