@@ -2,7 +2,7 @@
 Music Player developed in flutter
 <br>
 <br>
-Download releases here <a href="https://github.com/avirias/Grey/releases">Music Player</a>.
+Download releases <a href="https://github.com/avirias/Grey/releases">here</a>.
 
 # Screenshots
 <table>
