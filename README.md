@@ -1,6 +1,7 @@
 # Grey
 Music Player developed in flutter
 <br>
+all thanks to Aman Gautam , check his repo <a href="https://github.com/amangautam1/flutter-musicplayer">  here </a>
 <br>
 Download releases here <a href="https://github.com/avirias/Grey/releases">Music Player</a>.
 
