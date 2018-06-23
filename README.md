@@ -1,7 +1,7 @@
 # Grey
 Music Player developed in flutter
 <br>
-all thanks to Aman Gautam , check his repo <a href="https://github.com/amangautam1/flutter-musicplayer">  here </a>
+All thanks to Aman Gautam , check his repo <a href="https://github.com/amangautam1/flutter-musicplayer">  here </a>
 <br>
 Download releases <a href="https://github.com/avirias/Grey/releases">here</a>.
 
@@ -35,7 +35,13 @@ Download releases <a href="https://github.com/avirias/Grey/releases">here</a>.
       <br>
       Album View
       </td>
+      <td>
+      <img src="screenshots/artist.png" height=450 width=253>
+      <br>
+      Artist View
+      </td>
     </tr>
+    
 
 
   </table>
