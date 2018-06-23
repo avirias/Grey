@@ -45,22 +45,19 @@ class _stateAlbum extends State<Album> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AspectRatio(
-                  aspectRatio: 18 / 16,
-                  child: getImage(song) != null
-                      ? new Image.file(
-                          getImage(song),
-                          height: 120.0,
-                          fit: BoxFit.fitWidth,
-                        )
-                      : new Image.asset(
-                          "images/back.jpg",
-                          height: 120.0,
-                          fit: BoxFit.cover,
-                        ),
-                ),
+              AspectRatio(
+                aspectRatio: 18 / 16,
+                child: getImage(song) != null
+                    ? new Image.file(
+                        getImage(song),
+                        height: 120.0,
+                        fit: BoxFit.fitWidth,
+                      )
+                    : new Image.asset(
+                        "images/back.jpg",
+                        height: 120.0,
+                        fit: BoxFit.cover,
+                      ),
               ),
               Padding(padding: EdgeInsets.symmetric(horizontal: 5.0),),
               Expanded(

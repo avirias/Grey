@@ -84,13 +84,13 @@ class stateHome extends State<Home> {
                   showAboutDialog(
                       context: context,
                       applicationName: "Grey",
-                      applicationVersion: "0.0.9",
+                      applicationVersion: "0.1.0",
                       applicationIcon: FlutterLogo(),
 
                         children: <Widget>[
                           Text("Author",style: TextStyle(fontFamily: "Raleway",fontSize: 20.0,),),
                           Text("@avirias",style: TextStyle(fontFamily: "Raleway",fontSize: 18.0,fontWeight: FontWeight.w600)),
-                          Row(
+                         /* Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               IconButton(
@@ -104,7 +104,7 @@ class stateHome extends State<Home> {
                                 )
                             ],
                           )
-                        
+                        */
                         ],
                       );
                 }),

@@ -241,10 +241,10 @@ class _stateNowPlaying extends State<NowPlaying> {
       children: <Widget>[
         Container(
           height: MediaQuery.of(context).size.height,
-          child: Image.file(
+          child: getImage(song)!=null?Image.file(
             getImage(song),
             fit: BoxFit.fitHeight,
-          ),
+          ):Image.asset("images/music.jpg")
         ),
         BackdropFilter(
           filter: ui.ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
