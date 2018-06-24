@@ -83,7 +83,7 @@ class stateHome extends State<Home> {
                   showAboutDialog(
                       context: context,
                       applicationName: "Grey",
-                      applicationVersion: "0.1.0",
+                      applicationVersion: "0.1.1",
                       applicationLegalese: "MIT License",
                       applicationIcon: FlutterLogo(),
 
