@@ -84,11 +84,19 @@ class stateHome extends State<Home> {
                       context: context,
                       applicationName: "Grey",
                       applicationVersion: "0.1.0",
+                      applicationLegalese: "MIT License",
                       applicationIcon: FlutterLogo(),
 
                         children: <Widget>[
-                          Text("Author",style: TextStyle(fontFamily: "Raleway",fontSize: 25.0,),),
-                          Text("Avinash Kumar (avirias)",style: TextStyle(fontFamily: "Raleway",fontSize: 18.0,fontWeight: FontWeight.w600)),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,),),
+                          ),
+                         Padding(
+                           padding: const EdgeInsets.symmetric(vertical: 3.0),
+                           child: Text("@avirias",style: TextStyle(fontSize: 20.0),),
+                         ),
+
                          Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
@@ -99,8 +107,13 @@ class stateHome extends State<Home> {
                                 IconButton(
                                   icon: ImageIcon(AssetImage("images/flogo.png")),
                                   onPressed: null,
-                                  iconSize: 40.0,
-                                )
+                                  iconSize: 55.0,
+                                ),
+                              IconButton(
+                                icon: ImageIcon(AssetImage("images/instalogo.png")),
+                                onPressed: null,
+                                iconSize: 40.0,
+                              )
                             ],
                           )
                         
@@ -758,14 +771,16 @@ class stateHome extends State<Home> {
     );
   }
 
-  launchUrl() async {
-     const url1 = "https://github.com/avirias/Grey";
-
-    if (await canLaunch(url1)) {
-      await launch(url1);
-    } else {
-      throw 'could not open';
-    }
+  launchUrl(int i) async {
+    if(i == 1)
+      launch("http://github.com/avirias");
+    else
+      if(i ==2)
+        launch("http://gacebook.com/avirias");
+    else
+      if(i == 3)
+        launch("https://instagram.com/avirias/");
   }
+
   }
 

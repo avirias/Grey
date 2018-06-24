@@ -201,17 +201,19 @@ class _musicState extends State<MusicHome> {
           iconSize: 25.0,
         ),
       ),
-      onWillPop: _onWillPop,
+      onWillPop: (){
+        if (_selectedDrawerIndex != 0) {
+
+          setState(() {
+            _selectedDrawerIndex = 0;
+          });
+        } else
+          _onWillPop();
+        },
     );
   }
 
   Future<bool> _onWillPop() {
-    if (_selectedDrawerIndex != 0) {
-      
-      setState(() {
-        _selectedDrawerIndex = 0;
-      });
-    } else
     return showDialog(
           context: context,
           child: new AlertDialog(
