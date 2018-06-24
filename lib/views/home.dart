@@ -61,8 +61,6 @@ class stateHome extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    
-    //List artistImg = fetch("Adele");
     final Orientation orientation = MediaQuery.of(context).orientation;
     return new CustomScrollView(
       slivers: <Widget>[
@@ -121,24 +119,23 @@ class stateHome extends State<Home> {
                 })
           ],
           flexibleSpace: new FlexibleSpaceBar(
-            // title:new Text("home"),
             background: new Stack(
               fit: StackFit.expand,
               children: <Widget>[
                 isLoading
-                  ? new Image.asset(
-                      "images/back.jpg",
-                      fit: BoxFit.fitWidth,
-                    )
-                  : getImage(last) != null
-                      ? new Image.file(
-                          getImage(last),
-                          fit: BoxFit.cover,
-                        )
-                      : new Image.asset(
-                          "images/back.jpg",
-                          fit: BoxFit.fitWidth,
-                        ),
+                        ? new Image.asset(
+                            "images/back.jpg",
+                            fit: BoxFit.fitWidth,
+                          )
+                        : getImage(last) != null
+                            ? new Image.file(
+                                getImage(last),
+                                fit: BoxFit.cover,
+                              )
+                            : new Image.asset(
+                                "images/back.jpg",
+                                fit: BoxFit.fitWidth,
+                              ),
               ],
             ),
           ),
@@ -365,21 +362,24 @@ class stateHome extends State<Home> {
                             color: lightAccentColor, style: BorderStyle.none)),
                     child: new InkResponse(
                       child: SizedBox(
-                        child: getImage(topArtist[i]) != null //Artist Image
-                            ? new Image.file(
-                                getImage(
-                                  topArtist[i],
-                                ),
-                                height: 120.0,
-                                width: 150.0,
-                                fit: BoxFit.cover,
-                              )
-                            : new Image.asset(
-                                "images/back.jpg",
-                                height: 120.0,
-                                width: 150.0,
-                                fit: BoxFit.cover,
-                              ),
+                        child: Hero(
+                          tag: topArtist[i].artist,
+                          child: getImage(topArtist[i]) != null //Artist Image
+                                ? new Image.file(
+                                    getImage(
+                                      topArtist[i],
+                                    ),
+                                    height: 120.0,
+                                    width: 150.0,
+                                    fit: BoxFit.cover,
+                                  )
+                                : new Image.asset(
+                                    "images/back.jpg",
+                                    height: 120.0,
+                                    width: 150.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                        ),
                       ),
                       onTap: () {
                         Navigator
@@ -438,20 +438,20 @@ class stateHome extends State<Home> {
                     children: <Widget>[
                       SizedBox(
                         child: Hero(
-                          tag: topAlbum[i].id,
-                              child: getImage(topAlbum[i]) != null
-                              ? new Image.file(
-                                  getImage(topAlbum[i]),
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                )
-                              : new Image.asset(
-                                  "images/back.jpg",
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                ),
+                          tag: topAlbum[i].album,
+                                                  child: getImage(topAlbum[i]) != null
+                          ? new Image.file(
+                              getImage(topAlbum[i]),
+                              height: 120.0,
+                              width: 180.0,
+                              fit: BoxFit.cover,
+                            )
+                          : new Image.asset(
+                              "images/back.jpg",
+                              height: 120.0,
+                              width: 180.0,
+                              fit: BoxFit.cover,
+                            ),
                         ),
                       ),
                       SizedBox(
@@ -539,22 +539,19 @@ class stateHome extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        child: Hero(
-                          tag: favorites[i].id,
-                            child: getImage(favorites[i]) != null
-                              ? new Image.file(
-                                  getImage(favorites[i]),
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                )
-                              : new Image.asset(
-                                  "images/back.jpg",
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
+                        child: getImage(favorites[i]) != null
+                          ? new Image.file(
+                              getImage(favorites[i]),
+                              height: 120.0,
+                              width: 180.0,
+                              fit: BoxFit.cover,
+                            )
+                          : new Image.asset(
+                              "images/back.jpg",
+                              height: 120.0,
+                              width: 180.0,
+                              fit: BoxFit.cover,
+                            ),
                       ),
                       SizedBox(
                         width: 180.0,
@@ -620,9 +617,7 @@ class stateHome extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        child: Hero(
-                          tag: albums[i].id,
-                          child: getImage(albums[i]) != null
+                        child: getImage(albums[i]) != null
                               ? new Image.file(
                                   getImage(albums[i]),
                                   height: 120.0,
@@ -635,7 +630,6 @@ class stateHome extends State<Home> {
                                   width: 180.0,
                                   fit: BoxFit.cover,
                                 ),
-                        ),
                       ),
                       SizedBox(
                         width: 180.0,
@@ -702,7 +696,7 @@ class stateHome extends State<Home> {
                       SizedBox(
                         child: Hero(
                           tag: recents[i].id,
-                          child: getImage(recents[i]) != null
+                                                  child: getImage(recents[i]) != null
                             ? new Image.file(
                                 getImage(recents[i]),
                                 height: 120.0,

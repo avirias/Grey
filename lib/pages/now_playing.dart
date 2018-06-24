@@ -319,7 +319,7 @@ class _stateNowPlaying extends State<NowPlaying>
                           aspectRatio: 15 / 15,
                           child: Hero(
                             tag: song.id,
-                                                      child: getImage(song) != null
+                            child: getImage(song) != null
                             ? new Image.file(
                                 getImage(song),
                                 fit: BoxFit.cover,

@@ -70,7 +70,7 @@ class _musicState extends State<MusicHome> {
 
     super.initState();
     initPlayer();
-    getSharedData();
+    
   }
 
 
@@ -101,31 +101,8 @@ class _musicState extends State<MusicHome> {
       });
     }
   }
-   getSharedData() async {
-    const platform = const MethodChannel('app.channel.shared.data');
-    Map sharedData = await platform.invokeMethod("getSharedData");
-    if (sharedData != null) {
-      if (sharedData["albumArt"] == "null") {
-        sharedData["albumArt"] = null;
-      }
-      Song song = new Song(
-          9999 /*random*/,
-          sharedData["artist"],
-          sharedData["title"],
-          sharedData["album"],
-          null,
-          int.parse(sharedData["duration"]),
-          sharedData["uri"],
-          sharedData["albumArt"]);
-      List<Song> list = new List();
-      list.add((song));
-      MyQueue.songs = list;
-      Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-        return new NowPlaying(null, list, 0, 0);
-      }));
-    }
-  }
-  @override
+
+    @override
   void dispose() {
     super.dispose();
   }
@@ -230,6 +207,7 @@ class _musicState extends State<MusicHome> {
 
   Future<bool> _onWillPop() {
     if (_selectedDrawerIndex != 0) {
+      
       setState(() {
         _selectedDrawerIndex = 0;
       });

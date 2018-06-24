@@ -47,17 +47,20 @@ class _stateAlbum extends State<Album> {
             children: <Widget>[
               AspectRatio(
                 aspectRatio: 18 / 16,
-                child: getImage(song) != null
-                      ? new Image.file(
-                          getImage(song),
-                          height: 120.0,
-                          fit: BoxFit.fitWidth,
-                        )
-                      : new Image.asset(
-                          "images/back.jpg",
-                          height: 120.0,
-                          fit: BoxFit.cover,
-                        ),
+                child: Hero(
+                  tag: song.album,
+                                  child: getImage(song) != null
+                        ? new Image.file(
+                            getImage(song),
+                            height: 120.0,
+                            fit: BoxFit.fitWidth,
+                          )
+                        : new Image.asset(
+                            "images/back.jpg",
+                            height: 120.0,
+                            fit: BoxFit.cover,
+                          ),
+                ),
               ),
               Padding(padding: EdgeInsets.symmetric(horizontal: 5.0),),
               Expanded(

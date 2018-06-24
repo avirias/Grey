@@ -73,13 +73,16 @@ class stateCardDetail extends State<ArtistCard> {
                     background: new Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
-                        image != null
-                            ? new Image.file(
-                                image,
-                                fit: BoxFit.cover,
-                              )
-                            : new Image.asset("images/back.jpg",
-                                fit: BoxFit.cover),
+                        Hero(
+                          tag: widget.song.artist,
+                                                  child: image != null
+                              ? new Image.file(
+                                  image,
+                                  fit: BoxFit.cover,
+                                )
+                              : new Image.asset("images/back.jpg",
+                                  fit: BoxFit.cover),
+                        ),
                       ],
                     ),
                   ),
@@ -110,19 +113,22 @@ class stateCardDetail extends State<ArtistCard> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: <Widget>[
                                             SizedBox(
-                                              child: getImage(albums[i]) != null
-                                                  ? new Image.file(
-                                                      getImage(albums[i]),
-                                                      height: 120.0,
-                                                      width: 180.0,
-                                                      fit: BoxFit.cover,
-                                                    )
-                                                  : new Image.asset(
-                                                      "images/back.jpg",
-                                                      height: 120.0,
-                                                      width: 180.0,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                              child: Hero(
+                                                tag: albums[i].album,
+                                                child: getImage(albums[i]) != null
+                                                    ? new Image.file(
+                                                        getImage(albums[i]),
+                                                        height: 120.0,
+                                                        width: 180.0,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    : new Image.asset(
+                                                        "images/back.jpg",
+                                                        height: 120.0,
+                                                        width: 180.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                              ),
                                             ),
                                             SizedBox(
                                               width: 180.0,
@@ -181,8 +187,7 @@ class stateCardDetail extends State<ArtistCard> {
                           child: new ListTile(
                             leading: Hero(
                               tag: songs[i].id,
-                              child: CircleAvatar(
-                                child: avatar(context,getImage(songs[i]),songs[i].title)),
+                              child: Image.file(getImage(songs[i]),width: 55.0,height: 55.0,),
                             ),
                             title: new Text(songs[i].title,
                                 maxLines: 1, style: new TextStyle(fontSize: 15.0),overflow: TextOverflow.ellipsis,),

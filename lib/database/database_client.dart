@@ -112,7 +112,7 @@ class DatabaseClient {
 
   Future<List<Song>> fetchSongsfromAlbum(int id) async {
     List<Map> results =
-        await _db.query("songs", columns: Song.Columns, where: "albumid=$id");
+        await _db.rawQuery("select * from songs where albumid=$id order by count");
     List<Song> songs = new List();
     results.forEach((s) {
       Song song = new Song.fromMap(s);
@@ -155,8 +155,7 @@ class DatabaseClient {
     //  List<Map> results = await _db.query("songs",
     // distinct: true,
     //columns: Song.Columns );
-    List<Map> results = await _db.query("songs",
-        columns: Song.Columns, where: "artist='$artist'");
+    List<Map> results = await _db.rawQuery("select * from songs where artist='$artist' order by timestamp desc");
     List<Song> songs = new List();
     results.forEach((s) {
       Song song = new Song.fromMap(s);
