@@ -54,7 +54,7 @@ class _songsState extends State<Songs> {
                   itemBuilder: (context, i) => new Column(
                         children: <Widget>[
                           new ListTile(
-                            leading: avatar(getImage(songs[i]),songs[i].title),
+                            leading: Hero(tag: songs[i].id,child: avatar(context,getImage(songs[i]),songs[i].title)),
                             title: new Text(songs[i].title,
                                 maxLines: 1,
                                 style: new TextStyle(fontSize: 16.0)),

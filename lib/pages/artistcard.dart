@@ -179,8 +179,11 @@ class stateCardDetail extends State<ArtistCard> {
                         child: Container(
                           color: Colors.white,
                           child: new ListTile(
-                            leading: CircleAvatar(
-                              child: avatar(getImage(songs[i]),songs[i].title)),
+                            leading: Hero(
+                              tag: songs[i].id,
+                              child: CircleAvatar(
+                                child: avatar(context,getImage(songs[i]),songs[i].title)),
+                            ),
                             title: new Text(songs[i].title,
                                 maxLines: 1, style: new TextStyle(fontSize: 15.0),overflow: TextOverflow.ellipsis,),
                             subtitle: Row(

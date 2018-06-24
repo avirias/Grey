@@ -9,7 +9,7 @@ dynamic getImage(Song song) {
       : new File.fromUri(Uri.parse(song.albumArt));
 }
 
-Widget avatar(File f, String title) {
+Widget avatar(context,File f, String title) {
   return new Material(
     borderRadius: new BorderRadius.circular(30.0),
     elevation: 2.0,

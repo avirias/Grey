@@ -145,9 +145,14 @@ class stateCardDetail extends State<CardDetail> {
                         child: Container(
                           color: Colors.white,
                           child: new ListTile(
-                            leading: new Icon(Icons.keyboard_arrow_right,size: 25.0,),
+                            leading: CircleAvatar(
+                        child: new Hero(
+                          tag: songs[i].id,
+                          child: avatar(context, getImage(songs[i]), songs[i].title),
+                        ),
+                      ),
                             title: new Text(songs[i].title,
-                                maxLines: 1, style: new TextStyle(fontSize: 15.0),overflow: TextOverflow.fade,),
+                                maxLines: 1, style: new TextStyle(fontSize: 15.0),overflow: TextOverflow.ellipsis,),
                             subtitle: new Text(
                                 new Duration(milliseconds: songs[i].duration)
                                     .toString()

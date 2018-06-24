@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/material_search.dart';
 import 'package:musicplayer/pages/now_playing.dart';
@@ -61,28 +62,18 @@ class _musicState extends State<MusicHome> {
     setState(() => _selectedDrawerIndex = index);
     getDrawerItemWidget(_selectedDrawerIndex);
     title = widget.bottomItems[index].title;
-    // Navigator.of(context).pop(); // close the drawer
+
   }
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     initPlayer();
+    getSharedData();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
-  void getLast() async {
-    last = await db.fetchLastSong();
-    songs = await db.fetchSongs();
-    setState(() {
-      songs = songs;
-    });
-  }
 
   void initPlayer() async {
     db = new DatabaseClient();
@@ -110,7 +101,42 @@ class _musicState extends State<MusicHome> {
       });
     }
   }
+   getSharedData() async {
+    const platform = const MethodChannel('app.channel.shared.data');
+    Map sharedData = await platform.invokeMethod("getSharedData");
+    if (sharedData != null) {
+      if (sharedData["albumArt"] == "null") {
+        sharedData["albumArt"] = null;
+      }
+      Song song = new Song(
+          9999 /*random*/,
+          sharedData["artist"],
+          sharedData["title"],
+          sharedData["album"],
+          null,
+          int.parse(sharedData["duration"]),
+          sharedData["uri"],
+          sharedData["albumArt"]);
+      List<Song> list = new List();
+      list.add((song));
+      MyQueue.songs = list;
+      Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+        return new NowPlaying(null, list, 0, 0);
+      }));
+    }
+  }
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
+  void getLast() async {
+    last = await db.fetchLastSong();
+    songs = await db.fetchSongs();
+    setState(() {
+      songs = songs;
+    });
+  }
   Future<Null> refreshData() async {
     refreshKey.currentState?.show(atTop: false);
     await Future.delayed(Duration(seconds: 2));
@@ -203,6 +229,11 @@ class _musicState extends State<MusicHome> {
   }
 
   Future<bool> _onWillPop() {
+    if (_selectedDrawerIndex != 0) {
+      setState(() {
+        _selectedDrawerIndex = 0;
+      });
+    } else
     return showDialog(
           context: context,
           child: new AlertDialog(

@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:material_search/material_search.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/artistcard.dart';
 import 'package:musicplayer/pages/card_detail.dart';
@@ -90,8 +89,8 @@ class stateHome extends State<Home> {
                       applicationIcon: FlutterLogo(),
 
                         children: <Widget>[
-                          Text("Author",style: TextStyle(fontFamily: "Raleway",fontSize: 20.0,),),
-                          Text("@avirias",style: TextStyle(fontFamily: "Raleway",fontSize: 18.0,fontWeight: FontWeight.w600)),
+                          Text("Author",style: TextStyle(fontFamily: "Raleway",fontSize: 25.0,),),
+                          Text("Avinash Kumar (avirias)",style: TextStyle(fontFamily: "Raleway",fontSize: 18.0,fontWeight: FontWeight.w600)),
                          Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
@@ -127,21 +126,19 @@ class stateHome extends State<Home> {
               fit: StackFit.expand,
               children: <Widget>[
                 isLoading
-                    ? new Image.asset(
-                        "images/back.jpg",
-                        fit: BoxFit.fitWidth,
-                      )
-                    : getImage(last) != null
-                        ? new Image.file(
-                            getImage(last),
-                            fit: BoxFit.cover,
-                            color: lightAccentColor,
-                            colorBlendMode: BlendMode.softLight,
-                          )
-                        : new Image.asset(
-                            "images/back.jpg",
-                            fit: BoxFit.fitWidth,
-                          ),
+                  ? new Image.asset(
+                      "images/back.jpg",
+                      fit: BoxFit.fitWidth,
+                    )
+                  : getImage(last) != null
+                      ? new Image.file(
+                          getImage(last),
+                          fit: BoxFit.cover,
+                        )
+                      : new Image.asset(
+                          "images/back.jpg",
+                          fit: BoxFit.fitWidth,
+                        ),
               ],
             ),
           ),
@@ -440,19 +437,22 @@ class stateHome extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        child: getImage(topAlbum[i]) != null
-                            ? new Image.file(
-                                getImage(topAlbum[i]),
-                                height: 120.0,
-                                width: 180.0,
-                                fit: BoxFit.cover,
-                              )
-                            : new Image.asset(
-                                "images/back.jpg",
-                                height: 120.0,
-                                width: 180.0,
-                                fit: BoxFit.cover,
-                              ),
+                        child: Hero(
+                          tag: topAlbum[i].id,
+                              child: getImage(topAlbum[i]) != null
+                              ? new Image.file(
+                                  getImage(topAlbum[i]),
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                )
+                              : new Image.asset(
+                                  "images/back.jpg",
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
                       ),
                       SizedBox(
                         width: 180.0,
@@ -539,19 +539,22 @@ class stateHome extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        child: getImage(favorites[i]) != null
-                            ? new Image.file(
-                                getImage(favorites[i]),
-                                height: 120.0,
-                                width: 180.0,
-                                fit: BoxFit.cover,
-                              )
-                            : new Image.asset(
-                                "images/back.jpg",
-                                height: 120.0,
-                                width: 180.0,
-                                fit: BoxFit.cover,
-                              ),
+                        child: Hero(
+                          tag: favorites[i].id,
+                            child: getImage(favorites[i]) != null
+                              ? new Image.file(
+                                  getImage(favorites[i]),
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                )
+                              : new Image.asset(
+                                  "images/back.jpg",
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
                       ),
                       SizedBox(
                         width: 180.0,
@@ -617,19 +620,22 @@ class stateHome extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        child: getImage(albums[i]) != null
-                            ? new Image.file(
-                                getImage(albums[i]),
-                                height: 120.0,
-                                width: 180.0,
-                                fit: BoxFit.cover,
-                              )
-                            : new Image.asset(
-                                "images/back.jpg",
-                                height: 120.0,
-                                width: 180.0,
-                                fit: BoxFit.cover,
-                              ),
+                        child: Hero(
+                          tag: albums[i].id,
+                          child: getImage(albums[i]) != null
+                              ? new Image.file(
+                                  getImage(albums[i]),
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                )
+                              : new Image.asset(
+                                  "images/back.jpg",
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
                       ),
                       SizedBox(
                         width: 180.0,
@@ -694,7 +700,9 @@ class stateHome extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        child: getImage(recents[i]) != null
+                        child: Hero(
+                          tag: recents[i].id,
+                          child: getImage(recents[i]) != null
                             ? new Image.file(
                                 getImage(recents[i]),
                                 height: 120.0,
@@ -707,6 +715,7 @@ class stateHome extends State<Home> {
                                 width: 180.0,
                                 fit: BoxFit.cover,
                               ),
+                        ),
                       ),
                       SizedBox(
                           width: 180.0,

@@ -96,8 +96,11 @@ class _listSong extends State<ListSongs> {
                         children: <Widget>[
                          
                           new ListTile(
-                            leading: new CircleAvatar(
-                              child: avatar(getImage(songs[i]),songs[i].title),
+                            leading: Hero(
+                              tag: songs[i].id,
+                                                          child: new CircleAvatar(
+                                child: avatar(context,getImage(songs[i]),songs[i].title),
+                              ),
                             ),
                             title: new Text(songs[i].title,
                                 maxLines: 1,

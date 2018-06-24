@@ -30,14 +30,10 @@ class _statesearch extends State<SearchSong> {
         body: new SafeArea(
       child: new MaterialSearchInput<String>(
         placeholder:
-            'Search songs by name,artist,album', //placeholder of the search bar text input
+            'Search songs', //placeholder of the search bar text input
         results: widget.songs
             .map((song) => new MaterialSearchResult<String>(
-                  value: song.title +
-                      " " +
-                      song.album +
-                      " " +
-                      song.artist, //The value must be of type <String>
+                  value: song.title, //The value must be of type <String>
                   text: song.title, //String that will be show in the list
                   icon: Icons.music_note,
                 ))
@@ -49,7 +45,7 @@ class _statesearch extends State<SearchSong> {
             return;
           }
           widget.songs.retainWhere((song) =>
-              (song.title + " " + song.album + " " + song.artist) == selected);
+              (song.title) == selected);
           Navigator.pop(context);
           MyQueue.songs = widget.songs;
           Navigator.of(context).push(new MaterialPageRoute(builder: (context) {

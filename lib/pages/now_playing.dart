@@ -22,7 +22,8 @@ class NowPlaying extends StatefulWidget {
   }
 }
 
-class _stateNowPlaying extends State<NowPlaying> {
+class _stateNowPlaying extends State<NowPlaying>
+    with SingleTickerProviderStateMixin {
   MusicFinder player;
   Duration duration;
   Duration position;
@@ -31,13 +32,47 @@ class _stateNowPlaying extends State<NowPlaying> {
   int isfav = 1;
   int repeatOn = 0;
   Orientation orientation;
+  AnimationController _animationController;
+  Animation<Color> _animateColor;
+  bool isOpened = true;
+  Animation<double> _animateIcon;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    initAnim();
     //  SystemChrome.setPreferredOrientations(
     //    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     initPlayer();
+  }
+
+  initAnim() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500))
+          ..addListener(() {
+            setState(() {});
+          });
+    _animateIcon =
+        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    _animateColor = ColorTween(
+      begin: accentColor.withOpacity(0.8),
+      end: accentColor,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(
+        0.00,
+        1.00,
+        curve: Curves.linear,
+      ),
+    ));
+  }
+
+  animateForward() {
+    _animationController.forward();
+  }
+
+  animateReverse() {
+    _animationController.reverse();
   }
 
   void initPlayer() async {
@@ -53,7 +88,6 @@ class _stateNowPlaying extends State<NowPlaying> {
         player.stop();
       }
       updatePage(widget.index);
-      print("song count=${song.count}"); // song = widget.song;
       isPlaying = true;
     });
     player.setDurationHandler((d) => setState(() {
@@ -91,18 +125,23 @@ class _stateNowPlaying extends State<NowPlaying> {
     widget.db.updateSong(song);
     isfav = song.isFav;
     player.play(song.uri);
-    isPlaying = true;
+    animateReverse();
+    setState(() {
+      isPlaying = true;
+    });
   }
 
   void _playpause() {
     if (isPlaying) {
       player.pause();
+      animateForward();
       setState(() {
         isPlaying = false;
         //  song = widget.songs[widget.index];
       });
     } else {
       player.play(song.uri);
+      animateReverse();
       setState(() {
         //song = widget.songs[widget.index];
         isPlaying = true;
@@ -178,17 +217,14 @@ class _stateNowPlaying extends State<NowPlaying> {
                         children: <Widget>[
                           new ListTile(
                             leading: new CircleAvatar(
-                              child: widget.songs[i].id ==
-                                      MyQueue.songs[MyQueue.index].id
-                                  ? new Icon(Icons.insert_chart)
-                                  : getImage(widget.songs[i]) != null
-                                      ? new Image.file(
-                                          getImage(widget.songs[i]),
-                                          height: 120.0,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : new Text(widget.songs[i].title[0]
-                                          .toUpperCase()),
+                              child: getImage(widget.songs[i]) != null
+                                  ? new Image.file(
+                                      getImage(widget.songs[i]),
+                                      height: 120.0,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : new Text(
+                                      widget.songs[i].title[0].toUpperCase()),
                             ),
                             title: new Text(widget.songs[i].title,
                                 maxLines: 1,
@@ -218,6 +254,11 @@ class _stateNowPlaying extends State<NowPlaying> {
                                         fontSize: 11.0, color: Colors.black54))
                               ],
                             ),
+                            trailing: widget.songs[i].id ==
+                                    MyQueue.songs[MyQueue.index].id
+                                ? new Icon(Icons.play_circle_filled,
+                                    color: darkAccentColor)
+                                : null,
                             onTap: () {
                               setState(() {
                                 MyQueue.index = i;
@@ -240,12 +281,13 @@ class _stateNowPlaying extends State<NowPlaying> {
     return Stack(
       children: <Widget>[
         Container(
-          height: MediaQuery.of(context).size.height,
-          child: getImage(song)!=null?Image.file(
-            getImage(song),
-            fit: BoxFit.fitHeight,
-          ):Image.asset("images/music.jpg")
-        ),
+            height: MediaQuery.of(context).size.height,
+            child: getImage(song) != null
+                  ? Image.file(
+                      getImage(song),
+                      fit: BoxFit.fitHeight,
+                    )
+                  : Image.asset("images/music.jpg")),
         BackdropFilter(
           filter: ui.ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
           child: Container(
@@ -275,15 +317,18 @@ class _stateNowPlaying extends State<NowPlaying> {
                             top: 28.0, left: 28.0, right: 28.0, bottom: 20.0),
                         child: new AspectRatio(
                           aspectRatio: 15 / 15,
-                          child: getImage(song) != null
-                              ? new Image.file(
-                                  getImage(song),
-                                  fit: BoxFit.cover,
-                                )
-                              : new Image.asset(
-                                  "images/back.jpg",
-                                  fit: BoxFit.fitHeight,
-                                ),
+                          child: Hero(
+                            tag: song.id,
+                                                      child: getImage(song) != null
+                            ? new Image.file(
+                                getImage(song),
+                                fit: BoxFit.cover,
+                              )
+                            : new Image.asset(
+                                "images/back.jpg",
+                                fit: BoxFit.fitHeight,
+                              ),
+                          ),
                         ),
                       ),
                     ),
@@ -338,7 +383,7 @@ class _stateNowPlaying extends State<NowPlaying> {
                   child: Center(
                     child: Container(
                       color: Colors.white.withOpacity(0.05),
-                        child: Column(
+                      child: Column(
                         children: <Widget>[
                           new Expanded(
                             child: Container(),
@@ -346,28 +391,24 @@ class _stateNowPlaying extends State<NowPlaying> {
                           new Text(
                             '${song.title.toUpperCase()}\n',
                             style: new TextStyle(
-                              color: Colors.white,
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 3.0,
-                              height: 1.5,
-                              fontFamily: "Raleway"
-                            ),
+                                color: Colors.white,
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 3.0,
+                                height: 1.5,
+                                fontFamily: "Raleway"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
-
                           ),
                           new Text(
                             "${song.artist.toUpperCase()}\n",
                             style: new TextStyle(
-                              color: Colors.white.withOpacity(0.7),
-                              fontSize: 14.0,
-                              letterSpacing:1.8,
-                              height: 1.5,
-                              fontFamily: "Raleway"
-                              
-                            ),
+                                color: Colors.white.withOpacity(0.7),
+                                fontSize: 14.0,
+                                letterSpacing: 1.8,
+                                height: 1.5,
+                                fontFamily: "Raleway"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
@@ -381,7 +422,8 @@ class _stateNowPlaying extends State<NowPlaying> {
                   ),
                 ),
                 Expanded(
-                  child: Container(color: Colors.white.withOpacity(0.05),
+                  child: Container(
+                    color: Colors.white.withOpacity(0.05),
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 15.0),
                       child: new Row(
@@ -413,32 +455,23 @@ class _stateNowPlaying extends State<NowPlaying> {
                             ),
                             onPressed: prev,
                           ),
-                          Card(
-                            shape: CircleBorder(),
-                            elevation: 10.0,
-                            color: darkAccentColor,
-                            child: new IconButton(
-                              splashColor: lightAccentColor,
-                              highlightColor: Colors.transparent,
-                              icon: new Icon(
-                                isPlaying ? Icons.pause : Icons.play_arrow,
-                                color: Colors.white,
-                                size: 35.0,
-                              ),
-                              iconSize: 35.0,
-                              onPressed: _playpause,
-                            ),
+                          FloatingActionButton(
+                            backgroundColor: _animateColor.value,
+                            child: new AnimatedIcon(
+                                icon: AnimatedIcons.pause_play,
+                                progress: _animateIcon),
+                            onPressed: _playpause,
                           ),
                           new IconButton(
-                              splashColor: lightAccentColor.withOpacity(0.5),
-                              highlightColor: Colors.transparent,
-                              icon: new Icon(
-                                Icons.skip_next,
-                                color: Colors.white,
-                                size: 32.0,
-                              ),
-                              onPressed: next,
+                            splashColor: lightAccentColor.withOpacity(0.5),
+                            highlightColor: Colors.transparent,
+                            icon: new Icon(
+                              Icons.skip_next,
+                              color: Colors.white,
+                              size: 32.0,
                             ),
+                            onPressed: next,
+                          ),
                           new IconButton(
                             icon: (repeatOn == 1)
                                 ? Icon(
@@ -460,13 +493,12 @@ class _stateNowPlaying extends State<NowPlaying> {
                         ],
                       ),
                     ),
-                    
                   ),
                 ),
                 Container(
                   width: width,
                   color: Colors.white.withOpacity(0.05),
-                    child: FlatButton(
+                  child: FlatButton(
                     onPressed: _showBottomSheet,
                     highlightColor: lightAccentColor.withOpacity(0.1),
                     child: Text(
@@ -476,7 +508,6 @@ class _stateNowPlaying extends State<NowPlaying> {
                           letterSpacing: 2.0,
                           fontWeight: FontWeight.bold),
                     ),
-                
                     splashColor: lightAccentColor.withOpacity(0.1),
                   ),
                 )
