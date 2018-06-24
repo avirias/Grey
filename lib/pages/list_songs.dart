@@ -98,9 +98,7 @@ class _listSong extends State<ListSongs> {
                           new ListTile(
                             leading: Hero(
                               tag: songs[i].id,
-                              child: new CircleAvatar(
-                                child: avatar(context,getImage(songs[i]),songs[i].title),
-                              ),
+                              child:Image.file(getImage(songs[i]),width: 55.0,height: 55.0,),
                             ),
                             title: new Text(songs[i].title,
                                 maxLines: 1,

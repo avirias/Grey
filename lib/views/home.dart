@@ -90,11 +90,11 @@ class stateHome extends State<Home> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,),),
+                            child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontFamily: "Raleway",fontWeight: FontWeight.w600),),
                           ),
                          Padding(
                            padding: const EdgeInsets.symmetric(vertical: 3.0),
-                           child: Text("@avirias",style: TextStyle(fontSize: 20.0),),
+                           child: Text("@avirias",style: TextStyle(fontSize: 20.0,fontFamily: "Raleway",fontWeight: FontWeight.w500),),
                          ),
 
                          Row(
