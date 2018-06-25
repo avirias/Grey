@@ -154,7 +154,7 @@ class _musicState extends State<MusicHome> {
                 
               ),
         floatingActionButton: new FloatingActionButton(
-            child: new FlutterLogo(colors: Colors.red,),
+            child: new FlutterLogo(colors: Colors.red,style: FlutterLogoStyle.markOnly,curve: Curves.bounceOut,),
             backgroundColor: Colors.white,
             foregroundColor: accentColor,
   

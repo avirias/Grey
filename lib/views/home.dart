@@ -13,6 +13,7 @@ import 'package:musicplayer/pages/now_playing.dart';
 import 'package:musicplayer/util/artistInfo.dart';
 import 'package:musicplayer/util/lastplay.dart';
 
+
 import '../theme.dart';
 
 class Home extends StatefulWidget {
@@ -29,6 +30,7 @@ class stateHome extends State<Home> {
   bool isLoading = true;
   int noOfFavorites;
   Song last;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -88,34 +90,46 @@ class stateHome extends State<Home> {
                       applicationIcon: FlutterLogo(),
 
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontFamily: "Raleway",fontWeight: FontWeight.w600),),
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontFamily: "Raleway",fontWeight: FontWeight.w600),),
+                            ),
                           ),
-                         Padding(
-                           padding: const EdgeInsets.symmetric(vertical: 3.0),
-                           child: Text("@avirias",style: TextStyle(fontSize: 20.0,fontFamily: "Raleway",fontWeight: FontWeight.w500),),
-                         ),
+
 
                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              IconButton(
-                                icon: ImageIcon(AssetImage("images/GitHub-Mark.png")),
-                                onPressed: null,
-                                iconSize: 40.0,),
-                                IconButton(
-                                  icon: ImageIcon(AssetImage("images/flogo.png")),
-                                  onPressed: null,
-                                  iconSize: 55.0,
+                              Container(
+                                child: IconButton(
+                                  icon: ImageIcon(AssetImage("images/GitHub-Mark.png")),
+                                  onPressed: () {launchUrl(1);
+                                    },
+                                  iconSize: 40.0,),
+                              ),
+                                Container(
+                                  child: IconButton(
+                                    icon: ImageIcon(AssetImage("images/flogo.png")),
+                                    onPressed: (){launchUrl(2);},
+                                    iconSize: 55.0,
+                                  ),
                                 ),
-                              IconButton(
-                                icon: ImageIcon(AssetImage("images/instalogo.png")),
-                                onPressed: null,
-                                iconSize: 40.0,
+                              Container(
+                                child: IconButton(
+                                  icon: ImageIcon(AssetImage("images/instalogo.png")),
+                                  onPressed: (){launchUrl(3);},
+                                  iconSize: 40.0,
+                                ),
                               )
                             ],
-                          )
+                          ),
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 3.0),
+                              child: Text("@avirias",style: TextStyle(fontSize: 18.0,fontFamily: "Raleway",fontWeight: FontWeight.w500),),
+                            ),
+                          ),
                         
                         ],
                       );
@@ -776,7 +790,7 @@ class stateHome extends State<Home> {
       launch("http://github.com/avirias");
     else
       if(i ==2)
-        launch("http://gacebook.com/avirias");
+        launch("http://facebook.com/avirias");
     else
       if(i == 3)
         launch("https://instagram.com/avirias/");
