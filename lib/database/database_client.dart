@@ -132,7 +132,6 @@ class DatabaseClient {
       Song song = new Song.fromMap(s);
       songs.add(song);
     });
-    print(songs);
     return songs;
   }
 
@@ -147,7 +146,6 @@ class DatabaseClient {
       Song song = new Song.fromMap(s);
       songs.add(song);
     });
-    print(songs);
     return songs;
   }
 
@@ -161,7 +159,6 @@ class DatabaseClient {
       Song song = new Song.fromMap(s);
       songs.add(song);
     });
-    print(songs);
     return songs;
   }
   Future<List<Song>> fetchAlbumByArtist(String artist) async{
@@ -187,7 +184,6 @@ class DatabaseClient {
       Song song = new Song.fromMap(s);
       songs.add(song);
     });
-    print(songs);
     return songs;
   }
 
@@ -217,8 +213,6 @@ class DatabaseClient {
       Song song = new Song.fromMap(s);
       songs.add(song);
     });
-    print("recent sngs ");
-    print(songs);
     return songs;
   }
 
@@ -233,8 +227,6 @@ class DatabaseClient {
       Song song = new Song.fromMap(s);
       songs.add(song);
     });
-    print("top sngs ");
-    print(songs);
     return songs;
   }
 
@@ -333,7 +325,6 @@ class DatabaseClient {
       Song song = new Song.fromMap(s);
       songs.add(song);
     });
-    print(songs);
     return songs;
   }
 
@@ -348,7 +339,6 @@ class DatabaseClient {
       Song song = new Song.fromMap(s);
       songs.add(song);
     });
-    print(songs);
     return songs;
   }
 
@@ -359,7 +349,6 @@ class DatabaseClient {
       Song song = new Song.fromMap(s);
       songs.add(song);
     });
-    print(songs);
     return songs;
   }
 }

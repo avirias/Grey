@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
@@ -31,6 +33,12 @@ class _stateArtist extends State<Artists> {
     });
   }
 
+  dynamic getImage(Song song) {
+    return song.albumArt == null
+        ? null
+        : new File.fromUri(Uri.parse(song.albumArt));
+  }
+
   List<Card> _buildGridCards(BuildContext context) {
     return songs.map((song) {
       return Card(
@@ -43,10 +51,15 @@ class _stateArtist extends State<Artists> {
             children: <Widget>[
               AspectRatio(
                 aspectRatio: 18 / 16,
-                child: new Image.asset(
-                  "images/artist.jpg",
-                  height: 120.0,
-                  fit: BoxFit.fitWidth,
+                child: Hero(
+                  tag: song.artist,
+                  child: getImage(song)!=null
+            ? Image.file(getImage(song),height: 120.0,fit: BoxFit.fitWidth,)
+            : Image.asset(
+                    "images/artist.jpg",
+                    height: 120.0,
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
               ),
               Expanded(

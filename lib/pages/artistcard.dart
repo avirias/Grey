@@ -75,7 +75,7 @@ class stateCardDetail extends State<ArtistCard> {
                       children: <Widget>[
                         Hero(
                           tag: widget.song.artist,
-                                                  child: image != null
+                          child: image != null
                               ? new Image.file(
                                   image,
                                   fit: BoxFit.cover,
@@ -96,7 +96,7 @@ class stateCardDetail extends State<ArtistCard> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(left: 15.0, top: 15.0, bottom: 10.0),
-                            child: Text("Albums".toUpperCase(),style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.w600,fontFamily: "Raleway",letterSpacing: 1.8),maxLines: 1),
+                            child: Text("Albums".toUpperCase(),style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.w600,fontFamily: "Raleway",letterSpacing: 1.8),maxLines: 1,overflow: TextOverflow.ellipsis,),
                           ),
                           Container(
                             //aspectRatio: 16/15,
@@ -194,8 +194,8 @@ class stateCardDetail extends State<ArtistCard> {
                             subtitle: Row(
                               children: <Widget>[
                                 Text(songs[i].album,style: new TextStyle(
-                                        fontSize: 12.0, color: Colors.grey)),
-                                
+                                        fontSize: 12.0, color: Colors.grey),overflow: TextOverflow.clip,maxLines: 1,softWrap: true,),
+
                               ],
                             ) ,
                            trailing:new Text(
@@ -204,7 +204,7 @@ class stateCardDetail extends State<ArtistCard> {
                                         .split('.')
                                         .first.substring(3,7),
                                     style: new TextStyle(
-                                        fontSize: 12.0, color: Colors.black54)),
+                                        fontSize: 12.0, color: Colors.black54),softWrap: true,),
                             onTap: () {
                               MyQueue.songs = songs;
                               Navigator.of(context).push(new MaterialPageRoute(

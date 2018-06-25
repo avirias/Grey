@@ -51,9 +51,7 @@ class _stateAlbum extends State<Album> {
                   tag: song.album,
                                   child: getImage(song) != null
                         ? new Image.file(
-                            getImage(song),
-                            height: 120.0,
-                            fit: BoxFit.fitWidth,
+                            getImage(song),height: 120.0,fit: BoxFit.fitWidth,
                           )
                         : new Image.asset(
                             "images/back.jpg",
@@ -120,7 +118,7 @@ class _stateAlbum extends State<Album> {
                   crossAxisCount: orientation==Orientation.portrait?2:4,
                   children: _buildGridCards(context),
                   padding: EdgeInsets.all(5.0),
-                  childAspectRatio: 8.0 / 10.0,
+                  childAspectRatio: 8.0 / 9.7,
                 ),
             )
     );
