@@ -61,13 +61,13 @@ class _listSong extends State<ListSongs> {
   Widget getTitle(int mode) {
     switch (mode) {
       case 1:
-        return new Text("Recently played",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.5));
+        return new Text("Recently played",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.0));
         break;
       case 2:
-        return new Text("Top tracks",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.5));
+        return new Text("Top tracks",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.0));
         break;
       case 3:
-        return new Text("Favourites",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.5));
+        return new Text("Favourites",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.0));
         break;
       default:
         return null;
@@ -102,7 +102,7 @@ class _listSong extends State<ListSongs> {
                             ),
                             title: new Text(songs[i].title,
                                 maxLines: 1,
-                                style: new TextStyle(fontSize: 18.0)),
+                                style: new TextStyle(fontSize: 16.0,color: Colors.black)),
                             subtitle: new Text(
                               songs[i].artist,
                               maxLines: 1,

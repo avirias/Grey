@@ -393,7 +393,7 @@ class _stateNowPlaying extends State<NowPlaying>
                             style: new TextStyle(
                                 color: Colors.white,
                                 fontSize: 17.0,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w700,
                                 letterSpacing: 3.0,
                                 height: 1.5,
                                 fontFamily: "Quicksand"),
@@ -408,6 +408,7 @@ class _stateNowPlaying extends State<NowPlaying>
                                 fontSize: 14.0,
                                 letterSpacing: 1.8,
                                 height: 1.5,
+                                fontWeight: FontWeight.w600,
                                 fontFamily: "Quicksand"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -506,6 +507,7 @@ class _stateNowPlaying extends State<NowPlaying>
                       style: TextStyle(
                           color: Colors.white.withOpacity(0.8),
                           letterSpacing: 2.0,
+                          fontFamily: "Quicksand",
                           fontWeight: FontWeight.bold),
                     ),
                     splashColor: lightAccentColor.withOpacity(0.1),

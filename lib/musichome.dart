@@ -172,7 +172,7 @@ class _musicState extends State<MusicHome> {
       bottomOptions.add(
         new BottomNavigationBarItem(
             icon: new Icon(d.icon),
-            title: new Text(d.title),
+            title: new Text(d.title,style: TextStyle(fontWeight: FontWeight.w500,),),
             backgroundColor: accentColor),
       );
     }
@@ -185,7 +185,6 @@ class _musicState extends State<MusicHome> {
         appBar: _selectedDrawerIndex == 0
             ? null
             : new AppBar(
-                centerTitle: true,
                 elevation: 5.0,
                 backgroundColor: accentColor.withOpacity(0.8),
                 title: new Text(title,style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600)),

@@ -76,7 +76,7 @@ class stateHome extends State<Home> {
             children: <Widget>[
               FlutterLogo(colors: Colors.red,size: 27.0,),
               Container(width: 4.0,),
-              Text("Grey",style: TextStyle(color: Colors.white,fontSize: 19.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 2.0)),
+              Text("Grey",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.0)),
             ],
           ),
           backgroundColor: accentColor,
@@ -92,7 +92,7 @@ class stateHome extends State<Home> {
                   showAboutDialog(
                       context: context,
                       applicationName: "Grey",
-                      applicationVersion: "0.1.1",
+                      applicationVersion: "0.1.2",
                       applicationLegalese: "MIT License",
                       applicationIcon: FlutterLogo(colors: Colors.red),
 
@@ -100,7 +100,7 @@ class stateHome extends State<Home> {
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600),),
+                              child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontFamily: "Quicksand",fontWeight: FontWeight.w500),),
                             ),
                           ),
 
@@ -456,7 +456,7 @@ class stateHome extends State<Home> {
                               topArtist[i].artist.toUpperCase(),
                               style: new TextStyle(
                                   fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w500,
                                   color: Colors.black.withOpacity(0.70)),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

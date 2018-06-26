@@ -100,7 +100,7 @@ class stateCardDetail extends State<CardDetail> {
                                 child: new Text(
                                   widget.song.album,
                                   style: new TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 21.0,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: "Quicksand"
                                   ),
@@ -121,7 +121,7 @@ class stateCardDetail extends State<CardDetail> {
                                         children: <Widget>[
                                           new Text(
                                             widget.song.artist,
-                                            style: new TextStyle(fontSize: 17.0),
+                                            style: new TextStyle(fontSize: 18.0,fontWeight: FontWeight.w500),
                                             maxLines: 1,
                                           ),
                                           length!=1
@@ -153,7 +153,7 @@ class stateCardDetail extends State<CardDetail> {
                             leading: Hero(tag: songs[i].id,child: Image.file(getImage(songs[i]),width: 50.0,height: 50.0,)),
                       
                             title: new Text(songs[i].title,
-                                maxLines: 1, style: new TextStyle(fontSize: 15.0),overflow: TextOverflow.ellipsis,),
+                                maxLines: 1, style: new TextStyle(fontSize: 16.0,color: Colors.black),overflow: TextOverflow.ellipsis,),
                             subtitle: new Text(
                                 new Duration(milliseconds: songs[i].duration)
                                     .toString()

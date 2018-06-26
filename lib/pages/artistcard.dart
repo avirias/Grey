@@ -141,7 +141,7 @@ class stateCardDetail extends State<ArtistCard> {
                                                     Text(
                                                       albums[i].album.toUpperCase(),
                                                       style: new TextStyle(
-                                                          fontSize: 12.0,
+                                                          fontSize: 13.0,
                                                           fontWeight: FontWeight.w500,
                                                           color: Colors.black.withOpacity(0.70)),
                                                       maxLines: 1,
@@ -190,7 +190,7 @@ class stateCardDetail extends State<ArtistCard> {
                               child: Image.file(getImage(songs[i]),width: 55.0,height: 55.0,),
                             ),
                             title: new Text(songs[i].title,
-                                maxLines: 1, style: new TextStyle(fontSize: 15.0),overflow: TextOverflow.ellipsis,),
+                                maxLines: 1, style: new TextStyle(color: Colors.black,fontSize: 16.0),overflow: TextOverflow.ellipsis,),
                             subtitle: Row(
                               children: <Widget>[
                                 Text(songs[i].album,style: new TextStyle(
