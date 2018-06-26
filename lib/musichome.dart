@@ -4,9 +4,7 @@ import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musicplayer/database/database_client.dart';
-import 'package:musicplayer/pages/material_search.dart';
 import 'package:musicplayer/pages/now_playing.dart';
-import 'package:musicplayer/pages/settings.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:musicplayer/views/album.dart';
 import 'package:musicplayer/views/artists.dart';
@@ -14,7 +12,6 @@ import 'package:musicplayer/views/home.dart';
 import 'package:musicplayer/views/playlists.dart';
 import 'package:musicplayer/views/songs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'theme.dart';
 
 class MusicHome extends StatefulWidget {
@@ -35,6 +32,7 @@ class MusicHome extends StatefulWidget {
 
 class _musicState extends State<MusicHome> {
   int _selectedDrawerIndex = 0;
+  int serIndex;
   List<Song> songs;
   String title = "";
   DatabaseClient db;
@@ -70,7 +68,32 @@ class _musicState extends State<MusicHome> {
 
     super.initState();
     initPlayer();
+    getSharedData();
     
+  }
+  getSharedData() async {
+    const platform = const MethodChannel('app.channel.shared.data');
+    Map sharedData = await platform.invokeMethod("getSharedData");
+    if (sharedData != null) {
+      if (sharedData["albumArt"] == "null") {
+        sharedData["albumArt"] = null;
+      }
+      Song song = new Song(
+          9999 /*random*/,
+          sharedData["artist"],
+          sharedData["title"],
+          sharedData["album"],
+          null,
+          int.parse(sharedData["duration"]),
+          sharedData["uri"],
+          sharedData["albumArt"]);
+      List<Song> list = new List();
+      list.add((song));
+      MyQueue.songs = list;
+      Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+        return new NowPlaying(null, list, 0, 0);
+      }));
+    }
   }
 
 
@@ -114,6 +137,7 @@ class _musicState extends State<MusicHome> {
       songs = songs;
     });
   }
+
   Future<Null> refreshData() async {
     refreshKey.currentState?.show(atTop: false);
     await Future.delayed(Duration(seconds: 2));
@@ -121,11 +145,21 @@ class _musicState extends State<MusicHome> {
       isLoading = true;
     });
     var db = new DatabaseClient();
-    await db.insertSongs();
-
-    setState(() {
-      isLoading = false;
-    });
+    var res = await db.insertSongs();
+    if(!res)
+      {
+        setState(() {
+          isLoading = false;
+          scaffoldState.currentState.showSnackBar(
+              new SnackBar(content: Text("Failed to update database",style: TextStyle(fontFamily: "Quicksand"),),duration: Duration(milliseconds: 1500),));
+        });
+      }
+      else
+        setState(() {
+          isLoading = false;
+          scaffoldState.currentState.showSnackBar(
+              new SnackBar(content: Text("Database Updated",style: TextStyle(fontFamily: "Quicksand"),),duration: Duration(milliseconds: 1500),));
+        });
   }
 
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -142,19 +176,23 @@ class _musicState extends State<MusicHome> {
             backgroundColor: accentColor),
       );
     }
+
+
+
     return new WillPopScope(
       child: new Scaffold(
         key: scaffoldState,
         appBar: _selectedDrawerIndex == 0
             ? null
             : new AppBar(
+                centerTitle: true,
                 elevation: 5.0,
                 backgroundColor: accentColor.withOpacity(0.8),
-                title: new Text(title,style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 1.5)),
+                title: new Text(title,style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600)),
                 
               ),
         floatingActionButton: new FloatingActionButton(
-            child: new FlutterLogo(colors: Colors.red,style: FlutterLogoStyle.markOnly,curve: Curves.bounceOut,),
+            child: new FlutterLogo(colors: Colors.red,style: FlutterLogoStyle.markOnly,curve: Curves.bounceInOut,),
             backgroundColor: Colors.white,
             foregroundColor: accentColor,
   
@@ -201,42 +239,44 @@ class _musicState extends State<MusicHome> {
           iconSize: 25.0,
         ),
       ),
-      onWillPop: (){
-        if (_selectedDrawerIndex != 0) {
-
-          setState(() {
-            _selectedDrawerIndex = 0;
-          });
-        } else
-          _onWillPop();
-        },
+      onWillPop: _onWillPop,
     );
+
   }
 
   Future<bool> _onWillPop() {
-    return showDialog(
-          context: context,
-          child: new AlertDialog(
-            title: new Text('Are you sure?'),
-            content: new Text('Music player will be stopped..'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('No'),
+    if (_selectedDrawerIndex != 0) {
+      setState(() {
+        _selectedDrawerIndex = 0;
+      });
+      return null;
+    } else
+      return showDialog(
+        context: context,
+        child: new AlertDialog(
+          title: new Text('Are you sure?'),
+          content: new Text('music player will be stopped..'),
+          actions: <Widget>[
+            new FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: new Text(
+                'No',
               ),
-              new FlatButton(
-                onPressed: () {
-                  MyQueue.player.stop();
-                  Navigator.of(context).pop(true);
-                },
-                child: new Text('Yes'),
-              ),
-            ],
-          ),
-        ) ??
-        false;
+            ),
+            new FlatButton(
+              onPressed: () {
+                MyQueue.player.stop();
+                Navigator.of(context).pop(true);
+              },
+              child: new Text('Yes'),
+            ),
+          ],
+        ),
+      ) ??
+          false;
   }
 }
+
 
 class BottomItem {
   String title;

@@ -39,8 +39,8 @@ class _statePlaylist extends State<PlayList> {
     return new ListView(
       children: <Widget>[
         new ListTile(                   
-          leading: new Icon(Icons.call_received,size: 28.0,color: xcolor,),
-          title: new Text("Recently played",style: TextStyle(fontSize: 18.0,letterSpacing: 1.2,fontFamily: "Raleway"),),
+          leading: new Icon(Icons.call_received,size: 28.0,),
+          title: new Text("Recently played",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w500,letterSpacing: 1.0,fontFamily: "Quicksand"),),
           subtitle: new Text("Songs"),
           onTap: () {
             Navigator
@@ -51,8 +51,8 @@ class _statePlaylist extends State<PlayList> {
           },
         ),
         new ListTile(
-          leading: new Icon(Icons.insert_chart,size: 28.0,color: xcolor,),
-          title: new Text("Top tracks",style: TextStyle(fontSize: 18.0,letterSpacing: 1.2,fontFamily: "Raleway"),),
+          leading: new Icon(Icons.insert_chart,size: 28.0,),
+          title: new Text("Top tracks",style: TextStyle(fontSize: 20.0,letterSpacing: 1.0,fontFamily: "Quicksand",fontWeight: FontWeight.w500),),
           subtitle: new Text("Songs"),
           onTap: () {
             Navigator
@@ -63,8 +63,8 @@ class _statePlaylist extends State<PlayList> {
           },
         ),
         new ListTile(
-          leading: new Icon(Icons.favorite,size: 28.0,color: xcolor,),
-          title: new Text("Favourites",style: TextStyle(fontSize: 18.0,letterSpacing: 1.2,fontFamily: "Raleway"),),
+          leading: new Icon(Icons.favorite,size: 28.0,),
+          title: new Text("Favourites",style: TextStyle(fontSize: 20.0,letterSpacing: 1.0,fontFamily: "Quicksand",fontWeight: FontWeight.w500),),
           subtitle: new Text("Songs"),
           onTap: () {
             Navigator

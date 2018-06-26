@@ -72,9 +72,16 @@ class stateHome extends State<Home> {
           elevation: 5.0,
           pinned: true,
           primary: true, 
-          title: new Text("Grey",style: TextStyle(color: Colors.white,fontSize: 18.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 2.0)),
+          title: Row(
+            children: <Widget>[
+              FlutterLogo(colors: Colors.red,size: 27.0,),
+              Container(width: 4.0,),
+              Text("Grey",style: TextStyle(color: Colors.white,fontSize: 19.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 2.0)),
+            ],
+          ),
           backgroundColor: accentColor,
           brightness: Brightness.dark,
+         // leading: Container(child: FlutterLogo(colors: Colors.red,size: 10.0,style: FlutterLogoStyle.horizontal,textColor: Colors.white,)),
           actions: <Widget>[
             new IconButton(
                 icon: Icon(
@@ -87,13 +94,13 @@ class stateHome extends State<Home> {
                       applicationName: "Grey",
                       applicationVersion: "0.1.1",
                       applicationLegalese: "MIT License",
-                      applicationIcon: FlutterLogo(),
+                      applicationIcon: FlutterLogo(colors: Colors.red),
 
                         children: <Widget>[
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontFamily: "Raleway",fontWeight: FontWeight.w600),),
+                              child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600),),
                             ),
                           ),
 
@@ -127,10 +134,29 @@ class stateHome extends State<Home> {
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text("@avirias",style: TextStyle(fontSize: 18.0,fontFamily: "Raleway",fontWeight: FontWeight.w500),),
+                              child: Text("@avirias",style: TextStyle(fontSize: 18.0,fontFamily: "Quicksand",fontWeight: FontWeight.w500),),
                             ),
                           ),
-                        
+//                          FlatButton(onPressed: (){
+//                            AlertDialog(
+//                              title: Text("Changelog"),
+//                              titlePadding: EdgeInsets.all(10.0),
+//                              content: Column(
+//                                children: <Widget>[
+//                                Text("Updates in Grey"),
+//                                Text("Version 0.1.1",style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.bold,fontFamily: "Quicksand"),),
+//                                Text("1. NEW: Artist page view"),
+//                                Text("5. NEW: Hero Transition"),
+//                                Text("6. NEW: Added new font - Quicksand"),
+//                                Text("3. IMPROVEMENT: Loading time"),
+//                                Text("2. IMPROVEMENT: About Dailog"),
+//                                Text("3. FIX: Songs page list"),
+//                                Text("7. FIX: App Scaled down"),
+//                              ],)
+//                            );
+//                          },
+//                          child: Text("Changelog"),)
+
                         ],
                       );
                 }),
@@ -151,7 +177,7 @@ class stateHome extends State<Home> {
               children: <Widget>[
                 isLoading
                         ? new Image.asset(
-                            "images/back.jpg",
+                            "images/music.jpg",
                             fit: BoxFit.fitWidth,
                           )
                         : getImage(last) != null
@@ -174,7 +200,7 @@ class stateHome extends State<Home> {
                     padding: EdgeInsets.only(left: 15.0,top: 15.0,bottom: 10.0),
                     child: Center(
                       child: Text(last.artist.toUpperCase() +" - "+last.title.toUpperCase(),
-                      style: TextStyle(color: Colors.blueGrey[900],fontSize: 14.0,fontFamily: "Raleway",fontStyle: FontStyle.normal,fontWeight: FontWeight.w500,letterSpacing: 1.5),
+                      style: TextStyle(color: Colors.blueGrey[900],fontSize: 14.0,fontFamily: "Quicksand",fontStyle: FontStyle.normal,fontWeight: FontWeight.w500,letterSpacing: 1.5),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: true,),
@@ -490,7 +516,7 @@ class stateHome extends State<Home> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                topAlbum[i].album.toUpperCase(),
+                                topAlbum[i].album,
                                 style: new TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w500,
@@ -502,7 +528,7 @@ class stateHome extends State<Home> {
                                 padding:
                                     EdgeInsetsDirectional.only(bottom: 5.0),
                                 child: Text(
-                                  topAlbum[i].artist.toUpperCase(),
+                                  topAlbum[i].artist,
                                   maxLines: 1,
                                   style: TextStyle(
                                       fontSize: 10.0,
@@ -589,7 +615,7 @@ class stateHome extends State<Home> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                favorites[i].title.toUpperCase(),
+                                favorites[i].title,
                                 style: new TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w500,
@@ -601,7 +627,7 @@ class stateHome extends State<Home> {
                                 padding:
                                     EdgeInsetsDirectional.only(bottom: 5.0),
                                 child: Text(
-                                  favorites[i].artist.toUpperCase(),
+                                  favorites[i].artist,
                                   maxLines: 1,
                                   style: TextStyle(
                                       fontSize: 10.0,
@@ -667,7 +693,7 @@ class stateHome extends State<Home> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                albums[i].album.toUpperCase(),
+                                albums[i].album,
                                 style: new TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w500,
@@ -679,7 +705,7 @@ class stateHome extends State<Home> {
                                 padding:
                                     EdgeInsetsDirectional.only(bottom: 5.0),
                                 child: Text(
-                                  albums[i].artist.toUpperCase(),
+                                  albums[i].artist,
                                   maxLines: 1,
                                   style: TextStyle(
                                       fontSize: 10.0,
@@ -747,7 +773,7 @@ class stateHome extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  recents[i].title.toUpperCase(),
+                                  recents[i].title,
                                   style: new TextStyle(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w500,
@@ -758,7 +784,7 @@ class stateHome extends State<Home> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 5.0),
                                   child: Text(
-                                    recents[i].artist.toUpperCase(),
+                                    recents[i].artist,
                                     style: TextStyle(
                                         fontSize: 10.0,
                                         color: Colors.black.withOpacity(0.75)),

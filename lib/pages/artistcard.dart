@@ -69,7 +69,7 @@ class stateCardDetail extends State<ArtistCard> {
 
                   backgroundColor: accentColor,
                   flexibleSpace: new FlexibleSpaceBar(
-                    title: Text(widget.song.artist,style: TextStyle(color: Colors.white,fontSize: 17.0,fontFamily: "Raleway",fontWeight: FontWeight.w600,letterSpacing: 2.0),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                    title: Text(widget.song.artist,style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.0),maxLines: 1,overflow: TextOverflow.ellipsis,),
                     background: new Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
@@ -96,7 +96,7 @@ class stateCardDetail extends State<ArtistCard> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(left: 15.0, top: 15.0, bottom: 10.0),
-                            child: Text("Albums".toUpperCase(),style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.w600,fontFamily: "Raleway",letterSpacing: 1.8),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                            child: Text("Albums".toUpperCase(),style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.w600,fontFamily: "Quicksand",letterSpacing: 1.8),maxLines: 1,overflow: TextOverflow.ellipsis,),
                           ),
                           Container(
                             //aspectRatio: 16/15,
@@ -167,7 +167,7 @@ class stateCardDetail extends State<ArtistCard> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 15.0, top: 0.0, bottom: 10.0),
-                            child: Text("Songs".toUpperCase(),style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.w600,fontFamily: "Raleway",letterSpacing: 1.8),maxLines: 1),
+                            child: Text("Songs".toUpperCase(),style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.w600,fontFamily: "Quicksand",letterSpacing: 1.8),maxLines: 1),
                           ),
 
                         ],

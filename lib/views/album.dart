@@ -70,8 +70,8 @@ class _stateAlbum extends State<Album> {
                     children: <Widget>[
                       Center(
                         child: Text(
-                          song.album.toUpperCase(),
-                          style: new TextStyle(fontSize: 14.0,color: Colors.black.withOpacity(0.65),fontWeight: FontWeight.w600),
+                          song.album,
+                          style: new TextStyle(fontSize: 15.0,color: Colors.black.withOpacity(0.65),fontWeight: FontWeight.w600),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -81,9 +81,11 @@ class _stateAlbum extends State<Album> {
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Center(
                           child: Text(
-                            song.artist.toUpperCase(),
+                            song.artist,
                             maxLines: 1,
-                            style: TextStyle(fontSize: 12.0, color: Colors.black54),
+                            style: TextStyle(fontSize: 13.0, color: Colors.black54,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       )
@@ -118,8 +120,7 @@ class _stateAlbum extends State<Album> {
                   crossAxisCount: orientation==Orientation.portrait?2:4,
                   children: _buildGridCards(context),
                   padding: EdgeInsets.all(5.0),
-                  childAspectRatio: 8.0 / 9.7,
-                ),
+                  childAspectRatio: 8.0 / 10.0,                ),
             )
     );
   }

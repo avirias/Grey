@@ -96,14 +96,16 @@ class stateCardDetail extends State<CardDetail> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               new Padding(
-                                padding: const EdgeInsets.only(left: 15.0,top: 10.0,right: 10.0),
+                                padding: const EdgeInsets.only(left: 15.0,top: 15.0,right: 10.0),
                                 child: new Text(
                                   widget.song.album,
                                   style: new TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "Quicksand"
                                   ),
                                   maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               Padding(
@@ -111,7 +113,7 @@ class stateCardDetail extends State<CardDetail> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
-                                    Icon(Icons.person,size: 30.0,),
+                                    Icon(Icons.person,size: 33.0,),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 10.0),
                                       child: Column(
@@ -119,7 +121,7 @@ class stateCardDetail extends State<CardDetail> {
                                         children: <Widget>[
                                           new Text(
                                             widget.song.artist,
-                                            style: new TextStyle(fontSize: 15.0),
+                                            style: new TextStyle(fontSize: 17.0),
                                             maxLines: 1,
                                           ),
                                           length!=1

@@ -23,11 +23,17 @@ class DatabaseClient {
     """);
   }
 
-  Future<Null> insertSongs() async {
+  Future<bool> insertSongs() async {
     var songs;
-    var count = Sqflite.firstIntValue(await _db
-        .rawQuery("SELECT COUNT(*) FROM songs"));
-    if (count != 0) {
+    var count;
+    try {
+      count = Sqflite.firstIntValue(await _db
+          .rawQuery("SELECT COUNT(*) FROM songs"));
+    } catch(e){
+      print("Can't Find songs");
+      return false;
+    }
+    if (count!=0) {
       List<Map> results2 = await _db.query("songs", columns: Song.Columns);
 
       List<Song> songs3 = new List();
@@ -54,8 +60,9 @@ class DatabaseClient {
         if (!songs3.contains(song)) await _db.insert("songs", song.toMap());
         print("Inserted");
       }
-    }
 
+    }
+    return true;
   }
 
   Future<int> upsertSOng(Song song) async {

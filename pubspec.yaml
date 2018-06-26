@@ -65,9 +65,10 @@ flutter:
   #         style: italic
   #   - family: Trajan Pro
   fonts:
-    - family: Raleway
+    - family: Quicksand
       fonts:
-        - asset: assest/fonts/Raleway-Regular.ttf
+        - asset: assest/fonts/Quicksand-Medium.ttf
+        - asset: assest/fonts/Quicksand-Regular.ttf
 
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

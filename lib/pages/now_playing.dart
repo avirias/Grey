@@ -195,7 +195,7 @@ class _stateNowPlaying extends State<NowPlaying>
     return new Scaffold(
       key: scaffoldState,
       body: potrait(),
-      backgroundColor: accentColor,
+      backgroundColor: Colors.white,
     );
   }
 
@@ -289,10 +289,10 @@ class _stateNowPlaying extends State<NowPlaying>
                     )
                   : Image.asset("images/music.jpg")),
         BackdropFilter(
-          filter: ui.ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+          filter: ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
           child: Container(
             decoration:
-                new BoxDecoration(color: Colors.grey[900].withOpacity(0.6)),
+                new BoxDecoration(color: Colors.grey[900].withOpacity(0.5)),
             child: Column(
               children: <Widget>[
                 Padding(
@@ -382,7 +382,7 @@ class _stateNowPlaying extends State<NowPlaying>
                 Expanded(
                   child: Center(
                     child: Container(
-                      color: Colors.white.withOpacity(0.05),
+                      color: Colors.white.withOpacity(0.1),
                       child: Column(
                         children: <Widget>[
                           new Expanded(
@@ -396,7 +396,7 @@ class _stateNowPlaying extends State<NowPlaying>
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 3.0,
                                 height: 1.5,
-                                fontFamily: "Raleway"),
+                                fontFamily: "Quicksand"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
@@ -408,7 +408,7 @@ class _stateNowPlaying extends State<NowPlaying>
                                 fontSize: 14.0,
                                 letterSpacing: 1.8,
                                 height: 1.5,
-                                fontFamily: "Raleway"),
+                                fontFamily: "Quicksand"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
@@ -423,7 +423,7 @@ class _stateNowPlaying extends State<NowPlaying>
                 ),
                 Expanded(
                   child: Container(
-                    color: Colors.white.withOpacity(0.05),
+                    color: Colors.white.withOpacity(0.1),
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 15.0),
                       child: new Row(
@@ -497,7 +497,7 @@ class _stateNowPlaying extends State<NowPlaying>
                 ),
                 Container(
                   width: width,
-                  color: Colors.white.withOpacity(0.05),
+                  color: Colors.white.withOpacity(0.1),
                   child: FlatButton(
                     onPressed: _showBottomSheet,
                     highlightColor: lightAccentColor.withOpacity(0.1),

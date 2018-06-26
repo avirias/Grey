@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.red
+        primarySwatch: Colors.red,
+        fontFamily: "Quicksand"
       ),
       home: new MusicHome(),
     );
