@@ -1,7 +1,5 @@
 # Grey
-Music Player developed in flutter
-
-
+A Material designed music player developed in Flutter
 <br>
 Download releases <a href="https://github.com/avirias/Grey/releases">here</a>.
 
