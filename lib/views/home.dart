@@ -12,6 +12,7 @@ import 'package:musicplayer/pages/material_search.dart';
 import 'package:musicplayer/pages/now_playing.dart';
 import 'package:musicplayer/util/artistInfo.dart';
 import 'package:musicplayer/util/lastplay.dart';
+import 'package:flutter/cupertino.dart';
 
 
 import '../theme.dart';
@@ -63,6 +64,7 @@ class stateHome extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     final Orientation orientation = MediaQuery.of(context).orientation;
     return new CustomScrollView(
       slivers: <Widget>[
@@ -72,16 +74,10 @@ class stateHome extends State<Home> {
           elevation: 5.0,
           pinned: true,
           primary: true, 
-          title: Row(
-            children: <Widget>[
-              FlutterLogo(colors: Colors.red,size: 27.0,),
-              Container(width: 4.0,),
-              Text("Grey",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.0)),
-            ],
-          ),
-          backgroundColor: accentColor,
+          title: Text("Grey",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.0)),
+          backgroundColor: Colors.transparent,
           brightness: Brightness.dark,
-         // leading: Container(child: FlutterLogo(colors: Colors.red,size: 10.0,style: FlutterLogoStyle.horizontal,textColor: Colors.white,)),
+         leading: Padding(child: Image.asset("images/icon.png",),padding: EdgeInsets.all(13.0),),
           actions: <Widget>[
             new IconButton(
                 icon: Icon(
@@ -92,9 +88,9 @@ class stateHome extends State<Home> {
                   showAboutDialog(
                       context: context,
                       applicationName: "Grey",
-                      applicationVersion: "0.1.2",
+                      applicationVersion: "0.1.23",
                       applicationLegalese: "MIT License",
-                      applicationIcon: FlutterLogo(colors: Colors.red),
+                      applicationIcon: FlutterLogo(colors: Colors.blueGrey),
 
                         children: <Widget>[
                           Center(
@@ -229,8 +225,7 @@ class stateHome extends State<Home> {
                             fillColor: Colors.transparent,
                             splashColor: lightAccentColor,
                             highlightColor: lightAccentColor.withOpacity(0.3),
-                            elevation: 15.0,
-                            highlightElevation: 10.0,
+                            elevation: 18.0,
                             onPressed: () {
                               Navigator.of(context).push(
                                   new MaterialPageRoute(builder: (context) {
@@ -238,9 +233,9 @@ class stateHome extends State<Home> {
                               }));
                             },
                             child: new Icon(
-                              Icons.history,
+                              CupertinoIcons.restart,
                               size: 50.0,
-                              color: accentColor,
+                              color: Colors.blueGrey[400],
                             ),
                           ),
                           new Padding(
@@ -259,8 +254,7 @@ class stateHome extends State<Home> {
                           fillColor: Colors.transparent,
                           splashColor: lightAccentColor,
                           highlightColor: lightAccentColor.withOpacity(0.3),
-                          elevation: 15.0,
-                          highlightElevation: 10.0,
+                          elevation: 18.0,
                           onPressed: () {
                             Navigator
                                 .of(context)
@@ -269,9 +263,9 @@ class stateHome extends State<Home> {
                             }));
                           },
                           child: new Icon(
-                            Icons.insert_chart,
+                            Icons.assessment,
                             size: 50.0,
-                            color: accentColor,
+                            color: Colors.blueGrey[400],
                           ),
                         ),
                         new Padding(
@@ -287,8 +281,7 @@ class stateHome extends State<Home> {
                             fillColor: Colors.transparent,
                             splashColor: lightAccentColor,
                             highlightColor: lightAccentColor.withOpacity(0.3),
-                            elevation: 15.0,
-                            highlightElevation: 10.0,
+                            elevation: 18.0,
                             onPressed: () {
                               Navigator.of(context).push(
                                   new MaterialPageRoute(builder: (context) {
@@ -297,9 +290,9 @@ class stateHome extends State<Home> {
                               }));
                             },
                             child: new Icon(
-                              Icons.shuffle,
+                              CupertinoIcons.shuffle_thick,
                               size: 50.0,
-                              color: accentColor,
+                              color: Colors.blueGrey[400],
                             ),
                           ),
                           new Padding(

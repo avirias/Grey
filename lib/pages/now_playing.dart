@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../theme.dart';
 
 class NowPlaying extends StatefulWidget {
@@ -55,8 +54,8 @@ class _stateNowPlaying extends State<NowPlaying>
     _animateIcon =
         Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
     _animateColor = ColorTween(
-      begin: accentColor.withOpacity(0.8),
-      end: accentColor,
+      begin: Colors.blueGrey[400].withOpacity(0.7),
+      end: Colors.blueGrey[400].withOpacity(0.9),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Interval(
@@ -195,7 +194,7 @@ class _stateNowPlaying extends State<NowPlaying>
     return new Scaffold(
       key: scaffoldState,
       body: potrait(),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
     );
   }
 
@@ -257,7 +256,7 @@ class _stateNowPlaying extends State<NowPlaying>
                             trailing: widget.songs[i].id ==
                                     MyQueue.songs[MyQueue.index].id
                                 ? new Icon(Icons.play_circle_filled,
-                                    color: darkAccentColor)
+                                    color: Colors.blueGrey[700])
                                 : null,
                             onTap: () {
                               setState(() {
@@ -289,7 +288,7 @@ class _stateNowPlaying extends State<NowPlaying>
                     )
                   : Image.asset("images/music.jpg")),
         BackdropFilter(
-          filter: ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          filter: ui.ImageFilter.blur(sigmaX: 12.0, sigmaY: 12.0),
           child: Container(
             decoration:
                 new BoxDecoration(color: Colors.grey[900].withOpacity(0.5)),
@@ -304,17 +303,21 @@ class _stateNowPlaying extends State<NowPlaying>
                   children: <Widget>[
                     Container(
                       width: width,
-                      height: width,
+                      height: width*0.968,
                       child: Card(
-                        elevation: 10.0,
+                        elevation: 12.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             side: BorderSide(
                                 style: BorderStyle.solid,
                                 width: 0.0,
-                                color: Colors.transparent)),
-                        margin: const EdgeInsets.only(
-                            top: 28.0, left: 28.0, right: 28.0, bottom: 20.0),
+                                )),
+                        margin: EdgeInsets.only(
+                          top:  statusBarHeight*1.2,
+                          left: statusBarHeight*1.2,
+                          right: statusBarHeight*1.2,
+                          bottom: statusBarHeight*0.5
+                        ),
                         child: new AspectRatio(
                           aspectRatio: 15 / 15,
                           child: Hero(

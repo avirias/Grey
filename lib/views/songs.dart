@@ -43,44 +43,47 @@ class _songsState extends State<Songs> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: isLoading
-            ? new Center(
-                child: new CircularProgressIndicator(),
-              )
-            : Scrollbar(
-                          child: new ListView.builder(
-                  itemCount: songs.length,
-                  itemBuilder: (context, i) => new Column(
-                        children: <Widget>[
-                          new ListTile(
-                            leading: Hero(tag: songs[i].id,child: Image.file(getImage(songs[i]),width: 55.0,height: 55.0,)),
-                            title: new Text(songs[i].title,
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+          child: isLoading
+              ? new Center(
+                  child: new CircularProgressIndicator(),
+                )
+              : Scrollbar(
+                            child: new ListView.builder(
+                    itemCount: songs.length,
+                    itemBuilder: (context, i) => new Column(
+                          children: <Widget>[
+                            new ListTile(
+                              leading: Hero(tag: songs[i].id,child: Image.file(getImage(songs[i]),width: 55.0,height: 55.0,)),
+                              title: new Text(songs[i].title,
+                                  maxLines: 1,
+                                  style: new TextStyle(color: Colors.black,fontSize: 16.0,)),
+                              subtitle: new Text(
+                                songs[i].artist,
                                 maxLines: 1,
-                                style: new TextStyle(color: Colors.black,fontSize: 16.0,)),
-                            subtitle: new Text(
-                              songs[i].artist,
-                              maxLines: 1,
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey),
-                            ),
-                            trailing: new Text(
-                                new Duration(milliseconds: songs[i].duration)
-                                    .toString()
-                                    .split('.')
-                                    .first.substring(3,7),
                                 style: new TextStyle(
-                                    fontSize: 12.0, color: Colors.black54)),
-                            onTap: () {
-                              MyQueue.songs = songs;
-                              Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) => new NowPlaying(
-                                      widget.db, MyQueue.songs, i, 0)));
-                            },
-                          ),
-                        ],
-                      ),
-                ),
-            ));
+                                    fontSize: 12.0, color: Colors.grey),
+                              ),
+                              trailing: new Text(
+                                  new Duration(milliseconds: songs[i].duration)
+                                      .toString()
+                                      .split('.')
+                                      .first.substring(3,7),
+                                  style: new TextStyle(
+                                      fontSize: 12.0, color: Colors.black54)),
+                              onTap: () {
+                                MyQueue.songs = songs;
+                                Navigator.of(context).push(new MaterialPageRoute(
+                                    builder: (context) => new NowPlaying(
+                                        widget.db, MyQueue.songs, i, 0)));
+                              },
+                            ),
+                          ],
+                        ),
+                  ),
+              )),
+    );
   }
 }

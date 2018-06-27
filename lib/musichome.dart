@@ -4,6 +4,7 @@ import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musicplayer/database/database_client.dart';
+import 'package:musicplayer/pages/material_search.dart';
 import 'package:musicplayer/pages/now_playing.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:musicplayer/views/album.dart';
@@ -14,6 +15,7 @@ import 'package:musicplayer/views/songs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'theme.dart';
 
+
 class MusicHome extends StatefulWidget {
   List<Song> songs;
   MusicHome();
@@ -22,7 +24,7 @@ class MusicHome extends StatefulWidget {
     new BottomItem("Albums", Icons.album),
     new BottomItem("Songs", Icons.music_note),
     new BottomItem("Artists", Icons.person),
-    new BottomItem("Playlists", Icons.playlist_add_check),
+    new BottomItem("Playlists", Icons.playlist_play),
   ];
   @override
   State<StatefulWidget> createState() {
@@ -185,15 +187,27 @@ class _musicState extends State<MusicHome> {
         appBar: _selectedDrawerIndex == 0
             ? null
             : new AppBar(
-                elevation: 5.0,
-                backgroundColor: accentColor.withOpacity(0.8),
+
+                //elevation: 5.0,
+                backgroundColor: Colors.blueGrey[600],
+                elevation: 3.0,
                 title: new Text(title,style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600)),
-                
+                actions: <Widget>[
+                  new IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () {
+                        Navigator
+                            .of(context)
+                            .push(new MaterialPageRoute(builder: (context) {
+                          return new SearchSong(db, songs);
+                        }));
+
+                      })
+                ],
               ),
         floatingActionButton: new FloatingActionButton(
-            child: new FlutterLogo(colors: Colors.red,style: FlutterLogoStyle.markOnly,curve: Curves.bounceInOut,),
+            child: new FlutterLogo(colors: Colors.blueGrey,style: FlutterLogoStyle.markOnly,curve: Curves.bounceInOut,),
             backgroundColor: Colors.white,
-            foregroundColor: accentColor,
   
             onPressed: () async {
               var pref = await SharedPreferences.getInstance();
@@ -217,7 +231,7 @@ class _musicState extends State<MusicHome> {
               }
             }),
         body: RefreshIndicator(
-          color: accentColor,
+          color: Colors.blueGrey,
           child: isLoading
               ? new Center(
                   child: Padding(
@@ -234,7 +248,7 @@ class _musicState extends State<MusicHome> {
           onTap: (index) => _onSelectItem(index),
           currentIndex: _selectedDrawerIndex,
           type: BottomNavigationBarType.fixed,
-          fixedColor: accentColor.withOpacity(0.6),
+          fixedColor: Colors.blueGrey[400],
           iconSize: 25.0,
         ),
       ),
@@ -254,7 +268,7 @@ class _musicState extends State<MusicHome> {
         context: context,
         child: new AlertDialog(
           title: new Text('Are you sure?'),
-          content: new Text('music player will be stopped..'),
+          content: new Text('Grey will be stopped..'),
           actions: <Widget>[
             new FlatButton(
               onPressed: () => Navigator.of(context).pop(false),

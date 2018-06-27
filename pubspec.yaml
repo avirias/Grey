@@ -18,6 +18,8 @@ dependencies:
   xml: "^3.0.0"
 
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -35,6 +37,7 @@ flutter:
     - images/flogo.png
     - images/music.jpg
     - images/instalogo.png
+    - images/icon.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

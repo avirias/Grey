@@ -24,13 +24,12 @@ class _statesearch extends State<SearchSong> {
   }
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return new Scaffold(
-      
+
         body: new SafeArea(
       child: new MaterialSearchInput<String>(
-        placeholder:
-            'Search songs', //placeholder of the search bar text input
+        placeholder: 'Search songs', //placeholder of the search bar text input
         results: widget.songs
             .map((song) => new MaterialSearchResult<String>(
                   value: song.title, //The value must be of type <String>
@@ -44,8 +43,7 @@ class _statesearch extends State<SearchSong> {
             //user closed the MaterialSearch without selecting any value
             return;
           }
-          widget.songs.retainWhere((song) =>
-              (song.title) == selected);
+          widget.songs.retainWhere((song) => (song.title) == selected);
           Navigator.pop(context);
           MyQueue.songs = widget.songs;
           Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
@@ -56,5 +54,3 @@ class _statesearch extends State<SearchSong> {
     ));
   }
 }
-
-

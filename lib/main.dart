@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blueGrey,
+        errorColor: Colors.transparent,
+
         fontFamily: "Quicksand"
       ),
       home: new MusicHome(),
