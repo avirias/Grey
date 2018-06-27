@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../theme.dart';
+
 
 class NowPlaying extends StatefulWidget {
   int mode;
@@ -450,7 +450,7 @@ class _stateNowPlaying extends State<NowPlaying>
                                 setFav(song);
                               }),
                           new IconButton(
-                            splashColor: lightAccentColor,
+                            splashColor: Colors.blueGrey[200],
                             highlightColor: Colors.transparent,
                             icon: new Icon(
                               Icons.skip_previous,
@@ -467,7 +467,7 @@ class _stateNowPlaying extends State<NowPlaying>
                             onPressed: _playpause,
                           ),
                           new IconButton(
-                            splashColor: lightAccentColor.withOpacity(0.5),
+                            splashColor: Colors.blueGrey[200].withOpacity(0.5),
                             highlightColor: Colors.transparent,
                             icon: new Icon(
                               Icons.skip_next,
@@ -504,7 +504,7 @@ class _stateNowPlaying extends State<NowPlaying>
                   color: Colors.white.withOpacity(0.1),
                   child: FlatButton(
                     onPressed: _showBottomSheet,
-                    highlightColor: lightAccentColor.withOpacity(0.1),
+                    highlightColor: Colors.blueGrey[200].withOpacity(0.1),
                     child: Text(
                       "UP NEXT",
                       style: TextStyle(
@@ -513,7 +513,7 @@ class _stateNowPlaying extends State<NowPlaying>
                           fontFamily: "Quicksand",
                           fontWeight: FontWeight.bold),
                     ),
-                    splashColor: lightAccentColor.withOpacity(0.1),
+                    splashColor: Colors.blueGrey[200].withOpacity(0.1),
                   ),
                 )
               ],

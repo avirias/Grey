@@ -10,7 +10,6 @@ import 'package:musicplayer/util/lastplay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:musicplayer/util/utility.dart';
 
-import '../theme.dart';
 
 class ArtistCard extends StatefulWidget {
   int id;

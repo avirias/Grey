@@ -13,7 +13,7 @@ import 'package:musicplayer/views/home.dart';
 import 'package:musicplayer/views/playlists.dart';
 import 'package:musicplayer/views/songs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'theme.dart';
+
 
 
 class MusicHome extends StatefulWidget {
@@ -175,7 +175,7 @@ class _musicState extends State<MusicHome> {
         new BottomNavigationBarItem(
             icon: new Icon(d.icon),
             title: new Text(d.title,style: TextStyle(fontWeight: FontWeight.w500,),),
-            backgroundColor: accentColor),
+            backgroundColor: Colors.blueGrey[200]),
       );
     }
 

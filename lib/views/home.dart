@@ -15,7 +15,6 @@ import 'package:musicplayer/util/lastplay.dart';
 import 'package:flutter/cupertino.dart';
 
 
-import '../theme.dart';
 
 class Home extends StatefulWidget {
   DatabaseClient db;
@@ -223,8 +222,8 @@ class stateHome extends State<Home> {
                           new RawMaterialButton(
                             shape: CircleBorder(),
                             fillColor: Colors.transparent,
-                            splashColor: lightAccentColor,
-                            highlightColor: lightAccentColor.withOpacity(0.3),
+                            splashColor: Colors.blueGrey[200],
+                            highlightColor: Colors.blueGrey[200].withOpacity(0.3),
                             elevation: 18.0,
                             onPressed: () {
                               Navigator.of(context).push(
@@ -252,8 +251,8 @@ class stateHome extends State<Home> {
                         new RawMaterialButton(
                           shape: CircleBorder(),
                           fillColor: Colors.transparent,
-                          splashColor: lightAccentColor,
-                          highlightColor: lightAccentColor.withOpacity(0.3),
+                          splashColor: Colors.blueGrey[200],
+                          highlightColor: Colors.blueGrey[200].withOpacity(0.3),
                           elevation: 18.0,
                           onPressed: () {
                             Navigator
@@ -279,8 +278,8 @@ class stateHome extends State<Home> {
                           new RawMaterialButton(
                             shape: CircleBorder(),
                             fillColor: Colors.transparent,
-                            splashColor: lightAccentColor,
-                            highlightColor: lightAccentColor.withOpacity(0.3),
+                            splashColor: Colors.blueGrey[200],
+                            highlightColor: Colors.blueGrey[200].withOpacity(0.3),
                             elevation: 18.0,
                             onPressed: () {
                               Navigator.of(context).push(
@@ -380,7 +379,7 @@ class stateHome extends State<Home> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 50.0),
                       child: new CircularProgressIndicator(
-                        backgroundColor: lightAccentColor,
+                        backgroundColor: Colors.blueGrey[400],
                       ),
                     ),
                   )
@@ -405,7 +404,7 @@ class stateHome extends State<Home> {
                     elevation: 20.0,
                     shape: CircleBorder(
                         side: BorderSide(
-                            color: lightAccentColor, style: BorderStyle.none)),
+                            color: Colors.blueGrey[200], style: BorderStyle.none)),
                     child: new InkResponse(
                       child: SizedBox(
                         child: Hero(
