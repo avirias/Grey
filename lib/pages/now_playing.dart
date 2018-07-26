@@ -6,6 +6,7 @@ import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/util/lastplay.dart';
+import 'package:musicplayer/util/utility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -21,8 +22,7 @@ class NowPlaying extends StatefulWidget {
   }
 }
 
-class _stateNowPlaying extends State<NowPlaying>
-    with SingleTickerProviderStateMixin {
+class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateMixin {
   MusicFinder player;
   Duration duration;
   Duration position;
@@ -36,6 +36,13 @@ class _stateNowPlaying extends State<NowPlaying>
   bool isOpened = true;
   Animation<double> _animateIcon;
   @override
+
+  get durationText =>
+      duration != null ? duration.toString().split('.').first.substring(3,7): '';
+  get positionText =>
+      position != null ? position.toString().split('.').first.substring(3,7):'';
+
+
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -43,6 +50,7 @@ class _stateNowPlaying extends State<NowPlaying>
     //  SystemChrome.setPreferredOrientations(
     //    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     initPlayer();
+
   }
 
   initAnim() {
@@ -335,7 +343,7 @@ class _stateNowPlaying extends State<NowPlaying>
                         ),
                       ),
                     ),
-                    new Slider(
+                    Slider(
                       min: 0.0,
                       activeColor: Colors.white.withOpacity(0.8),
                       inactiveColor: Colors.white.withOpacity(0.4),
@@ -350,12 +358,7 @@ class _stateNowPlaying extends State<NowPlaying>
                         new Padding(
                           padding:
                               const EdgeInsets.only(left: 16.0, bottom: 10.0),
-                          child: new Text(
-                              position
-                                  .toString()
-                                  .split('.')
-                                  .first
-                                  .substring(3, 7),
+                          child: new Text(positionText,
                               // ignore: conflicting_dart_import
                               style: new TextStyle(
                                   fontSize: 12.0,
@@ -366,12 +369,7 @@ class _stateNowPlaying extends State<NowPlaying>
                         new Padding(
                           padding:
                               const EdgeInsets.only(right: 16.0, bottom: 10.0),
-                          child: new Text(
-                              new Duration(milliseconds: song.duration)
-                                  .toString()
-                                  .split('.')
-                                  .first
-                                  .substring(3, 7),
+                          child: new Text(durationText,
                               style: new TextStyle(
                                   fontSize: 12.0,
                                   color: Colors.white.withOpacity(0.8),
@@ -488,11 +486,7 @@ class _stateNowPlaying extends State<NowPlaying>
                                     color: Colors.white.withOpacity(0.5),
                                     size: 15.0,
                                   ),
-                            onPressed: () {
-                              if (repeatOn == 1)
-                                repeatOn = 0;
-                              else if (repeatOn == 0) repeatOn = 1;
-                            },
+                            onPressed: (){repeat1();}
                           ),
                         ],
                       ),
@@ -522,6 +516,20 @@ class _stateNowPlaying extends State<NowPlaying>
         ),
       ],
     );
+  }
+  Future<void> repeat1() async{
+    setState(() {
+      if(repeatOn == 0)
+        {
+          repeatOn = 1;
+          //widget.repeat.write(1);
+        }
+        else
+         { repeatOn = 0;
+         // widget.repeat.write(0);
+         }
+    });
+
   }
 
   Future<void> setFav(song) async {

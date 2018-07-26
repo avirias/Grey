@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flute_music_player/flute_music_player.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:musicplayer/database/database_client.dart';
@@ -87,7 +88,7 @@ class stateHome extends State<Home> {
                   showAboutDialog(
                       context: context,
                       applicationName: "Grey",
-                      applicationVersion: "0.1.23",
+                      applicationVersion: "0.1.24",
                       applicationLegalese: "MIT License",
                       applicationIcon: FlutterLogo(colors: Colors.blueGrey),
 
@@ -95,12 +96,29 @@ class stateHome extends State<Home> {
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontFamily: "Quicksand",fontWeight: FontWeight.w500),),
+                              child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w500),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 3.0,bottom: 3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text("Special thanks to",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w400)),
+                            RichText(
+                              text: TextSpan(
+                                  text: " Aman Gautam",
+                                  style: new TextStyle(color: Colors.blue[700],fontFamily: "Quicksand",fontSize: 16.0),
+                                  recognizer: new TapGestureRecognizer()
+                                    ..onTap = () { launchUrl(4);
+                                    },
+                                ),)
+                              ],
                             ),
                           ),
 
 
-                         Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Container(
@@ -132,6 +150,7 @@ class stateHome extends State<Home> {
                               child: Text("@avirias",style: TextStyle(fontSize: 18.0,fontFamily: "Quicksand",fontWeight: FontWeight.w500),),
                             ),
                           ),
+
 //                          FlatButton(onPressed: (){
 //                            AlertDialog(
 //                              title: Text("Changelog"),
@@ -224,7 +243,9 @@ class stateHome extends State<Home> {
                             fillColor: Colors.transparent,
                             splashColor: Colors.blueGrey[200],
                             highlightColor: Colors.blueGrey[200].withOpacity(0.3),
-                            elevation: 18.0,
+                            elevation: 15.0,
+                            highlightElevation: 0.0,
+                            disabledElevation: 0.0,
                             onPressed: () {
                               Navigator.of(context).push(
                                   new MaterialPageRoute(builder: (context) {
@@ -253,7 +274,9 @@ class stateHome extends State<Home> {
                           fillColor: Colors.transparent,
                           splashColor: Colors.blueGrey[200],
                           highlightColor: Colors.blueGrey[200].withOpacity(0.3),
-                          elevation: 18.0,
+                          elevation: 15.0,
+                          highlightElevation: 0.0,
+                          disabledElevation: 0.0,
                           onPressed: () {
                             Navigator
                                 .of(context)
@@ -280,7 +303,9 @@ class stateHome extends State<Home> {
                             fillColor: Colors.transparent,
                             splashColor: Colors.blueGrey[200],
                             highlightColor: Colors.blueGrey[200].withOpacity(0.3),
-                            elevation: 18.0,
+                            elevation: 15.0,
+                            highlightElevation: 0.0,
+                            disabledElevation: 0.0,
                             onPressed: () {
                               Navigator.of(context).push(
                                   new MaterialPageRoute(builder: (context) {
@@ -812,6 +837,9 @@ class stateHome extends State<Home> {
     else
       if(i == 3)
         launch("https://instagram.com/avirias/");
+    else
+      if(i == 4)
+        launch("https://github.com/amangautam1");
   }
 
   }

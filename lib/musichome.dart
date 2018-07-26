@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/material_search.dart';
 import 'package:musicplayer/pages/now_playing.dart';
 import 'package:musicplayer/util/lastplay.dart';
+import 'package:musicplayer/util/utility.dart';
 import 'package:musicplayer/views/album.dart';
 import 'package:musicplayer/views/artists.dart';
 import 'package:musicplayer/views/home.dart';
@@ -71,7 +73,6 @@ class _musicState extends State<MusicHome> {
     super.initState();
     initPlayer();
     getSharedData();
-    
   }
   getSharedData() async {
     const platform = const MethodChannel('app.channel.shared.data');
@@ -101,6 +102,10 @@ class _musicState extends State<MusicHome> {
 
 
   void initPlayer() async {
+
+
+
+
     db = new DatabaseClient();
     await db.create();
     if (await db.alreadyLoaded()) {
