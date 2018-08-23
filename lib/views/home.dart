@@ -9,13 +9,9 @@ import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/artistcard.dart';
 import 'package:musicplayer/pages/card_detail.dart';
 import 'package:musicplayer/pages/list_songs.dart';
-import 'package:musicplayer/pages/material_search.dart';
 import 'package:musicplayer/pages/now_playing.dart';
-import 'package:musicplayer/util/artistInfo.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:flutter/cupertino.dart';
-
-
 
 class Home extends StatefulWidget {
   DatabaseClient db;
@@ -34,7 +30,6 @@ class stateHome extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     init();
   }
@@ -64,7 +59,6 @@ class stateHome extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
     final Orientation orientation = MediaQuery.of(context).orientation;
     return new CustomScrollView(
       slivers: <Widget>[
@@ -73,11 +67,22 @@ class stateHome extends State<Home> {
           floating: false,
           elevation: 5.0,
           pinned: true,
-          primary: true, 
-          title: Text("Grey",style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.0)),
+          primary: true,
+          title: Text("Grey",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontFamily: "Quicksand",
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.0)),
           backgroundColor: Colors.transparent,
           brightness: Brightness.dark,
-         leading: Padding(child: Image.asset("images/icon.png",),padding: EdgeInsets.all(13.0),),
+          leading: Padding(
+            child: Image.asset(
+              "images/icon.png",
+            ),
+            padding: EdgeInsets.all(13.0),
+          ),
           actions: <Widget>[
             new IconButton(
                 icon: Icon(
@@ -86,103 +91,104 @@ class stateHome extends State<Home> {
                 ),
                 onPressed: () {
                   showAboutDialog(
-                      context: context,
-                      applicationName: "Grey",
-                      applicationVersion: "0.1.24",
-                      applicationLegalese: "MIT License",
-                      applicationIcon: FlutterLogo(colors: Colors.blueGrey),
-
-                        children: <Widget>[
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text("Developed by Avinash Kumar",style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w500),),
-                            ),
+                    context: context,
+                    applicationName: "Grey",
+                    applicationVersion: "0.1.24",
+                    applicationLegalese: "MIT License",
+                    applicationIcon: FlutterLogo(colors: Colors.blueGrey),
+                    children: <Widget>[
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                          child: Text(
+                            "Developed by Avinash Kumar",
+                            style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.w500),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 3.0,bottom: 3.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text("Special thanks to",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w400)),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text("Special thanks to",
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w400)),
                             RichText(
                               text: TextSpan(
-                                  text: " Aman Gautam",
-                                  style: new TextStyle(color: Colors.blue[700],fontFamily: "Quicksand",fontSize: 16.0),
-                                  recognizer: new TapGestureRecognizer()
-                                    ..onTap = () { launchUrl(4);
-                                    },
-                                ),)
-                              ],
-                            ),
-                          ),
-
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Container(
-                                child: IconButton(
-                                  icon: ImageIcon(AssetImage("images/GitHub-Mark.png")),
-                                  onPressed: () {launchUrl(1);
-                                    },
-                                  iconSize: 40.0,),
+                                text: " Aman Gautam",
+                                style: new TextStyle(
+                                    color: Colors.blue[700],
+                                    fontFamily: "Quicksand",
+                                    fontSize: 16.0),
+                                recognizer: new TapGestureRecognizer()
+                                  ..onTap = () {
+                                    launchUrl(4);
+                                  },
                               ),
-                                Container(
-                                  child: IconButton(
-                                    icon: ImageIcon(AssetImage("images/flogo.png")),
-                                    onPressed: (){launchUrl(2);},
-                                    iconSize: 55.0,
-                                  ),
-                                ),
-                              Container(
-                                child: IconButton(
-                                  icon: ImageIcon(AssetImage("images/instalogo.png")),
-                                  onPressed: (){launchUrl(3);},
-                                  iconSize: 40.0,
-                                ),
-                              )
-                            ],
-                          ),
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text("@avirias",style: TextStyle(fontSize: 18.0,fontFamily: "Quicksand",fontWeight: FontWeight.w500),),
+                            )
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            child: IconButton(
+                              icon: ImageIcon(
+                                  AssetImage("images/GitHub-Mark.png")),
+                              onPressed: () {
+                                launchUrl(1);
+                              },
+                              iconSize: 40.0,
                             ),
                           ),
-
-//                          FlatButton(onPressed: (){
-//                            AlertDialog(
-//                              title: Text("Changelog"),
-//                              titlePadding: EdgeInsets.all(10.0),
-//                              content: Column(
-//                                children: <Widget>[
-//                                Text("Updates in Grey"),
-//                                Text("Version 0.1.1",style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.bold,fontFamily: "Quicksand"),),
-//                                Text("1. NEW: Artist page view"),
-//                                Text("5. NEW: Hero Transition"),
-//                                Text("6. NEW: Added new font - Quicksand"),
-//                                Text("3. IMPROVEMENT: Loading time"),
-//                                Text("2. IMPROVEMENT: About Dailog"),
-//                                Text("3. FIX: Songs page list"),
-//                                Text("7. FIX: App Scaled down"),
-//                              ],)
-//                            );
-//                          },
-//                          child: Text("Changelog"),)
-
+                          Container(
+                            child: IconButton(
+                              icon: ImageIcon(AssetImage("images/flogo.png")),
+                              onPressed: () {
+                                launchUrl(2);
+                              },
+                              iconSize: 55.0,
+                            ),
+                          ),
+                          Container(
+                            child: IconButton(
+                              icon:
+                                  ImageIcon(AssetImage("images/instalogo.png")),
+                              onPressed: () {
+                                launchUrl(3);
+                              },
+                              iconSize: 40.0,
+                            ),
+                          )
                         ],
-                      );
+                      ),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 3.0),
+                          child: Text(
+                            "@avirias",
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontFamily: "Quicksand",
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
                 }),
             new IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
-                  Navigator
-                      .of(context)
-                      .push(new MaterialPageRoute(builder: (context) {
-                    return new SearchSong(widget.db, songs);
-                  }));  
-
+//                  Navigator
+//                      .of(context)
+//                      .push(new MaterialPageRoute(builder: (context) {
+//                    return new SearchSong(widget.db, songs);
+//                  }));
                 })
           ],
           flexibleSpace: new FlexibleSpaceBar(
@@ -190,19 +196,19 @@ class stateHome extends State<Home> {
               fit: StackFit.expand,
               children: <Widget>[
                 isLoading
-                        ? new Image.asset(
-                            "images/music.jpg",
-                            fit: BoxFit.fitWidth,
+                    ? new Image.asset(
+                        "images/music.jpg",
+                        fit: BoxFit.fitWidth,
+                      )
+                    : getImage(last) != null
+                        ? new Image.file(
+                            getImage(last),
+                            fit: BoxFit.cover,
                           )
-                        : getImage(last) != null
-                            ? new Image.file(
-                                getImage(last),
-                                fit: BoxFit.cover,
-                              )
-                            : new Image.asset(
-                                "images/back.jpg",
-                                fit: BoxFit.fitWidth,
-                              ),
+                        : new Image.asset(
+                            "images/back.jpg",
+                            fit: BoxFit.fitWidth,
+                          ),
               ],
             ),
           ),
@@ -211,15 +217,26 @@ class stateHome extends State<Home> {
           delegate: !isLoading
               ? new SliverChildListDelegate(<Widget>[
                   Padding(
-                    padding: EdgeInsets.only(left: 15.0,top: 15.0,bottom: 10.0),
+                    padding:
+                        EdgeInsets.only(left: 15.0, top: 15.0, bottom: 10.0),
                     child: Center(
-                      child: Text(last.artist.toUpperCase() +" - "+last.title.toUpperCase(),
-                      style: TextStyle(color: Colors.blueGrey[900],fontSize: 14.0,fontFamily: "Quicksand",fontStyle: FontStyle.normal,fontWeight: FontWeight.w500,letterSpacing: 1.5),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: true,),
+                      child: Text(
+                        last.artist.toUpperCase() +
+                            " - " +
+                            last.title.toUpperCase(),
+                        style: TextStyle(
+                            color: Colors.blueGrey[900],
+                            fontSize: 14.0,
+                            fontFamily: "Quicksand",
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 1.5),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                      ),
                     ),
-                    ),
+                  ),
                   new Padding(
                     padding: const EdgeInsets.only(
                         left: 15.0, top: 15.0, bottom: 10.0),
@@ -242,7 +259,8 @@ class stateHome extends State<Home> {
                             shape: CircleBorder(),
                             fillColor: Colors.transparent,
                             splashColor: Colors.blueGrey[200],
-                            highlightColor: Colors.blueGrey[200].withOpacity(0.3),
+                            highlightColor:
+                                Colors.blueGrey[200].withOpacity(0.3),
                             elevation: 15.0,
                             highlightElevation: 0.0,
                             disabledElevation: 0.0,
@@ -278,8 +296,7 @@ class stateHome extends State<Home> {
                           highlightElevation: 0.0,
                           disabledElevation: 0.0,
                           onPressed: () {
-                            Navigator
-                                .of(context)
+                            Navigator.of(context)
                                 .push(new MaterialPageRoute(builder: (context) {
                               return new ListSongs(widget.db, 2, orientation);
                             }));
@@ -302,7 +319,8 @@ class stateHome extends State<Home> {
                             shape: CircleBorder(),
                             fillColor: Colors.transparent,
                             splashColor: Colors.blueGrey[200],
-                            highlightColor: Colors.blueGrey[200].withOpacity(0.3),
+                            highlightColor:
+                                Colors.blueGrey[200].withOpacity(0.3),
                             elevation: 15.0,
                             highlightElevation: 0.0,
                             disabledElevation: 0.0,
@@ -429,31 +447,31 @@ class stateHome extends State<Home> {
                     elevation: 20.0,
                     shape: CircleBorder(
                         side: BorderSide(
-                            color: Colors.blueGrey[200], style: BorderStyle.none)),
+                            color: Colors.blueGrey[200],
+                            style: BorderStyle.none)),
                     child: new InkResponse(
                       child: SizedBox(
                         child: Hero(
                           tag: topArtist[i].artist,
                           child: getImage(topArtist[i]) != null //Artist Image
-                                ? new Image.file(
-                                    getImage(
-                                      topArtist[i],
-                                    ),
-                                    height: 120.0,
-                                    width: 150.0,
-                                    fit: BoxFit.cover,
-                                  )
-                                : new Image.asset(
-                                    "images/back.jpg",
-                                    height: 120.0,
-                                    width: 150.0,
-                                    fit: BoxFit.cover,
+                              ? new Image.file(
+                                  getImage(
+                                    topArtist[i],
                                   ),
+                                  height: 120.0,
+                                  width: 150.0,
+                                  fit: BoxFit.cover,
+                                )
+                              : new Image.asset(
+                                  "images/back.jpg",
+                                  height: 120.0,
+                                  width: 150.0,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                       onTap: () {
-                        Navigator
-                            .of(context)
+                        Navigator.of(context)
                             .push(new MaterialPageRoute(builder: (context) {
                           return new ArtistCard(widget.db, topArtist[i]);
                         }));
@@ -509,19 +527,19 @@ class stateHome extends State<Home> {
                       SizedBox(
                         child: Hero(
                           tag: topAlbum[i].album,
-                                                  child: getImage(topAlbum[i]) != null
-                          ? new Image.file(
-                              getImage(topAlbum[i]),
-                              height: 120.0,
-                              width: 180.0,
-                              fit: BoxFit.cover,
-                            )
-                          : new Image.asset(
-                              "images/back.jpg",
-                              height: 120.0,
-                              width: 180.0,
-                              fit: BoxFit.cover,
-                            ),
+                          child: getImage(topAlbum[i]) != null
+                              ? new Image.file(
+                                  getImage(topAlbum[i]),
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                )
+                              : new Image.asset(
+                                  "images/back.jpg",
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                       SizedBox(
@@ -559,8 +577,7 @@ class stateHome extends State<Home> {
                     ],
                   ),
                   onTap: () {
-                    Navigator
-                        .of(context)
+                    Navigator.of(context)
                         .push(new MaterialPageRoute(builder: (context) {
                       return new CardDetail(widget.db, topAlbum[i]);
                     }));
@@ -610,18 +627,18 @@ class stateHome extends State<Home> {
                     children: <Widget>[
                       SizedBox(
                         child: getImage(favorites[i]) != null
-                          ? new Image.file(
-                              getImage(favorites[i]),
-                              height: 120.0,
-                              width: 180.0,
-                              fit: BoxFit.cover,
-                            )
-                          : new Image.asset(
-                              "images/back.jpg",
-                              height: 120.0,
-                              width: 180.0,
-                              fit: BoxFit.cover,
-                            ),
+                            ? new Image.file(
+                                getImage(favorites[i]),
+                                height: 120.0,
+                                width: 180.0,
+                                fit: BoxFit.cover,
+                              )
+                            : new Image.asset(
+                                "images/back.jpg",
+                                height: 120.0,
+                                width: 180.0,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                       SizedBox(
                         width: 180.0,
@@ -658,8 +675,7 @@ class stateHome extends State<Home> {
                     ],
                   ),
                   onTap: () {
-                    Navigator
-                        .of(context)
+                    Navigator.of(context)
                         .push(new MaterialPageRoute(builder: (context) {
                       return new NowPlaying(widget.db, favorites, i, 0);
                     }));
@@ -688,18 +704,18 @@ class stateHome extends State<Home> {
                     children: <Widget>[
                       SizedBox(
                         child: getImage(albums[i]) != null
-                              ? new Image.file(
-                                  getImage(albums[i]),
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                )
-                              : new Image.asset(
-                                  "images/back.jpg",
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                ),
+                            ? new Image.file(
+                                getImage(albums[i]),
+                                height: 120.0,
+                                width: 180.0,
+                                fit: BoxFit.cover,
+                              )
+                            : new Image.asset(
+                                "images/back.jpg",
+                                height: 120.0,
+                                width: 180.0,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                       SizedBox(
                         width: 180.0,
@@ -736,8 +752,7 @@ class stateHome extends State<Home> {
                     ],
                   ),
                   onTap: () {
-                    Navigator
-                        .of(context)
+                    Navigator.of(context)
                         .push(new MaterialPageRoute(builder: (context) {
                       return new CardDetail(widget.db, albums[i]);
                     }));
@@ -766,19 +781,19 @@ class stateHome extends State<Home> {
                       SizedBox(
                         child: Hero(
                           tag: recents[i].id,
-                                                  child: getImage(recents[i]) != null
-                            ? new Image.file(
-                                getImage(recents[i]),
-                                height: 120.0,
-                                width: 180.0,
-                                fit: BoxFit.cover,
-                              )
-                            : new Image.asset(
-                                "images/back.jpg",
-                                height: 120.0,
-                                width: 180.0,
-                                fit: BoxFit.cover,
-                              ),
+                          child: getImage(recents[i]) != null
+                              ? new Image.file(
+                                  getImage(recents[i]),
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                )
+                              : new Image.asset(
+                                  "images/back.jpg",
+                                  height: 120.0,
+                                  width: 180.0,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                       SizedBox(
@@ -815,8 +830,7 @@ class stateHome extends State<Home> {
                   ),
                   onTap: () {
                     MyQueue.songs = recents;
-                    Navigator
-                        .of(context)
+                    Navigator.of(context)
                         .push(new MaterialPageRoute(builder: (context) {
                       return new NowPlaying(widget.db, recents, i, 0);
                     }));
@@ -829,18 +843,12 @@ class stateHome extends State<Home> {
   }
 
   launchUrl(int i) async {
-    if(i == 1)
+    if (i == 1)
       launch("http://github.com/avirias");
-    else
-      if(i ==2)
-        launch("http://facebook.com/avirias");
-    else
-      if(i == 3)
-        launch("https://instagram.com/avirias/");
-    else
-      if(i == 4)
-        launch("https://github.com/amangautam1");
+    else if (i == 2)
+      launch("http://facebook.com/avirias");
+    else if (i == 3)
+      launch("https://instagram.com/avirias/");
+    else if (i == 4) launch("https://github.com/amangautam1");
   }
-
-  }
-
+}

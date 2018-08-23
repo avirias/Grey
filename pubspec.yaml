@@ -11,7 +11,8 @@ dependencies:
   flute_music_player:
   sqflite:
   path_provider:
-  material_search: ^0.2.7
+  shimmer: ^0.0.5
+#  material_search: ^0.2.7
   url_launcher: 3.0.1
   shared_preferences: ^0.4.2
   http: "^0.11.3+16"
