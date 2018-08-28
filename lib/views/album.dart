@@ -33,62 +33,68 @@ class _stateAlbum extends State<Album> {
     });
   }
 
-
-
   List<Card> _buildGridCards(BuildContext context) {
+    final Orientation orientation = MediaQuery.of(context).orientation;
     return songs.map((song) {
       return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 25.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
         elevation: 8.0,
         child: new InkResponse(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: <Widget>[
-              AspectRatio(
-                aspectRatio: 18 / 16,
-                child: Hero(
-                  tag: song.album,
-                                  child: getImage(song) != null
-                        ? new Image.file(
-                            getImage(song),height: 120.0,fit: BoxFit.fitWidth,
-                          )
-                        : new Image.asset(
-                            "images/back.jpg",
-                            height: 120.0,
-                            fit: BoxFit.cover,
-                          ),
-                ),
+              Hero(
+                tag: song.album,
+                child: getImage(song) != null
+                    ? new Image.file(
+                        getImage(song),
+                        height: double.infinity,
+                        fit: BoxFit.fitHeight,
+                      )
+                    : new Image.asset(
+                        "images/back.jpg",
+                        height: double.infinity,
+                        fit: BoxFit.fitHeight,
+                      ),
               ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 5.0),),
-              Expanded(
-                child: Padding(
-                  // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                  padding: EdgeInsets.fromLTRB(15.0, 8.0, 5.0, 0.0),
+              Positioned(
+                bottom: 0.0,
+                child: Container(
+                  width: orientation == Orientation.portrait
+                      ? (MediaQuery.of(context).size.width - 26.0) / 2
+                      : (MediaQuery.of(context).size.width - 26.0) / 4,
+                  color: Colors.white.withOpacity(0.88),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Center(
+                      Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 7.0, right: 7.0),
                         child: Text(
                           song.album,
-                          style: new TextStyle(fontSize: 15.0,color: Colors.black.withOpacity(0.65),fontWeight: FontWeight.w600),
+                          style: new TextStyle(
+                              fontSize: 15.5,
+                              color: Colors.black.withOpacity(0.8),
+                              fontWeight: FontWeight.w600),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0),
-                        child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
                           child: Text(
                             song.artist,
                             maxLines: 1,
-                            style: TextStyle(fontSize: 13.0, color: Colors.black54,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.black.withOpacity(0.75),
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                      )
+                      ),
+                      Padding(padding: EdgeInsets.symmetric(vertical: 4.0))
                     ],
                   ),
                 ),
@@ -96,8 +102,7 @@ class _stateAlbum extends State<Album> {
             ],
           ),
           onTap: () {
-            Navigator
-                .of(context)
+            Navigator.of(context)
                 .push(new MaterialPageRoute(builder: (context) {
               return new CardDetail(widget.db, song);
             }));
@@ -109,20 +114,22 @@ class _stateAlbum extends State<Album> {
 
   @override
   Widget build(BuildContext context) {
-    final Orientation orientation=MediaQuery.of(context).orientation;
+    final Orientation orientation = MediaQuery.of(context).orientation;
     return new Container(
         child: isLoading
             ? new Center(
                 child: new CircularProgressIndicator(),
               )
             : Scrollbar(
-                          child: new GridView.count(
-                  crossAxisCount: orientation==Orientation.portrait?2:4,
+                child: new GridView.count(
+                  crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
                   children: _buildGridCards(context),
-                  padding: EdgeInsets.all(5.0),
                   physics: BouncingScrollPhysics(),
-                  childAspectRatio: 8.0 / 10.0,                ),
-            )
-    );
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                  childAspectRatio: 8.0 / 9.5,
+                  crossAxisSpacing: 2.0,
+                  mainAxisSpacing: 18.0,
+                ),
+              ));
   }
 }

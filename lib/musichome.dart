@@ -103,7 +103,7 @@ class _MusicState extends State<MusicHome> {
       bottomOptions.add(new IconButton(
         icon: Icon(d.icon,
             color: d.isselected
-                ? Colors.blueGrey.shade800.withOpacity(0.95)
+                ? Colors.blueGrey.shade800
                 : Colors.blueGrey.shade600),
         onPressed: d.onPressed,
         tooltip: d.tooltip,

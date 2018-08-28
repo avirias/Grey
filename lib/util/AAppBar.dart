@@ -19,9 +19,11 @@ class AAppBar extends StatelessWidget implements PreferredSizeWidget {
           colors: [
             Colors.blueGrey.shade500,
             Colors.blueGrey.shade400,
+            Colors.blueGrey.shade300,
             Colors.blueGrey.shade200,
             Colors.blueGrey.shade100,
             Colors.blueGrey.shade50,
+            Colors.grey.shade100,
             Colors.grey.shade50,
             Color(0xFFFAFAFA)
           ],

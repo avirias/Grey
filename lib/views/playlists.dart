@@ -37,6 +37,7 @@ class _statePlaylist extends State<PlayList> {
 
   Widget potrait() {
     return new ListView(
+      physics: BouncingScrollPhysics(),
       children: <Widget>[
         new ListTile(                   
           leading: new Icon(Icons.call_received,size: 28.0,),
