@@ -65,7 +65,7 @@ class stateHome extends State<Home> {
         new SliverAppBar(
           expandedHeight: 180.0,
           floating: false,
-          elevation: 5.0,
+          elevation: 4.0,
           pinned: true,
           primary: true,
           title: Text("Grey",
@@ -75,7 +75,7 @@ class stateHome extends State<Home> {
                   fontFamily: "Quicksand",
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.0)),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white30,
           brightness: Brightness.dark,
           leading: Padding(
             child: Image.asset(
@@ -93,7 +93,7 @@ class stateHome extends State<Home> {
                   showAboutDialog(
                     context: context,
                     applicationName: "Grey",
-                    applicationVersion: "0.1.24",
+                    applicationVersion: "0.2.12",
                     applicationLegalese: "MIT License",
                     applicationIcon: FlutterLogo(colors: Colors.blueGrey),
                     children: <Widget>[
@@ -105,31 +105,6 @@ class stateHome extends State<Home> {
                             style: TextStyle(
                                 fontSize: 18.0, fontWeight: FontWeight.w500),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Special thanks to",
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w400)),
-                            RichText(
-                              text: TextSpan(
-                                text: " Aman Gautam",
-                                style: new TextStyle(
-                                    color: Colors.blue[700],
-                                    fontFamily: "Quicksand",
-                                    fontSize: 16.0),
-                                recognizer: new TapGestureRecognizer()
-                                  ..onTap = () {
-                                    launchUrl(4);
-                                  },
-                              ),
-                            )
-                          ],
                         ),
                       ),
                       Row(
@@ -849,6 +824,5 @@ class stateHome extends State<Home> {
       launch("http://facebook.com/avirias");
     else if (i == 3)
       launch("https://instagram.com/avirias/");
-    else if (i == 4) launch("https://github.com/amangautam1");
   }
 }

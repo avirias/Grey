@@ -40,7 +40,7 @@ class _stateAlbum extends State<Album> {
       return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 25.0),
-        elevation: 10.0,
+        elevation: 8.0,
         child: new InkResponse(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,6 +120,7 @@ class _stateAlbum extends State<Album> {
                   crossAxisCount: orientation==Orientation.portrait?2:4,
                   children: _buildGridCards(context),
                   padding: EdgeInsets.all(5.0),
+                  physics: BouncingScrollPhysics(),
                   childAspectRatio: 8.0 / 10.0,                ),
             )
     );

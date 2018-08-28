@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/material_search.dart';
 import 'package:musicplayer/pages/now_playing.dart';
+import 'package:musicplayer/util/AAppBar.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:musicplayer/util/utility.dart';
 import 'package:musicplayer/views/album.dart';
@@ -57,9 +58,7 @@ class _MusicState extends State<MusicHome> {
   int _selectedIndex = 0;
   int serIndex;
   List<Song> songs;
-  List<String> title = [
-    "","Albums","Songs","Artists","Playlists"
-  ];
+  List<String> title = ["", "Albums", "Songs", "Artists", "Playlists"];
   DatabaseClient db;
   bool isLoading = true;
   Song last;
@@ -69,21 +68,25 @@ class _MusicState extends State<MusicHome> {
     setState(() => _selectedIndex = index);
   }
 
+  bool _handlingIsSelected(int pos){
+    return _selectedIndex==pos;
+  }
+
   initBottomItems() {
     bottomItems = [
-      new BottomItem("Home", Icons.home, null),
+      new BottomItem("Home", Icons.home, null,null),
       new BottomItem("Albums", Icons.album, () async {
         _onSelectItem(1);
-      }),
+      },_handlingIsSelected(1)),
       new BottomItem("Songs", Icons.music_note, () async {
         _onSelectItem(2);
-      }),
+      },_handlingIsSelected(2)),
       new BottomItem("Artists", Icons.person, () async {
         _onSelectItem(3);
-      }),
+      },_handlingIsSelected(3)),
       new BottomItem("Playlists", Icons.playlist_play, () async {
         _onSelectItem(4);
-      }),
+      },_handlingIsSelected(4)),
     ];
     bottomOptions = <Widget>[];
     for (var i = 1; i < bottomItems.length; i++) {
@@ -100,11 +103,11 @@ class _MusicState extends State<MusicHome> {
       bottomOptions.add(new IconButton(
         icon: Icon(d.icon,
             color: d.isselected
-                ? Colors.blueGrey.shade800
+                ? Colors.blueGrey.shade800.withOpacity(0.95)
                 : Colors.blueGrey.shade600),
         onPressed: d.onPressed,
         tooltip: d.tooltip,
-        iconSize: 35.0,
+        iconSize: 32.0,
       ));
     }
   }
@@ -221,14 +224,9 @@ class _MusicState extends State<MusicHome> {
     return new WillPopScope(
       child: new Scaffold(
         key: scaffoldState,
-        appBar:_selectedIndex == 0
+        appBar: _selectedIndex == 0
             ? null
-            : new AppBar(
-          //elevation: 5.0,
-          backgroundColor: Colors.blueGrey[600],
-          elevation: 3.0,
-          title: new Text(title[_selectedIndex],style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600)),
-        ),
+            : AAppBar(title: title[_selectedIndex],),
         floatingActionButton: new FloatingActionButton(
             child: new FlutterLogo(
               colors: Colors.blueGrey,
@@ -257,11 +255,17 @@ class _MusicState extends State<MusicHome> {
             }),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
-            : BodySelection(_selectedIndex, db),
+            : _selectedIndex == 0
+                ? RefreshIndicator(
+                    child: BodySelection(_selectedIndex, db),
+                    color: Colors.blueGrey,
+                    onRefresh: refreshData,
+                  )
+                : BodySelection(_selectedIndex, db),
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           child: Container(
-            height: 65.0,
+            height: 58.0,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: bottomOptions),

@@ -97,6 +97,7 @@ class _stateArtist extends State<Artists> {
             ? new Center(child: new CircularProgressIndicator())
             : Scrollbar(
                   child: new GridView.count(
+                    physics: BouncingScrollPhysics(),
                   crossAxisCount:orientation==Orientation.portrait? 2:4,
                   children: _buildGridCards(context),
                   padding: EdgeInsets.all(10.0),

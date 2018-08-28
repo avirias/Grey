@@ -52,6 +52,7 @@ class _songsState extends State<Songs> {
                 )
               : Scrollbar(
                             child: new ListView.builder(
+                              physics: BouncingScrollPhysics(),
                     itemCount: songs.length,
                     itemBuilder: (context, i) => new Column(
                           children: <Widget>[
