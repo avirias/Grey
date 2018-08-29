@@ -1,11 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 class AAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   AAppBar({
-    this.title
+    this.title,
+    this.isBack = false
 });
   final String title;
+  final bool isBack;
   @override
   Size get preferredSize => Size.fromHeight(120.0);
 
@@ -41,14 +44,19 @@ class AAppBar extends StatelessWidget implements PreferredSizeWidget {
             height: MediaQuery.of(context).padding.top,
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 30.0,left: 20.0),
-            child: Text(title,style: TextStyle(
-              color: Colors.black54,
-              fontSize: 50.0,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 2.0,
+            padding: EdgeInsets.only(top: 30.0,left: isBack ? 0.0 : 20.0),
+            child: Row(
+              children: <Widget>[
+                Container(child: isBack ? IconButton(icon: Icon(Icons.chevron_left,size: 35.0,), onPressed: (){Navigator.pop(context);}) : Container()),
+                Text(title,style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 45.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2.0,
 
-            ),),
+                ),maxLines: 1,overflow: TextOverflow.ellipsis,),
+              ],
+            ),
           )
         ],
       ),

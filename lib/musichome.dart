@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +9,6 @@ import 'package:musicplayer/util/AAppBar.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:musicplayer/util/utility.dart';
 import 'package:musicplayer/views/album.dart';
-import 'package:musicplayer/views/album_new.dart';
 import 'package:musicplayer/views/artists.dart';
 import 'package:musicplayer/views/home.dart';
 import 'package:musicplayer/views/playlists.dart';
@@ -33,7 +30,7 @@ class BodySelection extends StatelessWidget {
       case 1:
         return Album(db);
       case 4:
-        return PlayList(db);
+        return Playlist(db);
       default:
         return Text("Error");
     }
@@ -91,14 +88,14 @@ class _MusicState extends State<MusicHome> {
     bottomOptions = <Widget>[];
     for (var i = 1; i < bottomItems.length; i++) {
       var d = bottomItems[i];
-      if (i.isEven) {
+      if (i == 2 || i == 4) {
         bottomOptions
-            .add(Padding(padding: EdgeInsets.symmetric(horizontal: 15.0)));
+            .add(Padding(padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.03)));
       }
       if (i == 3) {
         bottomOptions.add(Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.17)));
+                horizontal: MediaQuery.of(context).size.width * 0.15)));
       }
       bottomOptions.add(new IconButton(
         icon: Icon(d.icon,

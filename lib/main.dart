@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flute_music_player/flute_music_player.dart';
-import 'package:musicplayer/database/database_client.dart';
-import 'dart:async';
 import 'package:musicplayer/musichome.dart';
-import 'package:musicplayer/views/HomeShimmer.dart';
 
 void main() => runApp(new MyApp());
 
