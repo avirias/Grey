@@ -233,7 +233,7 @@ class stateHome extends State<Home> {
                               child: Material(
                                 elevation: 8.0,
                                 shadowColor: Color(0xff334e70),
-                                shape: StadiumBorder(),
+//                                shape: StadiumBorder(),
                                 color: Colors.white.withOpacity(0.9),
                                 child: Padding(
                                   padding: EdgeInsets.only(
