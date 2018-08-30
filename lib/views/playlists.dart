@@ -26,6 +26,7 @@ class _StatePlaylist extends State<Playlist> {
   @override
   void initState() {
     super.initState();
+    _lengthFind();
     mode = 1;
     selected = 1;
   }
@@ -47,7 +48,6 @@ class _StatePlaylist extends State<Playlist> {
 
   @override
   Widget build(BuildContext context) {
-    _lengthFind();
     orientation = MediaQuery.of(context).orientation;
     return new Container(
       child: orientation == Orientation.portrait ? potrait() : landscape(),

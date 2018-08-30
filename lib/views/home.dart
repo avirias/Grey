@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:math';
-
 import 'package:flute_music_player/flute_music_player.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:musicplayer/database/database_client.dart';
@@ -60,348 +58,447 @@ class stateHome extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
-    return new CustomScrollView(
-      slivers: <Widget>[
-        new SliverAppBar(
-          expandedHeight: 180.0,
-          floating: false,
-          elevation: 4.0,
-          pinned: true,
-          primary: true,
-          title: Text("Grey",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontFamily: "Quicksand",
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1.0)),
-          backgroundColor: Colors.white30,
-          brightness: Brightness.dark,
-          leading: Padding(
-            child: Image.asset(
-              "images/icon.png",
-            ),
-            padding: EdgeInsets.all(13.0),
-          ),
-          actions: <Widget>[
-            new IconButton(
-                icon: Icon(
-                  Icons.info_outline,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  showAboutDialog(
-                    context: context,
-                    applicationName: "Grey",
-                    applicationVersion: "0.2.12",
-                    applicationLegalese: "MIT License",
-                    applicationIcon: FlutterLogo(colors: Colors.blueGrey),
-                    children: <Widget>[
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: Text(
-                            "Developed by Avinash Kumar",
-                            style: TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Stack(
+      children: <Widget>[
+        new CustomScrollView(
+          slivers: <Widget>[
+            new SliverList(
+              delegate: !isLoading
+                  ? new SliverChildListDelegate(<Widget>[
+                      Stack(
                         children: <Widget>[
-                          Container(
-                            child: IconButton(
-                              icon: ImageIcon(
-                                  AssetImage("images/GitHub-Mark.png")),
-                              onPressed: () {
-                                launchUrl(1);
-                              },
-                              iconSize: 40.0,
+                          Column(
+                            children: <Widget>[
+                              Material(
+                                elevation: 8.0,
+                                shadowColor: Color(0xff294c74),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(15.0),
+                                        bottomRight: Radius.circular(15.0))),
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.55,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: isLoading
+                                      ? new Image.asset(
+                                          "images/music.jpg",
+                                          fit: BoxFit.fitWidth,
+                                        )
+                                      : getImage(last) != null
+                                          ? new Image.file(
+                                              getImage(last),
+                                              fit: BoxFit.fitWidth,
+                                            )
+                                          : new Image.asset(
+                                              "images/back.jpg",
+                                              fit: BoxFit.fitWidth,
+                                            ),
+                                ),
+                              ),
+                              new Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, top: 60.0, bottom: 10.0),
+                                child: new Text(
+                                  "QUICK ACTIONS",
+                                  style: new TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.0,
+                                      letterSpacing: 2.0,
+                                      color: Colors.black.withOpacity(0.75)),
+                                ),
+                              ),
+                              new Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  new Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      new RawMaterialButton(
+                                        shape: CircleBorder(),
+                                        fillColor: Colors.transparent,
+                                        splashColor: Colors.blueGrey[200],
+                                        highlightColor: Colors.blueGrey[200]
+                                            .withOpacity(0.3),
+                                        elevation: 15.0,
+                                        highlightElevation: 0.0,
+                                        disabledElevation: 0.0,
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                              new MaterialPageRoute(
+                                                  builder: (context) {
+                                            return new ListSongs(
+                                                widget.db, 1, orientation);
+                                          }));
+                                        },
+                                        child: new Icon(
+                                          CupertinoIcons.restart,
+                                          size: 50.0,
+                                          color: Colors.blueGrey[400],
+                                        ),
+                                      ),
+                                      new Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0)),
+                                      new Text(
+                                        "RECENTS",
+                                        style: new TextStyle(
+                                            fontSize: 12.0, letterSpacing: 2.0),
+                                      ),
+                                    ],
+                                  ),
+                                  new Column(children: <Widget>[
+                                    new RawMaterialButton(
+                                      shape: CircleBorder(),
+                                      fillColor: Colors.transparent,
+                                      splashColor: Colors.blueGrey[200],
+                                      highlightColor:
+                                          Colors.blueGrey[200].withOpacity(0.3),
+                                      elevation: 15.0,
+                                      highlightElevation: 0.0,
+                                      disabledElevation: 0.0,
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            new MaterialPageRoute(
+                                                builder: (context) {
+                                          return new ListSongs(
+                                              widget.db, 2, orientation);
+                                        }));
+                                      },
+                                      child: new Icon(
+                                        Icons.assessment,
+                                        size: 50.0,
+                                        color: Colors.blueGrey[400],
+                                      ),
+                                    ),
+                                    new Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0)),
+                                    new Text("TOP SONGS",
+                                        style: new TextStyle(
+                                            fontSize: 12.0, letterSpacing: 2.0))
+                                  ]),
+                                  new Column(
+                                    children: <Widget>[
+                                      new RawMaterialButton(
+                                        shape: CircleBorder(),
+                                        fillColor: Colors.transparent,
+                                        splashColor: Colors.blueGrey[200],
+                                        highlightColor: Colors.blueGrey[200]
+                                            .withOpacity(0.3),
+                                        elevation: 15.0,
+                                        highlightElevation: 0.0,
+                                        disabledElevation: 0.0,
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                              new MaterialPageRoute(
+                                                  builder: (context) {
+                                            return new NowPlaying(
+                                                widget.db,
+                                                songs,
+                                                new Random()
+                                                    .nextInt(songs.length),
+                                                0);
+                                          }));
+                                        },
+                                        child: new Icon(
+                                          CupertinoIcons.shuffle_thick,
+                                          size: 50.0,
+                                          color: Colors.blueGrey[400],
+                                        ),
+                                      ),
+                                      new Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0)),
+                                      new Text("RANDOM",
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              letterSpacing: 2.0))
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.width * 0.5,
+                                  left: 15.0,
+                                  right: 15.0),
+                              child: Material(
+                                elevation: 8.0,
+                                shadowColor: Color(0xff334e70),
+                                shape: StadiumBorder(),
+                                color: Colors.white.withOpacity(0.9),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 15.0,
+                                      right: 15.0,
+                                      top: 8.0,
+                                      bottom: 8.0),
+                                  child: Container(
+                                    height: 50.0,
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text(
+                                          last.title.toUpperCase(),
+                                          style: TextStyle(
+                                              color: Colors.blueGrey[900],
+                                              fontSize: 15.0,
+                                              fontFamily: "Quicksand",
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 1.2),
+                                          maxLines: 1,
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: true,
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 2.0)),
+                                        Text(
+                                          last.artist.toUpperCase(),
+                                          style: TextStyle(
+                                              color: Colors.blueGrey[900],
+                                              fontSize: 16.0,
+                                              fontFamily: "Quicksand",
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.5),
+                                          maxLines: 1,
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: true,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                          Container(
-                            child: IconButton(
-                              icon: ImageIcon(AssetImage("images/flogo.png")),
-                              onPressed: () {
-                                launchUrl(2);
-                              },
-                              iconSize: 55.0,
-                            ),
-                          ),
-                          Container(
-                            child: IconButton(
-                              icon:
-                                  ImageIcon(AssetImage("images/instalogo.png")),
-                              onPressed: () {
-                                launchUrl(3);
-                              },
-                              iconSize: 40.0,
-                            ),
-                          )
                         ],
                       ),
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 3.0),
-                          child: Text(
-                            "@avirias",
-                            style: TextStyle(
-                                fontSize: 18.0,
-                                fontFamily: "Quicksand",
-                                fontWeight: FontWeight.w500),
-                          ),
+
+                      //Recents
+                      Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
+                      new Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, top: 15.0, bottom: 10.0),
+                        child: new Text(
+                          "YOUR RECENTS!",
+                          style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0,
+                              letterSpacing: 2.0,
+                              color: Colors.black.withOpacity(0.75)),
                         ),
                       ),
-                    ],
-                  );
-                }),
-            new IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-//                  Navigator
-//                      .of(context)
-//                      .push(new MaterialPageRoute(builder: (context) {
-//                    return new SearchSong(widget.db, songs);
-//                  }));
-                })
-          ],
-          flexibleSpace: new FlexibleSpaceBar(
-            background: new Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                isLoading
-                    ? new Image.asset(
-                        "images/music.jpg",
-                        fit: BoxFit.fitWidth,
+                      recentW(),
+
+                      //Top Albums
+                      Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
+                      new Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, top: 0.0, bottom: 10.0),
+                        child: new Text(
+                          "TOP ALBUMS",
+                          style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0,
+                              letterSpacing: 2.0,
+                              color: Colors.black.withOpacity(0.75)),
+                        ),
+                      ),
+                      topAlbums(),
+
+                      //Top Artists
+                      Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
+                      new Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, top: 0.0, bottom: 10.0),
+                        child: new Text(
+                          "TOP ARTISTS",
+                          style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0,
+                              letterSpacing: 2.0,
+                              color: Colors.black.withOpacity(0.75)),
+                        ),
+                      ),
+                      topArtists(),
+
+                      //Favorites
+
+                      noOfFavorites != 0 ? favorites1() : Container(),
+
+                      //May like
+                      Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
+                      new Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, top: 0.0, bottom: 20.0),
+                        child: new Text(
+                          "YOU MAY LIKE!",
+                          style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0,
+                              letterSpacing: 2.0,
+                              color: Colors.black.withOpacity(0.75)),
+                        ),
+                      ),
+
+                      randomW(),
+                    ])
+                  : new SliverChildListDelegate(<Widget>[
+                      new Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 50.0),
+                          child: new CircularProgressIndicator(
+                            backgroundColor: Colors.blueGrey[400],
+                          ),
+                        ),
                       )
-                    : getImage(last) != null
-                        ? new Image.file(
-                            getImage(last),
-                            fit: BoxFit.cover,
-                          )
-                        : new Image.asset(
-                            "images/back.jpg",
-                            fit: BoxFit.fitWidth,
-                          ),
-              ],
+                    ]),
+            ),
+          ],
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                15.0, 15.0 + MediaQuery.of(context).padding.top, 15.0, 15.0),
+            child: Material(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              shadowColor: Color(0xFF395284),
+              elevation: 5.0,
+              color: Colors.white.withOpacity(0.9),
+              child: Container(
+                height: MediaQuery.of(context).size.width * 0.14,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0)),
+                        FlutterLogo(
+                          size: 35.0,
+                          colors: Colors.blueGrey,
+                        ),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0)),
+                        Text(
+                          "Grey",
+                          style: TextStyle(
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.blueGrey.shade700),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.info_outline),
+                          onPressed: () {
+                            showAboutDialog(
+                              context: context,
+                              applicationName: "Grey",
+                              applicationVersion: "0.2.19",
+                              applicationLegalese: "MIT License",
+                              applicationIcon:
+                                  FlutterLogo(colors: Colors.blueGrey),
+                              children: <Widget>[
+                                Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 5.0),
+                                    child: Text(
+                                      "Developed by Avinash Kumar",
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Container(
+                                      child: IconButton(
+                                        icon: ImageIcon(AssetImage(
+                                            "images/GitHub-Mark.png")),
+                                        onPressed: () {
+                                          launchUrl(1);
+                                        },
+                                        iconSize: 40.0,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: IconButton(
+                                        icon: ImageIcon(
+                                            AssetImage("images/flogo.png")),
+                                        onPressed: () {
+                                          launchUrl(2);
+                                        },
+                                        iconSize: 55.0,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: IconButton(
+                                        icon: ImageIcon(
+                                            AssetImage("images/instalogo.png")),
+                                        onPressed: () {
+                                          launchUrl(3);
+                                        },
+                                        iconSize: 40.0,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 3.0),
+                                    child: Text(
+                                      "@avirias",
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontFamily: "Quicksand",
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                          iconSize: 30.0,
+                          color: Colors.blueGrey,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.search),
+                          onPressed: () {},
+                          iconSize: 30.0,
+                          color: Colors.blueGrey,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-        new SliverList(
-          delegate: !isLoading
-              ? new SliverChildListDelegate(<Widget>[
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 15.0, top: 15.0, bottom: 10.0),
-                    child: Center(
-                      child: Text(
-                        last.artist.toUpperCase() +
-                            " - " +
-                            last.title.toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.blueGrey[900],
-                            fontSize: 14.0,
-                            fontFamily: "Quicksand",
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 1.5),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                      ),
-                    ),
-                  ),
-                  new Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0, top: 15.0, bottom: 10.0),
-                    child: new Text(
-                      "QUICK ACTIONS",
-                      style: new TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                          letterSpacing: 2.0,
-                          color: Colors.black.withOpacity(0.75)),
-                    ),
-                  ),
-                  new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      new Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          new RawMaterialButton(
-                            shape: CircleBorder(),
-                            fillColor: Colors.transparent,
-                            splashColor: Colors.blueGrey[200],
-                            highlightColor:
-                                Colors.blueGrey[200].withOpacity(0.3),
-                            elevation: 15.0,
-                            highlightElevation: 0.0,
-                            disabledElevation: 0.0,
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                  new MaterialPageRoute(builder: (context) {
-                                return new ListSongs(widget.db, 1, orientation);
-                              }));
-                            },
-                            child: new Icon(
-                              CupertinoIcons.restart,
-                              size: 50.0,
-                              color: Colors.blueGrey[400],
-                            ),
-                          ),
-                          new Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0)),
-                          new Text(
-                            "RECENTS",
-                            style: new TextStyle(
-                                fontSize: 12.0, letterSpacing: 2.0),
-                          ),
-                        ],
-                      ),
-                      new Column(children: <Widget>[
-                        new RawMaterialButton(
-                          shape: CircleBorder(),
-                          fillColor: Colors.transparent,
-                          splashColor: Colors.blueGrey[200],
-                          highlightColor: Colors.blueGrey[200].withOpacity(0.3),
-                          elevation: 15.0,
-                          highlightElevation: 0.0,
-                          disabledElevation: 0.0,
-                          onPressed: () {
-                            Navigator.of(context)
-                                .push(new MaterialPageRoute(builder: (context) {
-                              return new ListSongs(widget.db, 2, orientation);
-                            }));
-                          },
-                          child: new Icon(
-                            Icons.assessment,
-                            size: 50.0,
-                            color: Colors.blueGrey[400],
-                          ),
-                        ),
-                        new Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0)),
-                        new Text("TOP SONGS",
-                            style: new TextStyle(
-                                fontSize: 12.0, letterSpacing: 2.0))
-                      ]),
-                      new Column(
-                        children: <Widget>[
-                          new RawMaterialButton(
-                            shape: CircleBorder(),
-                            fillColor: Colors.transparent,
-                            splashColor: Colors.blueGrey[200],
-                            highlightColor:
-                                Colors.blueGrey[200].withOpacity(0.3),
-                            elevation: 15.0,
-                            highlightElevation: 0.0,
-                            disabledElevation: 0.0,
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                  new MaterialPageRoute(builder: (context) {
-                                return new NowPlaying(widget.db, songs,
-                                    new Random().nextInt(songs.length), 0);
-                              }));
-                            },
-                            child: new Icon(
-                              CupertinoIcons.shuffle_thick,
-                              size: 50.0,
-                              color: Colors.blueGrey[400],
-                            ),
-                          ),
-                          new Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0)),
-                          new Text("RANDOM",
-                              style: new TextStyle(
-                                  fontSize: 12.0, letterSpacing: 2.0))
-                        ],
-                      ),
-                    ],
-                  ),
-
-                  //Recents
-                  Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
-                  new Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0, top: 15.0, bottom: 10.0),
-                    child: new Text(
-                      "YOUR RECENTS!",
-                      style: new TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                          letterSpacing: 2.0,
-                          color: Colors.black.withOpacity(0.75)),
-                    ),
-                  ),
-                  recentW(),
-
-                  //Top Albums
-                  Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
-                  new Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0, top: 0.0, bottom: 10.0),
-                    child: new Text(
-                      "TOP ALBUMS",
-                      style: new TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                          letterSpacing: 2.0,
-                          color: Colors.black.withOpacity(0.75)),
-                    ),
-                  ),
-                  topAlbums(),
-
-                  //Top Artists
-                  Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
-                  new Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0, top: 0.0, bottom: 10.0),
-                    child: new Text(
-                      "TOP ARTISTS",
-                      style: new TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                          letterSpacing: 2.0,
-                          color: Colors.black.withOpacity(0.75)),
-                    ),
-                  ),
-                  topArtists(),
-
-                  //Favorites
-
-                  noOfFavorites != 0 ? favorites1() : Container(),
-
-                  //May like
-                  Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
-                  new Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0, top: 0.0, bottom: 20.0),
-                    child: new Text(
-                      "YOU MAY LIKE!",
-                      style: new TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                          letterSpacing: 2.0,
-                          color: Colors.black.withOpacity(0.75)),
-                    ),
-                  ),
-
-                  randomW(),
-                ])
-              : new SliverChildListDelegate(<Widget>[
-                  new Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 50.0),
-                      child: new CircularProgressIndicator(
-                        backgroundColor: Colors.blueGrey[400],
-                      ),
-                    ),
-                  )
-                ]),
         ),
       ],
     );
@@ -822,7 +919,6 @@ class stateHome extends State<Home> {
       launch("http://github.com/avirias");
     else if (i == 2)
       launch("http://facebook.com/avirias");
-    else if (i == 3)
-      launch("https://instagram.com/avirias/");
+    else if (i == 3) launch("https://instagram.com/avirias/");
   }
 }
