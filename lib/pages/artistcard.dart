@@ -104,7 +104,8 @@ class stateCardDetail extends State<ArtistCard> {
                             ),
                             Container(
                               //aspectRatio: 16/15,
-                              height: 210.0,
+                              height: 205.0,
+                              padding: EdgeInsets.only(left: 10.0),
                               child: new ListView.builder(
                                 itemCount: albums.length,
                                 scrollDirection: Axis.horizontal,
@@ -113,49 +114,46 @@ class stateCardDetail extends State<ArtistCard> {
                                       child: new Card(
                                         elevation: 15.0,
                                         child: new InkResponse(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              SizedBox(
-                                                child: Hero(
-                                                  tag: albums[i].album,
-                                                  child: getImage(albums[i]) != null
-                                                      ? new Image.file(
-                                                          getImage(albums[i]),
-                                                          height: 120.0,
-                                                          width: 180.0,
-                                                          fit: BoxFit.cover,
-                                                        )
-                                                      : new Image.asset(
-                                                          "images/back.jpg",
-                                                          height: 120.0,
-                                                          width: 180.0,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 180.0,
-                                                child: Padding(
-                                                  // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                                                  padding: EdgeInsets.fromLTRB(10.0, 8.0, 0.0, 0.0),
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[
-                                                      Text(
-                                                        albums[i].album.toUpperCase(),
-                                                        style: new TextStyle(
-                                                            fontSize: 13.0,
-                                                            fontWeight: FontWeight.w500,
-                                                            color: Colors.black.withOpacity(0.70)),
-                                                        maxLines: 1,
-                                                      ),
-
-                                                    ],
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(6.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                SizedBox(
+                                                  child: Hero(
+                                                    tag: albums[i].album,
+                                                    child: getImage(albums[i]) != null
+                                                        ? new Image.file(
+                                                            getImage(albums[i]),
+                                                            height: 120.0,
+                                                            width: 180.0,
+                                                            fit: BoxFit.cover,
+                                                          )
+                                                        : new Image.asset(
+                                                            "images/back.jpg",
+                                                            height: 120.0,
+                                                            width: 180.0,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                                SizedBox(
+                                                  width: 180.0,
+                                                  child: Padding(
+                                                    // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                                                    padding: EdgeInsets.fromLTRB(10.0, 8.0, 5.0, 0.0),
+                                                    child: Text(
+                                                      albums[i].album.toUpperCase(),
+                                                      style: new TextStyle(
+                                                          fontSize: 13.5,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: Colors.black.withOpacity(0.70)),
+                                                      maxLines: 1,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                           onTap: () {
                                             Navigator

@@ -42,40 +42,46 @@ class _stateArtist extends State<Artists> {
   List<Card> _buildGridCards(BuildContext context) {
     return songs.map((song) {
       return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        color: Colors.transparent,
         margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 18.0),
         elevation: 10.0,
-        child: new InkResponse(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              AspectRatio(
-                aspectRatio: 18 / 16,
-                child: Hero(
-                  tag: song.artist,
-                  child: getImage(song)!=null
-            ? Image.file(getImage(song),height: 120.0,fit: BoxFit.fitWidth,)
-            : Image.asset(
-                    "images/artist.jpg",
-                    height: 120.0,
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                    child: Text(
-                      song.artist.toUpperCase(),
-                      style: new TextStyle(fontFamily: "Quicksand",fontSize: 13.0,fontWeight: FontWeight.w600,letterSpacing: 2.0),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+        child: new InkWell(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                AspectRatio(
+                  aspectRatio: 18 / 16,
+                  child: Hero(
+                    tag: song.artist,
+                    child: getImage(song)!=null
+              ? Image.file(getImage(song),height: 120.0,fit: BoxFit.fitWidth,)
+              : Image.asset(
+                      "images/artist.jpg",
+                      height: 120.0,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                        child: Text(
+                          song.artist.toUpperCase(),
+                          style: new TextStyle(fontFamily: "Quicksand",fontSize: 13.0,fontWeight: FontWeight.w600,letterSpacing: 2.0),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           onTap: () {
             Navigator

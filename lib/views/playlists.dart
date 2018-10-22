@@ -42,14 +42,21 @@ class _StatePlaylist extends State<Playlist> {
   _lengthFind() async {
     var random = Random();
     songs = await widget.db.fetchRecentSong();
-    atFirst = songs[random.nextInt(songs.length-1)].artist;
+    setState(() {
+      atFirst = songs[random.nextInt(songs.length-1)].artist;
+    });
     songs = await widget.db.fetchTopSong();
-    atSecond = songs[random.nextInt(songs.length-1)].artist;
+    setState(() {
+      atSecond = songs[random.nextInt(songs.length-1)].artist;
+    });
     songs = await widget.db.fetchFavSong();
     String atThird = "No Songs in favorites";
-    atThir = songs.length != 0
-        ? "Includes ${songs[random.nextInt(songs.length-1)].artist.toString()} and more"
-        : atThird;
+    setState(() {
+      atThir = songs.length != 0
+          ? "Includes ${songs[random.nextInt(songs.length-1)].artist.toString()} and more"
+          : atThird;
+    });
+
   }
 
   @override

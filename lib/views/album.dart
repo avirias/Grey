@@ -37,76 +37,79 @@ class _stateAlbum extends State<Album> {
     final Orientation orientation = MediaQuery.of(context).orientation;
     return songs.map((song) {
       return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+        color: Colors.transparent,
         elevation: 8.0,
         child: new InkResponse(
-          child: Stack(
-            children: <Widget>[
-              Hero(
-                tag: song.album,
-                child: getImage(song) != null
-                    ? new Image.file(
-                        getImage(song),
-                        height: double.infinity,
-                        fit: BoxFit.fitHeight,
-                      )
-                    : new Image.asset(
-                        "images/back.jpg",
-                        height: double.infinity,
-                        fit: BoxFit.fitHeight,
-                      ),
-              ),
-              Positioned(
-                bottom: 0.0,
-                child: Container(
-                  width: orientation == Orientation.portrait
-                      ? (MediaQuery.of(context).size.width - 26.0) / 2
-                      : (MediaQuery.of(context).size.width - 26.0) / 4,
-                  color: Colors.white.withOpacity(0.88),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 7.0, right: 7.0),
-                        child: Text(
-                          song.album,
-                          style: new TextStyle(
-                              fontSize: 15.5,
-                              color: Colors.black.withOpacity(0.8),
-                              fontWeight: FontWeight.w600),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
-                          child: Text(
-                            song.artist,
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.black.withOpacity(0.75),
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                      Padding(padding: EdgeInsets.symmetric(vertical: 4.0))
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
           onTap: () {
             Navigator.of(context)
                 .push(new MaterialPageRoute(builder: (context) {
               return new CardDetail(widget.db, song);
             }));
           },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Stack(
+              children: <Widget>[
+                Hero(
+                  tag: song.album,
+                  child: getImage(song) != null
+                      ? new Image.file(
+                          getImage(song),
+                          height: double.infinity,
+                          fit: BoxFit.fitHeight,
+                        )
+                      : new Image.asset(
+                          "images/back.jpg",
+                          height: double.infinity,
+                          fit: BoxFit.fitHeight,
+                        ),
+                ),
+                Positioned(
+                  bottom: 0.0,
+                  child: Container(
+                    width: orientation == Orientation.portrait
+                        ? (MediaQuery.of(context).size.width - 26.0) / 2
+                        : (MediaQuery.of(context).size.width - 26.0) / 4,
+                    color: Colors.white.withOpacity(0.88),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 7.0, right: 7.0),
+                          child: Text(
+                            song.album,
+                            style: new TextStyle(
+                                fontSize: 15.5,
+                                color: Colors.black.withOpacity(0.8),
+                                fontWeight: FontWeight.w600),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                            child: Text(
+                              song.artist,
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.black.withOpacity(0.75),
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 4.0))
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     }).toList();
