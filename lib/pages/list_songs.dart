@@ -82,9 +82,10 @@ class _listSong extends State<ListSongs> {
       return false;
   }
 
-  void _modelbottomSheet() {
+  void _modelBottomSheet() {
     List<bool> isFavorite = new List(allSongs.length);
     for (int m = 0; m < allSongs.length; m++) isFavorite[m] = false;
+    bool isFavoriteX;
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -95,6 +96,7 @@ class _listSong extends State<ListSongs> {
                 itemCount: allSongs.length,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, i) {
+                  isFavoriteX = true;
                   return ListTile(
                     title: Text(allSongs[i].title,
                         maxLines: 1,
@@ -114,13 +116,14 @@ class _listSong extends State<ListSongs> {
                     ),
                     trailing: RawMaterialButton(
                         shape: CircleBorder(),
-                        child: !isFavorite[i]
+                        child: !isFavorite[i] || isFavoriteX
                             ? Icon(Icons.add)
                             : Icon(Icons.remove),
                         fillColor: Color(0xFFefece8),
                         onPressed: () async {
                           setState(() {
                             isFavorite[i] = true;
+                            isFavoriteX = false;
                           });
                           await widget.db.favSong(allSongs[i]);
                         }),
@@ -144,7 +147,10 @@ class _listSong extends State<ListSongs> {
     initSongs();
     return new Scaffold(
       appBar: widget.orientation == Orientation.portrait
-          ? AAppBar(title: getTitle(widget.mode),isBack: true,)
+          ? AAppBar(
+              title: getTitle(widget.mode),
+              isBack: true,
+            )
           : null,
       body: new Container(
         child: isLoading
@@ -207,16 +213,17 @@ class _listSong extends State<ListSongs> {
                       children: <Widget>[
                         Text(
                           "Nothing here :(",
-                          style: TextStyle(fontSize: 25.0),
+                          style: TextStyle(
+                              fontSize: 30.0, fontWeight: FontWeight.w600),
                         ),
                         Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                         OutlineButton(
                           child: Text("Add Songs".toUpperCase()),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0)),
-                          onPressed: _modelbottomSheet,
+                          onPressed: _modelBottomSheet,
                           color: Colors.blueGrey.shade500,
-                          highlightedBorderColor: Color(0xFFf08f8f),
+                          highlightedBorderColor: Color(0xFF373737),
                           borderSide:
                               BorderSide(width: 2.0, color: Colors.blueGrey),
                         )
@@ -224,17 +231,27 @@ class _listSong extends State<ListSongs> {
                     ),
                   ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          MyQueue.songs = songs;
-          Navigator.of(context).push(new MaterialPageRoute(
-              builder: (context) => new NowPlaying(widget.db, MyQueue.songs,
-                  new Random().nextInt(songs.length), 0)));
-        },
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.blueGrey,
-        child: Icon(CupertinoIcons.shuffle_thick),
-      ),
+      floatingActionButton: songs.length != 0
+          ? FloatingActionButton(
+              onPressed: () {
+                if (widget.mode != 3) {
+                  MyQueue.songs = songs;
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => new NowPlaying(
+                          widget.db,
+                          MyQueue.songs,
+                          new Random().nextInt(songs.length),
+                          0)));
+                } else
+                  _modelBottomSheet();
+              },
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.blueGrey,
+              child: widget.mode == 3
+                  ? Icon(Icons.add)
+                  : Icon(CupertinoIcons.shuffle_thick),
+            )
+          : null,
     );
   }
 }

@@ -8,7 +8,7 @@ import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/list_songs.dart';
 
 class Playlist extends StatefulWidget {
-  DatabaseClient db;
+  final DatabaseClient db;
   Playlist(this.db);
 
   @override
@@ -22,27 +22,33 @@ class _StatePlaylist extends State<Playlist> {
   List<Song> songs;
   var selected;
   String atFirst,atSecond,atThir;
+  String nu = "null";
   Orientation orientation;
   @override
   void initState() {
     super.initState();
     _lengthFind();
+    setState(() {
+    });
     mode = 1;
     selected = 1;
   }
 
-  void _lengthFind() async {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  _lengthFind() async {
     var random = Random();
     songs = await widget.db.fetchRecentSong();
-    atFirst = songs[random.nextInt(songs.length)].artist.toString();
+    atFirst = songs[random.nextInt(songs.length-1)].artist;
     songs = await widget.db.fetchTopSong();
-    atSecond = songs[random.nextInt(songs.length)].artist.toString();
+    atSecond = songs[random.nextInt(songs.length-1)].artist;
     songs = await widget.db.fetchFavSong();
     String atThird = "No Songs in favorites";
     atThir = songs.length != 0
-        ? "Includes " +
-            songs[random.nextInt(songs.length)].artist.toString() +
-            " and more"
+        ? "Includes ${songs[random.nextInt(songs.length-1)].artist.toString()} and more"
         : atThird;
   }
 
@@ -50,11 +56,11 @@ class _StatePlaylist extends State<Playlist> {
   Widget build(BuildContext context) {
     orientation = MediaQuery.of(context).orientation;
     return new Container(
-      child: orientation == Orientation.portrait ? potrait() : landscape(),
+      child: orientation == Orientation.portrait ? portrait() : landscape(),
     );
   }
 
-  Widget potrait() {
+  Widget portrait() {
     return new ListView(
       physics: BouncingScrollPhysics(),
       children: <Widget>[
@@ -72,7 +78,7 @@ class _StatePlaylist extends State<Playlist> {
                 fontFamily: "Quicksand"),
           ),
           subtitle: new Text(
-            "Includes " + atFirst + " and more",
+            "Includes  ${atFirst!=null?atFirst:nu} and more",
             maxLines: 1,
           ),
           onTap: () {
@@ -96,7 +102,7 @@ class _StatePlaylist extends State<Playlist> {
                 fontWeight: FontWeight.w500),
           ),
           subtitle: new Text(
-            "Includes " + atSecond + " and more",
+            "Includes ${atSecond!=null?atSecond:nu} and more",
             maxLines: 1,
           ),
           onTap: () {
@@ -120,7 +126,7 @@ class _StatePlaylist extends State<Playlist> {
                 fontWeight: FontWeight.w500),
           ),
           subtitle: new Text(
-            atThir,
+            atThir!=null?atThir:nu,
             maxLines: 1,
           ),
           onTap: () {
