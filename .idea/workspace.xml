@@ -14,16 +14,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="Home Section revisited">
+    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/yourcompany/musicplayer/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/yourcompany/musicplayer/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/list_songs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/list_songs.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/now_playing.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/now_playing.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/playlists.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/playlists.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -146,8 +139,15 @@
       <file leaf-file-name="now_playing.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/pages/now_playing.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="399" column="29" selection-start-line="399" selection-start-column="29" selection-end-line="399" selection-end-column="29" />
+            <state relative-caret-position="306">
+              <caret line="350" column="33" selection-start-line="350" selection-start-column="33" selection-end-line="350" selection-end-column="33" />
+              <folding>
+                <element signature="e#1476#2053#0" />
+                <element signature="e#2199#3154#0" />
+                <element signature="e#3581#3930#0" />
+                <element signature="e#4247#4478#0" />
+                <element signature="e#4979#8480#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -540,7 +540,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538045368574</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Now Playing revisited">
+      <created>1540182580044</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1540182580044</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -561,15 +568,16 @@
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32789856" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.3047445" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info id="Image Layers" order="4" />
       <window_info id="Build Variants" order="2" side_tool="true" weight="0.3297561" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50731707" side_tool="true" weight="0.26885247" />
       <window_info anchor="bottom" id="Dart Analysis" order="11" weight="0.3248175" />
-      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.49268293" weight="0.36131388" />
+      <window_info active="true" anchor="bottom" id="Run" order="4" sideWeight="0.49268293" visible="true" weight="0.36131388" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3134058" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3229508" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3211679" />
       <window_info anchor="right" id="Flutter Outline" order="4" sideWeight="0.48989898" weight="0.3287805" />
       <window_info anchor="bottom" id="Logcat" order="7" weight="0.32789856" />
       <window_info id="Captures" order="5" weight="0.25" />
@@ -590,7 +598,6 @@
       <window_info anchor="right" id="Database" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info id="Find" order="8" side_tool="true" weight="0.3287805" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.3065574" />
       <window_info id="UI Designer" order="9" />
       <window_info anchor="right" id="Commander" order="1" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -641,14 +648,15 @@
     <MESSAGE value="Updated README.md" />
     <MESSAGE value="Playlist Section revisited" />
     <MESSAGE value="Home Section revisited" />
-    <option name="LAST_COMMIT_MESSAGE" value="Home Section revisited" />
+    <MESSAGE value="Now Playing revisited" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now Playing revisited" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/pages/now_playing.dart</url>
-          <line>286</line>
+          <line>308</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
@@ -984,8 +992,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/pages/now_playing.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="399" column="29" selection-start-line="399" selection-start-column="29" selection-end-line="399" selection-end-column="29" />
+        <state relative-caret-position="306">
+          <caret line="350" column="33" selection-start-line="350" selection-start-column="33" selection-end-line="350" selection-end-column="33" />
+          <folding>
+            <element signature="e#1476#2053#0" />
+            <element signature="e#2199#3154#0" />
+            <element signature="e#3581#3930#0" />
+            <element signature="e#4247#4478#0" />
+            <element signature="e#4979#8480#0" />
+          </folding>
         </state>
       </provider>
     </entry>

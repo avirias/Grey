@@ -10,6 +10,7 @@ import 'package:musicplayer/util/utility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
+
 class NowPlaying extends StatefulWidget {
   int mode;
   List<Song> songs;
@@ -21,6 +22,8 @@ class NowPlaying extends StatefulWidget {
     return new _stateNowPlaying();
   }
 }
+double widthX;
+double sHeightX;
 
 class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateMixin {
   MusicFinder player;
@@ -35,23 +38,42 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
   Animation<Color> _animateColor;
   bool isOpened = true;
   Animation<double> _animateIcon;
-  @override
+  double paddingPosition ;
+  Timer timer;
 
   get durationText =>
       duration != null ? duration.toString().split('.').first.substring(3,7): '';
   get positionText =>
       position != null ? position.toString().split('.').first.substring(3,7):'';
 
-
+  @override
   void initState() {
     super.initState();
+    paddingPosition = 0.0;
+    timer = Timer.periodic(Duration(seconds: 1), callback);
     initAnim();
+
     //  SystemChrome.setPreferredOrientations(
     //    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     initPlayer();
 
   }
 
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    timer.cancel();
+    super.dispose();
+  }
+
+  callback(Timer timer)
+  {
+    setState(() {
+      if(position.inMilliseconds<=duration.inMilliseconds)
+        paddingPosition = ((widthX-2*(sHeightX*2))/duration.inSeconds)*position.inSeconds;
+    });
+  }
   initAnim() {
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500))
@@ -169,7 +191,6 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
       updatePage(widget.index);
     });
   }
-
   Future prev() async {
     player.stop();
     //   int i=await  widget.db.isfav(song);
@@ -182,11 +203,9 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
       updatePage(i);
     });
   }
-
   void onComplete() {
     next();
   }
-
   dynamic getImage(Song song) {
     return song.albumArt == null
         ? null
@@ -281,10 +300,13 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
         });
   }
 
+
   Widget portrait() {
     double width = MediaQuery.of(context).size.width;
+    widthX = width;
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-    final double cutRadius = 6.0;
+    sHeightX = statusBarHeight;
+    final double cutRadius = 5.0;
     return Stack(
       children: <Widget>[
         Container(
@@ -305,7 +327,7 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
           ),
         ),
         BackdropFilter(
-          filter: ui.ImageFilter.blur(sigmaX: 12.0, sigmaY: 12.0),
+          filter: ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
           child: Container(
             height: width,
             decoration:
@@ -315,16 +337,10 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
         Align(
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: EdgeInsets.only(top: statusBarHeight),
+            padding: EdgeInsets.only(top: width*0.06*2),
             child: Container(
-              width: width,
-              height: width*0.968,
-              margin: EdgeInsets.only(
-                  top:  statusBarHeight*1.2,
-                  left: statusBarHeight*1.2,
-                  right: statusBarHeight*1.2,
-                  bottom: statusBarHeight*0.5
-              ),
+              width: width-2*width*0.06,
+              height: width-width*0.06,
               child: new AspectRatio(
                 aspectRatio: 15 / 15,
                 child: Hero(
@@ -332,7 +348,7 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
                   child: getImage(song) != null
                       ? Material(
                     color: Colors.transparent,
-                    elevation: 15.0,
+                    elevation: 22.0,
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.transparent,
@@ -384,181 +400,171 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
             ),
           ),
         ),
-        Positioned(
-          height: MediaQuery.of(context).size.height-width*1.11,
-          top: width*1.11,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-              Container(
-                width: width,
-                padding: EdgeInsets.only(left: statusBarHeight*1.2,right: statusBarHeight*1.2),
-                child: Slider(
-                  min: 0.0,
-                  activeColor: Colors.blueGrey.shade300.withOpacity(0.5),
-                  inactiveColor: Colors.blueGrey.shade300.withOpacity(0.3),
-                  value: position?.inMilliseconds?.toDouble() ?? 0.0,
-                  onChanged: (double value) =>
-                      player.seek((value / 1000).roundToDouble()),
-                  max: song.duration.toDouble() + 1000,
-                ),
-              ),
-//              new Row(
-//                mainAxisAlignment: MainAxisAlignment.start,
-//                children: <Widget>[
-//                  new Padding(
-//                    padding:
-//                    const EdgeInsets.only(left: 16.0, bottom: 10.0),
-//                    child: new Text(positionText,
-//                        // ignore: conflicting_dart_import
-//                        style: new TextStyle(
-//                            fontSize: 12.0,
-//                            color: Colors.white.withOpacity(0.8),
-//                            fontWeight: FontWeight.bold,
-//                            letterSpacing: 1.0)),
-//                  ),
-//                  Expanded(),
-//                  new Padding(
-//                    padding:
-//                    const EdgeInsets.only(right: 16.0, bottom: 10.0),
-//                    child: new Text(durationText,
-//                        style: new TextStyle(
-//                            fontSize: 12.0,
-//                            color: Colors.white.withOpacity(0.8),
-//                            fontWeight: FontWeight.bold,
-//                            letterSpacing: 1.0)),
-//                  ),
-//                ],
-//              ),
-              Expanded(
-                child: Center(
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        new Text(
-                          '${song.title.toUpperCase()}\n',
-                          style: new TextStyle(
-                              color: Colors.black.withOpacity(0.85),
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 3.0,
-                              height: 1.5,
-                              fontFamily: "Quicksand"),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                        ),
-                        new Text(
-                          "${song.artist.toUpperCase()}\n",
-                          style: new TextStyle(
-                              color: Colors.black.withOpacity(0.7),
-                              fontSize: 14.0,
-                              letterSpacing: 1.8,
-                              height: 1.5,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Quicksand"),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+        Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.only(top:width*1.11),
+            child: Container(
+              height: MediaQuery.of(context).size.height-width*1.11,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                      Container(
+                        padding:
+                          EdgeInsets.only(left: statusBarHeight*1.2+paddingPosition,right: statusBarHeight*1.1,),
+                        child: Text(positionText,
+                            textAlign: TextAlign.left,
+                            style: new TextStyle(
+                                fontSize: 13.0,
+                                color: Color(0xaa373737),
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.0)),
+                      ),
+//              Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
+                  Container(
+                    width: width,
+                    padding: EdgeInsets.only(left: statusBarHeight*1.2,right: statusBarHeight*1.2),
+                    child: Slider(
+                      min: 0.0,
+                      activeColor: Colors.blueGrey.shade300.withOpacity(0.5),
+                      inactiveColor: Colors.blueGrey.shade300.withOpacity(0.3),
+                      value: position?.inMilliseconds?.toDouble() ?? 0.0,
+                      onChanged: (double value) =>
+                          player.seek((value / 1000).roundToDouble()),
+                      max: song.duration.toDouble() + 1000,
                     ),
                   ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 15.0),
-                    child: new Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        new IconButton(
-                            icon: isfav == 0
-                                ? new Icon(
-                              Icons.favorite_border,
-                              color: Colors.blueGrey,
-                              size: 15.0,
-                            )
-                                : new Icon(
-                              Icons.favorite,
-                              color: Colors.blueGrey,
-                              size: 15.0,
+                  Expanded(
+                    child: Center(
+                      child: Container(
+                        child: Column(
+                          children: <Widget>[
+                            new Text(
+                              '${song.title.toUpperCase()}\n',
+                              style: new TextStyle(
+                                  color: Colors.black.withOpacity(0.85),
+                                  fontSize: 17.5,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 3.0,
+                                  height: 1.5,
+                                  fontFamily: "Quicksand"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
                             ),
-                            onPressed: () {
-                              setFav(song);
-                            }),
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 20.0)),
-                        new IconButton(
-                          splashColor: Colors.blueGrey[200],
-                          highlightColor: Colors.transparent,
-                          icon: new Icon(
-                            Icons.skip_previous,
-                            color: Colors.blueGrey,
-                            size: 32.0,
-                          ),
-                          onPressed: prev,
-                        ),
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 15.0)),
-                        FloatingActionButton(
-                          backgroundColor: _animateColor.value,
-                          child: new AnimatedIcon(
-                              icon: AnimatedIcons.pause_play,
-                              progress: _animateIcon),
-                          onPressed: _playpause,
-                        ),
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 15.0)),
-                        new IconButton(
-                          splashColor: Colors.blueGrey[200].withOpacity(0.5),
-                          highlightColor: Colors.transparent,
-                          icon: new Icon(
-                            Icons.skip_next,
-                            color: Colors.blueGrey,
-                            size: 32.0,
-                          ),
-                          onPressed: next,
-                        ),
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 20.0)),
-                        new IconButton(
-                            icon: (repeatOn == 1)
-                                ? Icon(
-                              Icons.repeat,
-                              color: Colors.blueGrey,
-                              size: 15.0,
-                            )
-                                : Icon(
-                              Icons.repeat,
-                              color: Colors.blueGrey.withOpacity(0.5),
-                              size: 15.0,
+                            new Text(
+                              "${song.artist.toUpperCase()}\n",
+                              style: new TextStyle(
+                                  color: Colors.black.withOpacity(0.7),
+                                  fontSize: 14.0,
+                                  letterSpacing: 1.8,
+                                  height: 1.5,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Quicksand"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
                             ),
-                            onPressed: (){repeat1();}
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Container(
-                width: width,
-                color: Colors.white,
-                child: FlatButton(
-                  onPressed: _showBottomSheet,
-                  highlightColor: Colors.blueGrey[200].withOpacity(0.1),
-                  child: Text(
-                    "UP NEXT",
-                    style: TextStyle(
-                        color: Colors.black.withOpacity(0.8),
-                        letterSpacing: 2.0,
-                        fontFamily: "Quicksand",
-                        fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Container(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 15.0),
+                        child: new Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new IconButton(
+                                icon: isfav == 0
+                                    ? new Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.blueGrey,
+                                  size: 15.0,
+                                )
+                                    : new Icon(
+                                  Icons.favorite,
+                                  color: Colors.blueGrey,
+                                  size: 15.0,
+                                ),
+                                onPressed: () {
+                                  setFav(song);
+                                }),
+                            Padding(padding: EdgeInsets.symmetric(horizontal: 15.0)),
+                            new IconButton(
+                              splashColor: Colors.blueGrey[200],
+                              highlightColor: Colors.transparent,
+                              icon: new Icon(
+                                Icons.skip_previous,
+                                color: Colors.blueGrey,
+                                size: 32.0,
+                              ),
+                              onPressed: prev,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 20.0,right: 20.0),
+                              child: FloatingActionButton(
+                                backgroundColor: _animateColor.value,
+                                child: new AnimatedIcon(
+                                    icon: AnimatedIcons.pause_play,
+                                    progress: _animateIcon),
+                                onPressed: _playpause,
+                              ),
+                            ),
+                            new IconButton(
+                              splashColor: Colors.blueGrey[200].withOpacity(0.5),
+                              highlightColor: Colors.transparent,
+                              icon: new Icon(
+                                Icons.skip_next,
+                                color: Colors.blueGrey,
+                                size: 32.0,
+                              ),
+                              onPressed: next,
+                            ),
+                            Padding(padding: EdgeInsets.symmetric(horizontal: 15.0)),
+                            new IconButton(
+                                icon: (repeatOn == 1)
+                                    ? Icon(
+                                  Icons.repeat,
+                                  color: Colors.blueGrey,
+                                  size: 15.0,
+                                )
+                                    : Icon(
+                                  Icons.repeat,
+                                  color: Colors.blueGrey.withOpacity(0.5),
+                                  size: 15.0,
+                                ),
+                                onPressed: (){repeat1();}
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  splashColor: Colors.blueGrey[200].withOpacity(0.1),
-                ),
-              )
-            ],
+                  Container(
+                    width: width,
+                    color: Colors.white,
+                    child: FlatButton(
+                      onPressed: _showBottomSheet,
+                      highlightColor: Colors.blueGrey[200].withOpacity(0.1),
+                      child: Text(
+                        "UP NEXT",
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(0.8),
+                            letterSpacing: 2.0,
+                            fontFamily: "Quicksand",
+                            fontWeight: FontWeight.bold),
+                      ),
+                      splashColor: Colors.blueGrey[200].withOpacity(0.1),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         )
       ],
