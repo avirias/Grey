@@ -69,8 +69,8 @@ class stateHome extends State<Home> {
         new SliverAppBar(
           expandedHeight: 180.0,
           floating: false,
-          elevation: 4.0,
-          pinned: true,
+          elevation: 0.0,
+          pinned: false,
           primary: true,
           title: Text("Grey",
               style: TextStyle(
