@@ -17,6 +17,7 @@ dependencies:
   shared_preferences: ^0.4.2
   xml: "^3.0.0"
   http:
+  swipedetector: ^1.2.0
 
 
 

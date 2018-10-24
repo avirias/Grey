@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
-
+import 'package:swipedetector/swipedetector.dart';
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:musicplayer/util/utility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 class NowPlaying extends StatefulWidget {
   int mode;
@@ -22,10 +20,12 @@ class NowPlaying extends StatefulWidget {
     return new _stateNowPlaying();
   }
 }
+
 double widthX;
 double sHeightX;
 
-class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateMixin {
+class _stateNowPlaying extends State<NowPlaying>
+    with SingleTickerProviderStateMixin {
   MusicFinder player;
   Duration duration;
   Duration position;
@@ -38,13 +38,15 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
   Animation<Color> _animateColor;
   bool isOpened = true;
   Animation<double> _animateIcon;
-  double paddingPosition ;
+  double paddingPosition;
   Timer timer;
 
-  get durationText =>
-      duration != null ? duration.toString().split('.').first.substring(3,7): '';
-  get positionText =>
-      position != null ? position.toString().split('.').first.substring(3,7):'';
+  get durationText => duration != null
+      ? duration.toString().split('.').first.substring(3, 7)
+      : '';
+  get positionText => position != null
+      ? position.toString().split('.').first.substring(3, 7)
+      : '';
 
   @override
   void initState() {
@@ -56,9 +58,7 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
     //  SystemChrome.setPreferredOrientations(
     //    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     initPlayer();
-
   }
-
 
   @override
   void dispose() {
@@ -67,13 +67,14 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  callback(Timer timer)
-  {
+  callback(Timer timer) {
     setState(() {
-      if(position.inMilliseconds<=duration.inMilliseconds)
-        paddingPosition = ((widthX-2*(sHeightX*2))/duration.inSeconds)*position.inSeconds;
+      if (position.inMilliseconds <= duration.inMilliseconds)
+        paddingPosition = ((widthX - 2 * (sHeightX * 2)) / duration.inSeconds) *
+            position.inSeconds;
     });
   }
+
   initAnim() {
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500))
@@ -191,6 +192,7 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
       updatePage(widget.index);
     });
   }
+
   Future prev() async {
     player.stop();
     //   int i=await  widget.db.isfav(song);
@@ -203,9 +205,11 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
       updatePage(i);
     });
   }
+
   void onComplete() {
     next();
   }
+
   dynamic getImage(Song song) {
     return song.albumArt == null
         ? null
@@ -219,7 +223,17 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
     orientation = MediaQuery.of(context).orientation;
     return new Scaffold(
       key: scaffoldState,
-      body: portrait(),
+      body: SwipeDetector(
+        child: portrait(),
+        swipeConfiguration: SwipeConfiguration(
+            verticalSwipeMinVelocity: 100.0,
+            verticalSwipeMinDisplacement: 100.0,
+            verticalSwipeMaxWidthThreshold: 100.0,
+            ),
+        onSwipeDown: (){
+          Navigator.of(context).pop();
+        },
+      ),
       backgroundColor: Colors.transparent,
     );
   }
@@ -300,7 +314,6 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
         });
   }
 
-
   Widget portrait() {
     double width = MediaQuery.of(context).size.width;
     widthX = width;
@@ -313,16 +326,16 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
             height: MediaQuery.of(context).size.width,
             color: Colors.white,
             child: getImage(song) != null
-                  ? Image.file(
-                      getImage(song),
-                      fit: BoxFit.fitHeight,
-                    )
-                  : Image.asset("images/music.jpg")),
+                ? Image.file(
+                    getImage(song),
+                    fit: BoxFit.fitHeight,
+                  )
+                : Image.asset("images/music.jpg")),
         Positioned(
           top: width,
           child: Container(
             color: Colors.white,
-            height: MediaQuery.of(context).size.height-width,
+            height: MediaQuery.of(context).size.height - width,
             width: width,
           ),
         ),
@@ -337,64 +350,73 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
         Align(
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: EdgeInsets.only(top: width*0.06*2),
+            padding: EdgeInsets.only(top: width * 0.06 * 2),
             child: Container(
-              width: width-2*width*0.06,
-              height: width-width*0.06,
+              width: width - 2 * width * 0.06,
+              height: width - width * 0.06,
               child: new AspectRatio(
                 aspectRatio: 15 / 15,
                 child: Hero(
                   tag: song.id,
                   child: getImage(song) != null
                       ? Material(
-                    color: Colors.transparent,
-                    elevation: 22.0,
-                    child: Container(
-                      decoration: BoxDecoration(
                           color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(cutRadius),
-                          image: DecorationImage(image: FileImage(
-                              getImage(song)
-                          ),
-                              fit: BoxFit.cover
-                          )
-                      ),
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            bottom: -width*0.15,
-                            right: -width*0.15,
+                          elevation: 22.0,
+                          child: SwipeDetector(
+                            swipeConfiguration: SwipeConfiguration(
+                              horizontalSwipeMinDisplacement: 4.0,
+                              horizontalSwipeMinVelocity: 5.0,
+                              horizontalSwipeMaxHeightThreshold: 100.0
+                            ),
+                            onSwipeLeft: next,
+                            onSwipeRight: prev,
                             child: Container(
-                              decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: BeveledRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(width*0.15)
-                                      )
-                                  )
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(cutRadius),
+                                  image: DecorationImage(
+                                      image: FileImage(getImage(song)),
+                                      fit: BoxFit.cover)),
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    bottom: -width * 0.15,
+                                    right: -width * 0.15,
+                                    child: Container(
+                                      decoration: ShapeDecoration(
+                                          color: Colors.white,
+                                          shape: BeveledRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(
+                                                      width * 0.15)))),
+                                      height: width * 0.15 * 2,
+                                      width: width * 0.15 * 2,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0.0,
+                                    right: 0.0,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          right: 4.0, bottom: 6.0),
+                                      child: Text(
+                                        durationText,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18.0),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-
-                              height: width*0.15*2,
-                              width: width*0.15*2,
                             ),
                           ),
-                          Positioned(
-                            bottom: 0.0,
-                            right: 0.0,
-                            child: Padding(
-                              padding: EdgeInsets.only(right:4.0,bottom: 6.0),
-                              child: Text(durationText,
-                                style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 18.0),),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                        )
                       : new Image.asset(
-                    "images/back.jpg",
-                    fit: BoxFit.fitHeight,
-                  ),
+                          "images/back.jpg",
+                          fit: BoxFit.fitHeight,
+                        ),
                 ),
               ),
             ),
@@ -403,28 +425,32 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
         Align(
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: EdgeInsets.only(top:width*1.11),
+            padding: EdgeInsets.only(top: width * 1.11),
             child: Container(
-              height: MediaQuery.of(context).size.height-width*1.11,
+              height: MediaQuery.of(context).size.height - width * 1.11,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                      Container(
-                        padding:
-                          EdgeInsets.only(left: statusBarHeight*1.2+paddingPosition,right: statusBarHeight*1.1,),
-                        child: Text(positionText,
-                            textAlign: TextAlign.left,
-                            style: new TextStyle(
-                                fontSize: 13.0,
-                                color: Color(0xaa373737),
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.0)),
-                      ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      left: statusBarHeight * 1.2 + paddingPosition,
+                      right: statusBarHeight * 1.1,
+                    ),
+                    child: Text(positionText,
+                        textAlign: TextAlign.left,
+                        style: new TextStyle(
+                            fontSize: 13.0,
+                            color: Color(0xaa373737),
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.0)),
+                  ),
 //              Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                   Container(
                     width: width,
-                    padding: EdgeInsets.only(left: statusBarHeight*1.2,right: statusBarHeight*1.2),
+                    padding: EdgeInsets.only(
+                        left: statusBarHeight * 1.2,
+                        right: statusBarHeight * 1.2),
                     child: Slider(
                       min: 0.0,
                       activeColor: Colors.blueGrey.shade300.withOpacity(0.5),
@@ -482,19 +508,21 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
                             new IconButton(
                                 icon: isfav == 0
                                     ? new Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.blueGrey,
-                                  size: 15.0,
-                                )
+                                        Icons.favorite_border,
+                                        color: Colors.blueGrey,
+                                        size: 15.0,
+                                      )
                                     : new Icon(
-                                  Icons.favorite,
-                                  color: Colors.blueGrey,
-                                  size: 15.0,
-                                ),
+                                        Icons.favorite,
+                                        color: Colors.blueGrey,
+                                        size: 15.0,
+                                      ),
                                 onPressed: () {
                                   setFav(song);
                                 }),
-                            Padding(padding: EdgeInsets.symmetric(horizontal: 15.0)),
+                            Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 15.0)),
                             new IconButton(
                               splashColor: Colors.blueGrey[200],
                               highlightColor: Colors.transparent,
@@ -506,7 +534,7 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
                               onPressed: prev,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 20.0,right: 20.0),
+                              padding: EdgeInsets.only(left: 20.0, right: 20.0),
                               child: FloatingActionButton(
                                 backgroundColor: _animateColor.value,
                                 child: new AnimatedIcon(
@@ -516,7 +544,8 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
                               ),
                             ),
                             new IconButton(
-                              splashColor: Colors.blueGrey[200].withOpacity(0.5),
+                              splashColor:
+                                  Colors.blueGrey[200].withOpacity(0.5),
                               highlightColor: Colors.transparent,
                               icon: new Icon(
                                 Icons.skip_next,
@@ -525,21 +554,24 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
                               ),
                               onPressed: next,
                             ),
-                            Padding(padding: EdgeInsets.symmetric(horizontal: 15.0)),
+                            Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 15.0)),
                             new IconButton(
                                 icon: (repeatOn == 1)
                                     ? Icon(
-                                  Icons.repeat,
-                                  color: Colors.blueGrey,
-                                  size: 15.0,
-                                )
+                                        Icons.repeat,
+                                        color: Colors.blueGrey,
+                                        size: 15.0,
+                                      )
                                     : Icon(
-                                  Icons.repeat,
-                                  color: Colors.blueGrey.withOpacity(0.5),
-                                  size: 15.0,
-                                ),
-                                onPressed: (){repeat1();}
-                            ),
+                                        Icons.repeat,
+                                        color: Colors.blueGrey.withOpacity(0.5),
+                                        size: 15.0,
+                                      ),
+                                onPressed: () {
+                                  repeat1();
+                                }),
                           ],
                         ),
                       ),
@@ -570,19 +602,17 @@ class _stateNowPlaying extends State<NowPlaying> with SingleTickerProviderStateM
       ],
     );
   }
-  Future<void> repeat1() async{
-    setState(() {
-      if(repeatOn == 0)
-        {
-          repeatOn = 1;
-          //widget.repeat.write(1);
-        }
-        else
-         { repeatOn = 0;
-         // widget.repeat.write(0);
-         }
-    });
 
+  Future<void> repeat1() async {
+    setState(() {
+      if (repeatOn == 0) {
+        repeatOn = 1;
+        //widget.repeat.write(1);
+      } else {
+        repeatOn = 0;
+        // widget.repeat.write(0);
+      }
+    });
   }
 
   Future<void> setFav(song) async {

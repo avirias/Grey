@@ -47,17 +47,20 @@ class _stateAlbum extends State<Album> {
             }));
           },
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(6.0),
             child: Stack(
               children: <Widget>[
                 Hero(
                   tag: song.album,
                   child: getImage(song) != null
-                      ? new Image.file(
-                          getImage(song),
-                          height: double.infinity,
-                          fit: BoxFit.fitHeight,
-                        )
+                      ? Container(
+                    color: Colors.blueGrey.shade300,
+                        child: new Image.file(
+                            getImage(song),
+                            height: double.infinity,
+                            fit: BoxFit.fitHeight,
+                          ),
+                      )
                       : new Image.asset(
                           "images/back.jpg",
                           height: double.infinity,

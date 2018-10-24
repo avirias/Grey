@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/card_detail.dart';
 import 'package:musicplayer/pages/now_playing.dart';
+import 'package:musicplayer/util/artistInfo.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:musicplayer/util/utility.dart';
@@ -24,7 +25,7 @@ class ArtistCard extends StatefulWidget {
 
 class stateCardDetail extends State<ArtistCard> {
   List<Song> songs;
-    List<Song> albums;
+  List<Song> albums;
 
   bool isLoading = true;
   var image;
@@ -70,7 +71,6 @@ class stateCardDetail extends State<ArtistCard> {
                     forceElevated: false,
                     floating: false,
                     pinned: true,
-
                     backgroundColor: Colors.transparent,
                     flexibleSpace: new FlexibleSpaceBar(
                       title: Text(widget.song.artist,style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: "Quicksand",fontWeight: FontWeight.w600,letterSpacing: 1.0),maxLines: 1,overflow: TextOverflow.ellipsis,),
@@ -79,13 +79,7 @@ class stateCardDetail extends State<ArtistCard> {
                         children: <Widget>[
                           Hero(
                             tag: widget.song.artist,
-                            child: image != null
-                                ? new Image.file(
-                                    image,
-                                    fit: BoxFit.cover,
-                                  )
-                                : new Image.asset("images/back.jpg",
-                                    fit: BoxFit.cover),
+                            child: GetArtistDetail(artist: widget.song.artist,artistSong: widget.song,)
                           ),
                         ],
                       ),
@@ -105,7 +99,6 @@ class stateCardDetail extends State<ArtistCard> {
                             Container(
                               //aspectRatio: 16/15,
                               height: 205.0,
-                              padding: EdgeInsets.only(left: 10.0),
                               child: new ListView.builder(
                                 itemCount: albums.length,
                                 scrollDirection: Axis.horizontal,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/artistcard.dart';
 import 'package:musicplayer/pages/card_detail.dart';
+import 'package:musicplayer/util/artistInfo.dart';
 
 class Artists extends StatefulWidget {
   DatabaseClient db;
@@ -47,7 +48,7 @@ class _stateArtist extends State<Artists> {
         elevation: 10.0,
         child: new InkWell(
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(6.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -55,13 +56,7 @@ class _stateArtist extends State<Artists> {
                   aspectRatio: 18 / 16,
                   child: Hero(
                     tag: song.artist,
-                    child: getImage(song)!=null
-              ? Image.file(getImage(song),height: 120.0,fit: BoxFit.fitWidth,)
-              : Image.asset(
-                      "images/artist.jpg",
-                      height: 120.0,
-                      fit: BoxFit.fitWidth,
-                    ),
+                    child: GetArtistDetail(artist: song.artist,artistSong: song,)
                   ),
                 ),
                 Expanded(

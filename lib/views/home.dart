@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
+import 'package:musicplayer/util/artistInfo.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/artistcard.dart';
@@ -415,7 +416,6 @@ class stateHome extends State<Home> {
     return new Container(
       //aspectRatio: 16/15,
       height: 180.0,
-      padding: EdgeInsets.only(left: 10.0),
       child: new ListView.builder(
         itemCount: topArtist.length,
         scrollDirection: Axis.horizontal,
@@ -428,15 +428,15 @@ class stateHome extends State<Home> {
                       child: Hero(
                         tag: topArtist[i].artist,
                         child: getImage(topArtist[i]) != null //Artist Image
-                            ? Material(
-                          elevation: 25.0,
-                              color: Colors.transparent,
-                              shape: CircleBorder(),
-                              child: CircleAvatar(
-                                  backgroundImage:
-                                      FileImage(getImage(topArtist[i])),
-                                  radius: 60.0,
-                                ),
+                            ? Container(
+                              height: 130.0,
+                              width: 130.0,
+                              child: Material(
+                                elevation: 25.0,
+                                color: Colors.transparent,
+                                shape: CircleBorder(),
+                                child: ClipRRect(borderRadius: BorderRadius.circular(65.0),child: GetArtistDetail(artist: topArtist[i].artist,artistSong: topArtist[i],)),
+                              ),
                             )
                             : CircleAvatar(
                                 backgroundImage: AssetImage("images/back.jpg"),
@@ -486,7 +486,6 @@ class stateHome extends State<Home> {
     return new Container(
       //aspectRatio: 16/15,
       height: 215.0,
-      padding: EdgeInsets.only(left: 10.0),
       child: new ListView.builder(
         itemCount: topAlbum.length,
         scrollDirection: Axis.horizontal,
@@ -591,7 +590,6 @@ class stateHome extends State<Home> {
     return new Container(
       //aspectRatio: 16/15,
       height: 215.0,
-      padding: EdgeInsets.only(left: 10.0),
       child: new ListView.builder(
         itemCount: favorites.length,
         scrollDirection: Axis.horizontal,
@@ -672,7 +670,6 @@ class stateHome extends State<Home> {
     return new Container(
       //aspectRatio: 16/15,
       height: 215.0,
-      padding: EdgeInsets.only(left: 10.0),
       child: new ListView.builder(
         itemCount: albums.length,
         scrollDirection: Axis.horizontal,
@@ -752,7 +749,6 @@ class stateHome extends State<Home> {
   Widget recentW() {
     return new Container(
       height: 215.0,
-      padding: EdgeInsets.only(left: 10.0),
       child: new ListView.builder(
         itemCount: recents.length,
         scrollDirection: Axis.horizontal,
