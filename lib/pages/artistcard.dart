@@ -92,6 +92,9 @@ class stateCardDetail extends State<ArtistCard> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                            Container(
+                              child: GetArtistDetail(artist: widget.song.artist,artistSong: widget.song,mode: 1,),
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(left: 15.0, top: 15.0, bottom: 10.0),
                               child: Text("Albums".toUpperCase(),style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.w600,fontFamily: "Quicksand",letterSpacing: 1.8),maxLines: 1,overflow: TextOverflow.ellipsis,),

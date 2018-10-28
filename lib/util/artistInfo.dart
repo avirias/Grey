@@ -4,30 +4,16 @@ import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:musicplayer/database/database_client.dart';
-
-//List fetch(String artist) {
-//  final url = baseUrl +
-//      "?method=artist.getinfo&artist=" +
-//      artist.replaceAll(" ", "+") +
-//      "&api_key=" +
-//      apikey;
-//
-//  Future<http.Response> fetchPost() {
-//    return http.get(url);
-//  }
-//
-//  Future<http.Response> str = fetchPost();
-//  final responsexml = xml.parse(url);
-//  print(responsexml);
-//  var images = responsexml.findAllElements("image");
-//  return images.map((node) => node.text).toList();
-//}
 
 class GetArtistDetail extends StatefulWidget {
   final String artist;
   final Song artistSong;
-  GetArtistDetail({this.artist, this.artistSong});
+  final int mode;
+
+  //mode = 0 for artist image
+  //mode = 1 similar artist details
+  //mode = 2 bio
+  GetArtistDetail({this.artist, this.artistSong, this.mode = 0});
   @override
   _GetArtistDetailState createState() => _GetArtistDetailState();
 }
@@ -41,7 +27,8 @@ class _GetArtistDetailState extends State<GetArtistDetail> {
   @override
   void initState() {
     super.initState();
-    url = "$baseUrl?method=artist.getinfo&artist=${widget.artist.toLowerCase().replaceAll(" ", "+")}&api_key=$apiKey&format=json";
+    url =
+        "$baseUrl?method=artist.getinfo&artist=${widget.artist.toLowerCase().replaceAll(" ", "+")}&api_key=$apiKey&format=json";
     fetchData();
   }
 
@@ -51,14 +38,100 @@ class _GetArtistDetailState extends State<GetArtistDetail> {
         : null;
     var res = await http.get(url);
     var decodedJson = jsonDecode(res.body);
-    setState(() {
-      artist = ArtistInfo.fromJson(decodedJson);
-    });
+    artist = ArtistInfo.fromJson(decodedJson);
+    setState(() {});
+  }
+
+  Widget _similarArtist() {
+    return artist.artist.image != null
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 15.0, top: 15.0, bottom: 10.0),
+                child: Text(
+                  "Similar artists".toUpperCase(),
+                  style: TextStyle(
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Quicksand",
+                      letterSpacing: 1.8),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                height: 210.0,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: artist.artist.similar.artist.length,
+                  itemBuilder: (context, i) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 30.0),
+                      child: Card(
+                        elevation: 15.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Image.network(
+                                    artist.artist.similar.artist
+                                        .toList()[i]
+                                        .image
+                                        .toList()[3]
+                                        .text,
+                                    height: 125.0,
+                                    width: 180.0,
+                                    fit: BoxFit.cover),
+                            SizedBox(
+                              width: 180.0,
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: Center(
+                                  child: Text(
+                                    artist.artist.similar.artist
+                                        .toList()[i]
+                                        .name
+                                        .toUpperCase(),
+                                    textAlign: TextAlign.left,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 13.5,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black.withOpacity(0.70)),
+                                    maxLines: 1,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          )
+        : Container();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Widget forModeTwo(){
+    return SingleChildScrollView(
+      child: SliverList(
+        delegate: SliverChildListDelegate(<Widget>[
+
+        ]),
+      ),
+    );
   }
 
   Widget forModeZero() {
@@ -85,7 +158,8 @@ class _GetArtistDetailState extends State<GetArtistDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return forModeZero();
+    return artist !=null
+          ?  :Container();
   }
 }
 

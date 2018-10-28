@@ -146,6 +146,7 @@ class _listSong extends State<ListSongs> {
   Widget build(BuildContext context) {
     initSongs();
     return new Scaffold(
+      backgroundColor: Color(0xFFFAFAFA),
       appBar: widget.orientation == Orientation.portrait
           ? AAppBar(
               title: getTitle(widget.mode),

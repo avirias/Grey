@@ -220,10 +220,11 @@ class _MusicState extends State<MusicHome> {
     initBottomItems();
     return new WillPopScope(
       child: new Scaffold(
+        backgroundColor: Color(0xFFFAFAFA),
         key: scaffoldState,
         appBar: _selectedIndex == 0
             ? null
-            : AAppBar(title: title[_selectedIndex],),
+            : AAppBar(title: title[_selectedIndex].toLowerCase(),),
         floatingActionButton: new FloatingActionButton(
             child: new FlutterLogo(
               colors: Colors.blueGrey,

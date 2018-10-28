@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
+        canvasColor: Colors.transparent,
         errorColor: Colors.transparent,
 
         fontFamily: "Quicksand"

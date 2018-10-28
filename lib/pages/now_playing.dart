@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
+import 'package:musicplayer/util/artistInfo.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class _stateNowPlaying extends State<NowPlaying>
   Animation<double> _animateIcon;
   double paddingPosition;
   Timer timer;
+  bool _showArtistImage;
 
   get durationText => duration != null
       ? duration.toString().split('.').first.substring(3, 7)
@@ -52,6 +54,7 @@ class _stateNowPlaying extends State<NowPlaying>
   void initState() {
     super.initState();
     paddingPosition = 0.0;
+    _showArtistImage = false;
     timer = Timer.periodic(Duration(seconds: 1), callback);
     initAnim();
 
@@ -224,7 +227,7 @@ class _stateNowPlaying extends State<NowPlaying>
     return new Scaffold(
       key: scaffoldState,
       body: SwipeDetector(
-        child: portrait(),
+        child: orientation == Orientation.portrait ? portrait() : landscape(),
         swipeConfiguration: SwipeConfiguration(
             verticalSwipeMinVelocity: 100.0,
             verticalSwipeMinDisplacement: 100.0,
@@ -243,14 +246,20 @@ class _stateNowPlaying extends State<NowPlaying>
         context: context,
         builder: (builder) {
           return new Container(
-              height: 450.0,
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(6.0),topRight: Radius.circular(6.0)
+                )),
+                color: Color(0xFFFAFAFA)
+              ),
+              height: MediaQuery.of(context).size.height*0.7,
               child: Scrollbar(
                 child: new ListView.builder(
                   physics: ClampingScrollPhysics(),
                   itemCount: widget.songs.length,
                   padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.08,
-                      right: MediaQuery.of(context).size.width * 0.08,
+                      left: MediaQuery.of(context).size.width * 0.06,
+                      right: MediaQuery.of(context).size.width * 0.06,
                       top: 10.0),
                   itemBuilder: (context, i) => new Column(
                         children: <Widget>[
@@ -314,6 +323,21 @@ class _stateNowPlaying extends State<NowPlaying>
         });
   }
 
+  void _showArtistDetail(){
+    showModalBottomSheet(context: context, builder: (builder){
+      return Container(
+        decoration: ShapeDecoration(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(6.0),topRight: Radius.circular(6.0)
+            )),
+            color: Color(0xFFFAFAFA)
+        ),
+        height: MediaQuery.of(context).size.height*0.7,
+
+      );
+    });
+  }
+
   Widget portrait() {
     double width = MediaQuery.of(context).size.width;
     widthX = width;
@@ -325,12 +349,14 @@ class _stateNowPlaying extends State<NowPlaying>
         Container(
             height: MediaQuery.of(context).size.width,
             color: Colors.white,
-            child: getImage(song) != null
+            child:
+            getImage(song) != null
                 ? Image.file(
                     getImage(song),
                     fit: BoxFit.fitHeight,
                   )
-                : Image.asset("images/music.jpg")),
+                : Image.asset("images/music.jpg")
+        ),
         Positioned(
           top: width,
           child: Container(
@@ -370,45 +396,64 @@ class _stateNowPlaying extends State<NowPlaying>
                             ),
                             onSwipeLeft: next,
                             onSwipeRight: prev,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(cutRadius),
-                                  image: DecorationImage(
-                                      image: FileImage(getImage(song)),
-                                      fit: BoxFit.cover)),
-                              child: Stack(
-                                children: <Widget>[
-                                  Positioned(
-                                    bottom: -width * 0.15,
-                                    right: -width * 0.15,
-                                    child: Container(
-                                      decoration: ShapeDecoration(
-                                          color: Colors.white,
-                                          shape: BeveledRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(
-                                                      width * 0.15)))),
-                                      height: width * 0.15 * 2,
-                                      width: width * 0.15 * 2,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0.0,
-                                    right: 0.0,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          right: 4.0, bottom: 6.0),
-                                      child: Text(
-                                        durationText,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18.0),
+                            child: InkWell(
+                              onDoubleTap: (){
+                                setState(() {
+                                  if(!_showArtistImage)
+                                      _showArtistImage = true;
+                                  else
+                                    _showArtistImage =false;
+                                });
+                              },
+                              onLongPress: _showArtistDetail,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(cutRadius),
+                                    image: DecorationImage(
+                                        image: FileImage(getImage(song)),
+                                        fit: BoxFit.cover)),
+                                child: Stack(
+                                  children: <Widget>[
+                                    _showArtistImage ?Container(
+                                      width: width - 2 * width * 0.06,
+                                      height: width - width * 0.06,
+                                      child: GetArtistDetail(
+                                        artist: song.artist,
+                                        artistSong: song,
+                                      ),
+                                    ):Container(),
+                                    Positioned(
+                                      bottom: -width * 0.15,
+                                      right: -width * 0.15,
+                                      child: Container(
+                                        decoration: ShapeDecoration(
+                                            color: Colors.white,
+                                            shape: BeveledRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(
+                                                        width * 0.15)))),
+                                        height: width * 0.15 * 2,
+                                        width: width * 0.15 * 2,
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Positioned(
+                                      bottom: 0.0,
+                                      right: 0.0,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            right: 4.0, bottom: 6.0),
+                                        child: Text(
+                                          durationText,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -479,18 +524,21 @@ class _stateNowPlaying extends State<NowPlaying>
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                             ),
-                            new Text(
-                              "${song.artist.toUpperCase()}\n",
-                              style: new TextStyle(
-                                  color: Colors.black.withOpacity(0.7),
-                                  fontSize: 14.0,
-                                  letterSpacing: 1.8,
-                                  height: 1.5,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "Quicksand"),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
+                            GestureDetector(
+                              onTap: _showArtistDetail,
+                              child: new Text(
+                                "${song.artist.toUpperCase()}\n",
+                                style: new TextStyle(
+                                    color: Colors.black.withOpacity(0.7),
+                                    fontSize: 14.0,
+                                    letterSpacing: 1.8,
+                                    height: 1.5,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "Quicksand"),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ],
                         ),
@@ -600,6 +648,121 @@ class _stateNowPlaying extends State<NowPlaying>
           ),
         )
       ],
+    );
+  }
+
+  Widget landscape(){
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return Container(
+      color: Color(0xfffafafa),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Stack(
+        children: <Widget>[
+          Positioned(
+            top: 0.0,
+            left: 0.0,
+            child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: height - height*0.12,
+                color: Colors.white,
+                child: getImage(song) != null
+                    ? Image.file(
+                  getImage(song),
+                  fit: BoxFit.cover
+                )
+                    : Image.asset("images/music.jpg")),
+          ),
+          BackdropFilter(
+            filter: ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            child: Container(
+              height: height,
+              width: height - height*0.12,
+              decoration:
+              new BoxDecoration(color: Colors.grey[900].withOpacity(0.5)),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(
+                left:  MediaQuery.of(context).padding.top,
+                top:  MediaQuery.of(context).padding.top
+              ),
+              child: Container(
+                width: height - 2*MediaQuery.of(context).padding.top,
+                height: height - 2*MediaQuery.of(context).padding.top,
+                child: new AspectRatio(
+                  aspectRatio: 15 / 15,
+                  child: Hero(
+                    tag: song.id,
+                    child: getImage(song) != null
+                        ? Material(
+                      color: Colors.transparent,
+                      elevation: 22.0,
+                      child: SwipeDetector(
+                        swipeConfiguration: SwipeConfiguration(
+                            horizontalSwipeMinDisplacement: 4.0,
+                            horizontalSwipeMinVelocity: 5.0,
+                            horizontalSwipeMaxHeightThreshold: 100.0
+                        ),
+                        onSwipeLeft: next,
+                        onSwipeRight: prev,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(6.0),
+                              image: DecorationImage(
+                                  image: FileImage(getImage(song)),
+                                  fit: BoxFit.cover)),
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned(
+                                bottom: -width * 0.15,
+                                right: -width * 0.15,
+                                child: Container(
+                                  decoration: ShapeDecoration(
+                                      color: Colors.white,
+                                      shape: BeveledRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(
+                                                  width * 0.15)))),
+                                  height: width * 0.15 * 2,
+                                  width: width * 0.15 * 2,
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0.0,
+                                right: 0.0,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      right: 4.0, bottom: 6.0),
+                                  child: Text(
+                                    durationText,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18.0),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                        : new Image.asset(
+                      "images/back.jpg",
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
