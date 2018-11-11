@@ -112,7 +112,7 @@ class _GetArtistDetailState extends State<GetArtistDetail> {
               ),
             ],
           )
-        : Container();
+        : Container(height: 0.0,width: 0.0,);
   }
 
   @override
@@ -155,21 +155,20 @@ class _GetArtistDetailState extends State<GetArtistDetail> {
   decide(){
     switch(widget.mode){
       case 0:
-        forModeZero();
+        return forModeZero();
         break;
       case 1:
-        _similarArtist();
+        return artist!=null ? _similarArtist():Container();
         break;
       case 2:
-        forModeTwo();
+        return forModeTwo();
         break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return artist !=null
-          ? decide() :Container();
+    return decide();
   }
 }
 

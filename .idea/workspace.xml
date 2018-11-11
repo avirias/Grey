@@ -14,19 +14,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="Some tweaks">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="added search">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/database/database_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/database/database_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/musichome.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/musichome.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/list_songs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/list_songs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/now_playing.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/now_playing.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/AAppBar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/util/AAppBar.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/util/artistInfo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/util/artistInfo.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/utility.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/util/utility.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/artist.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/artist.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/artist_view.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/artist_view.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/home1.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/home1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/home2.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/home2.png" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -88,19 +82,19 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="6450" />
+          <entry key="Dart" value="6504" />
           <entry key="Groovy" value="2" />
           <entry key="JAVA" value="72" />
-          <entry key="PLAIN_TEXT" value="13" />
+          <entry key="PLAIN_TEXT" value="31" />
           <entry key="YAML" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="6450" />
+          <entry key="dart" value="6504" />
           <entry key="gradle" value="2" />
           <entry key="java" value="72" />
-          <entry key="txt" value="13" />
+          <entry key="txt" value="31" />
           <entry key="yaml" value="18" />
         </counts>
       </usages-collector>
@@ -108,11 +102,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/util/utility.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-622">
-              <caret line="81" column="28" lean-forward="true" selection-start-line="81" selection-start-column="28" selection-end-line="81" selection-end-column="28" />
+            <state relative-caret-position="357">
+              <caret line="71" column="33" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="33" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
                 <element signature="e#221#320#0" />
@@ -123,20 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/musichome.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3985">
-              <caret line="277" column="60" selection-start-line="277" selection-start-column="60" selection-end-line="277" selection-end-column="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/util/artistInfo.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="61" column="50" selection-start-line="61" selection-start-column="50" selection-end-line="61" selection-end-column="50" />
+            <state relative-caret-position="323">
+              <caret line="160" column="57" selection-start-line="160" selection-start-column="57" selection-end-line="160" selection-end-column="57" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -147,8 +132,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/views/home.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1105">
-              <caret line="79" column="75" selection-start-line="79" selection-start-column="75" selection-end-line="79" selection-end-column="75" />
+            <state relative-caret-position="333">
+              <caret line="215" column="62" selection-start-line="215" selection-start-column="62" selection-end-line="215" selection-end-column="62" />
+              <folding>
+                <element signature="e#1751#1761#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -220,7 +208,6 @@
         <option value="$PROJECT_DIR$/android/app/src/main/java/com/yourcompany/musicplayer/MainActivity.java" />
         <option value="$PROJECT_DIR$/lib/views/artists.dart" />
         <option value="$PROJECT_DIR$/lib/pages/artistcard.dart" />
-        <option value="$PROJECT_DIR$/lib/util/artistInfo.dart" />
         <option value="$PROJECT_DIR$/lib/views/home.dart" />
         <option value="$PROJECT_DIR$/lib/pages/list_songs.dart" />
         <option value="$PROJECT_DIR$/lib/util/AAppBar.dart" />
@@ -229,6 +216,7 @@
         <option value="$PROJECT_DIR$/lib/database/database_client.dart" />
         <option value="$PROJECT_DIR$/lib/musichome.dart" />
         <option value="$PROJECT_DIR$/lib/util/utility.dart" />
+        <option value="$PROJECT_DIR$/lib/util/artistInfo.dart" />
       </list>
     </option>
   </component>
@@ -238,7 +226,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="5" />
     <option name="width" value="1086" />
     <option name="height" value="727" />
@@ -269,6 +257,12 @@
               <item name="Grey" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Grey" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Grey" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -279,7 +273,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541961023348" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541962988611" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -362,7 +356,7 @@
       <workItem from="1540061299435" duration="771000" />
       <workItem from="1540421040378" duration="2330000" />
       <workItem from="1540447512693" duration="27648000" />
-      <workItem from="1541778411518" duration="19378000" />
+      <workItem from="1541778411518" duration="21830000" />
     </task>
     <task id="LOCAL-00001" summary="New Release v0.1.1">
       <created>1529877598386</created>
@@ -588,11 +582,18 @@
       <option name="project" value="LOCAL" />
       <updated>1540745111566</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="added search">
+      <created>1541961063824</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1541961063824</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69549000" />
+    <option name="totallyTimeSpent" value="72001000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -604,10 +605,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="5" width="1086" height="727" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.1920078" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1913767" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Build Variants" order="2" side_tool="true" weight="0.3297561" />
       <window_info id="Designer" order="3" />
@@ -693,7 +693,8 @@
     <MESSAGE value="New Release 0.3.0" />
     <MESSAGE value="Added last.fm API for artist images" />
     <MESSAGE value="Some tweaks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some tweaks" />
+    <MESSAGE value="added search" />
+    <option name="LAST_COMMIT_MESSAGE" value="added search" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lib/pages/settings.dart" />
@@ -980,13 +981,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/home.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="79" column="75" selection-start-line="79" selection-start-column="75" selection-end-line="79" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/musichome.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3985">
@@ -994,25 +988,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/util/artistInfo.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="61" column="50" selection-start-line="61" selection-start-column="50" selection-end-line="61" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/util/utility.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-622">
-          <caret line="81" column="28" lean-forward="true" selection-start-line="81" selection-start-column="28" selection-end-line="81" selection-end-column="28" />
+        <state relative-caret-position="357">
+          <caret line="71" column="33" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="33" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
             <element signature="e#221#320#0" />
             <element signature="e#367#700#0" />
             <element signature="n#!!block;n#Repeat#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/home.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="215" column="62" selection-start-line="215" selection-start-column="62" selection-end-line="215" selection-end-column="62" />
+          <folding>
+            <element signature="e#1751#1761#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/util/artistInfo.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="160" column="57" selection-start-line="160" selection-start-column="57" selection-end-line="160" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
