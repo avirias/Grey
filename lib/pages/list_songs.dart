@@ -90,6 +90,12 @@ class _listSong extends State<ListSongs> {
         context: context,
         builder: (builder) {
           return Container(
+            decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(6.0),topRight: Radius.circular(6.0)
+                )),
+                color: Color(0xFFFAFAFA)
+            ),
             child: Scrollbar(
               child: ListView.builder(
                 padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 10.0),

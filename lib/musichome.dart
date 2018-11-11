@@ -99,8 +99,8 @@ class _MusicState extends State<MusicHome> {
       }
       bottomOptions.add(new IconButton(
         icon: Icon(d.icon,
-            color: d.isselected
-                ? Colors.blueGrey.shade800
+            color: d.isSelected
+                ? Color(0xff373a46)
                 : Colors.blueGrey.shade600),
         onPressed: d.onPressed,
         tooltip: d.tooltip,
@@ -263,14 +263,33 @@ class _MusicState extends State<MusicHome> {
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           child: Container(
-            height: 58.0,
+            decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5.0),
+                  topRight: Radius.circular(5.0)
+                )
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                tileMode: TileMode.clamp,
+                colors: [
+                  Colors.blueGrey.shade200.withOpacity(0.5),
+                  Colors.blueGrey.shade100.withOpacity(0.5),
+                  Colors.grey.shade300.withOpacity(0.8),
+                  Colors.grey.shade100.withOpacity(0.9),
+                ]
+              )
+            ),
+            height: 55.0,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: bottomOptions),
           ),
-          color: Colors.grey.shade300.withOpacity(0.9),
+          notchMargin: 8.0,
           elevation: 0.0,
-          notchMargin: 10.0,
+          color: Colors.transparent,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
@@ -315,7 +334,7 @@ class BottomItem {
   String tooltip;
   IconData icon;
   VoidCallback onPressed;
-  bool isselected;
+  bool isSelected;
   BottomItem(
-      [this.tooltip, this.icon, this.onPressed, this.isselected = false]);
+      [this.tooltip, this.icon, this.onPressed, this.isSelected = false]);
 }

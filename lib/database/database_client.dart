@@ -335,7 +335,7 @@ class DatabaseClient {
     return songs;
   }
 
-  Future<List<Song>> searchSong(String q) async {
+  Future<List<Song>> searchSongByTitle(String q) async {
     //  List<Map> results = await _db.query("songs",
     // distinct: true,
     //columns: Song.Columns );
@@ -347,6 +347,25 @@ class DatabaseClient {
       songs.add(song);
     });
     return songs;
+  }
+  Future<List<String>> searchAlbum(String query)async{
+    List<Map> results = await _db.rawQuery("select * from songs where album like '%$query%'");
+    List<String> albums = List();
+    results.forEach((s){
+      Song song = new Song.fromMap(s);
+      albums.add(song.album);
+    });
+    return albums;
+  }
+
+  Future<List<String>> searchArtist(String query) async{
+    List<Map> results = await _db.rawQuery("select * from songs where artist like '%$query%'");
+    List<String> artists = List();
+    results.forEach((s){
+      Song song = new Song.fromMap(s);
+      artists.add(song.artist);
+    });
+    return artists;
   }
 
   Future<List<Song>> fetchSongById(int id) async {

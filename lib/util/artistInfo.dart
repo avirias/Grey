@@ -78,11 +78,7 @@ class _GetArtistDetailState extends State<GetArtistDetail> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Image.network(
-                                    artist.artist.similar.artist
-                                        .toList()[i]
-                                        .image
-                                        .toList()[3]
-                                        .text,
+                                    artist.artist.similar.artist.toList()[i].image.toList()[3].text,
                                     height: 125.0,
                                     width: 180.0,
                                     fit: BoxFit.cover),
@@ -156,10 +152,24 @@ class _GetArtistDetailState extends State<GetArtistDetail> {
           );
   }
 
+  decide(){
+    switch(widget.mode){
+      case 0:
+        forModeZero();
+        break;
+      case 1:
+        _similarArtist();
+        break;
+      case 2:
+        forModeTwo();
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return artist !=null
-          ?  :Container();
+          ? decide() :Container();
   }
 }
 

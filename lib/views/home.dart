@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicplayer/util/artistInfo.dart';
+import 'package:musicplayer/util/utility.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/artistcard.dart';
@@ -61,6 +62,120 @@ class stateHome extends State<Home> {
       isLoading = false;
     });
   }
+  aboutPart(){
+    showAboutDialog(
+      context: context,
+      applicationName: "Grey",
+      applicationVersion: "0.3.0",
+      applicationLegalese: "MIT License",
+      applicationIcon: FlutterLogo(colors: Colors.blueGrey),
+      children: <Widget>[
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: RichText(text: TextSpan(
+              children: [
+                TextSpan(
+                  style: TextStyle(
+                      fontSize: 19.0, fontWeight: FontWeight.w600,color: Colors.black,
+                      fontFamily: 'Quicksand',
+                      letterSpacing: 1.5
+                  ),
+                  text: '{}',
+                ),
+                TextSpan(
+                  text: ' with ',
+                  style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 18.0,
+                    color: Colors.black
+                  )
+                ),
+                TextSpan(
+                  text: '♥',
+                  style: TextStyle(
+                    fontFamily: 'Quicksand',
+                      fontSize: 18.0
+                  )
+                ),
+                TextSpan(
+                  text: ' by',
+                    style: TextStyle(
+                        fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18.0,
+                        color: Colors.black
+                    )
+                ),
+                TextSpan(
+                  text: ' @avirias',
+                    style: TextStyle(
+                        fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                        fontSize: 18.0
+
+                    )
+                )
+              ]
+            ))
+//            Text(
+//              "Developed by Avinash Kumar",
+//              style: TextStyle(
+//                  ),
+//            ),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Container(
+              child: IconButton(
+                icon: ImageIcon(
+                    AssetImage("images/GitHub-Mark.png")),
+                onPressed: () {
+                  launchUrl(1);
+                },
+                iconSize: 40.0,
+              ),
+            ),
+            Container(
+              child: IconButton(
+                icon: ImageIcon(AssetImage("images/flogo.png")),
+                onPressed: () {
+                  launchUrl(2);
+                },
+                iconSize: 55.0,
+              ),
+            ),
+            Container(
+              child: IconButton(
+                icon:
+                ImageIcon(AssetImage("images/instalogo.png")),
+                onPressed: () {
+                  launchUrl(3);
+                },
+                iconSize: 40.0,
+              ),
+            )
+          ],
+        ),
+//        Center(
+//          child: Padding(
+//            padding: const EdgeInsets.symmetric(vertical: 3.0),
+//            child: Text(
+//              "@avirias",
+//              style: TextStyle(
+//                  fontSize: 18.0,
+//                  fontFamily: "Quicksand",
+//                  fontWeight: FontWeight.w500),
+//            ),
+//          ),
+//        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,81 +209,11 @@ class stateHome extends State<Home> {
                   Icons.info_outline,
                   color: Colors.white,
                 ),
-                onPressed: () {
-                  showAboutDialog(
-                    context: context,
-                    applicationName: "Grey",
-                    applicationVersion: "0.3.0",
-                    applicationLegalese: "MIT License",
-                    applicationIcon: FlutterLogo(colors: Colors.blueGrey),
-                    children: <Widget>[
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: Text(
-                            "Developed by Avinash Kumar",
-                            style: TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            child: IconButton(
-                              icon: ImageIcon(
-                                  AssetImage("images/GitHub-Mark.png")),
-                              onPressed: () {
-                                launchUrl(1);
-                              },
-                              iconSize: 40.0,
-                            ),
-                          ),
-                          Container(
-                            child: IconButton(
-                              icon: ImageIcon(AssetImage("images/flogo.png")),
-                              onPressed: () {
-                                launchUrl(2);
-                              },
-                              iconSize: 55.0,
-                            ),
-                          ),
-                          Container(
-                            child: IconButton(
-                              icon:
-                                  ImageIcon(AssetImage("images/instalogo.png")),
-                              onPressed: () {
-                                launchUrl(3);
-                              },
-                              iconSize: 40.0,
-                            ),
-                          )
-                        ],
-                      ),
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 3.0),
-                          child: Text(
-                            "@avirias",
-                            style: TextStyle(
-                                fontSize: 18.0,
-                                fontFamily: "Quicksand",
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                }),
+                onPressed: aboutPart),
             new IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
-//                  Navigator
-//                      .of(context)
-//                      .push(new MaterialPageRoute(builder: (context) {
-//                    return new SearchSong(widget.db, songs);
-//                  }));
+                  showSearch(context: context, delegate: SearchSong());
                 })
           ],
           flexibleSpace: new FlexibleSpaceBar(

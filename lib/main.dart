@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         canvasColor: Colors.transparent,
         errorColor: Colors.transparent,
 
-        fontFamily: "Quicksand"
+        fontFamily: "Quicksand",
       ),
       home: MusicHome(),
     );

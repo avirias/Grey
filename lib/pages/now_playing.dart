@@ -485,9 +485,9 @@ class _stateNowPlaying extends State<NowPlaying>
                     child: Text(positionText,
                         textAlign: TextAlign.left,
                         style: new TextStyle(
-                            fontSize: 13.0,
+                            fontSize: 12.5,
                             color: Color(0xaa373737),
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                             letterSpacing: 1.0)),
                   ),
 //              Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
@@ -498,7 +498,7 @@ class _stateNowPlaying extends State<NowPlaying>
                         right: statusBarHeight * 1.2),
                     child: Slider(
                       min: 0.0,
-                      activeColor: Colors.blueGrey.shade300.withOpacity(0.5),
+                      activeColor: Colors.blueGrey.shade400.withOpacity(0.5),
                       inactiveColor: Colors.blueGrey.shade300.withOpacity(0.3),
                       value: position?.inMilliseconds?.toDouble() ?? 0.0,
                       onChanged: (double value) =>
