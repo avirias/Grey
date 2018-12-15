@@ -4,19 +4,18 @@ import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicplayer/database/database_client.dart';
 import 'package:musicplayer/pages/artistcard.dart';
-import 'package:musicplayer/pages/card_detail.dart';
 import 'package:musicplayer/util/artistInfo.dart';
 
 class Artists extends StatefulWidget {
-  DatabaseClient db;
+  final DatabaseClient db;
   Artists(this.db);
   @override
   State<StatefulWidget> createState() {
-    return new _stateArtist();
+    return new _StateArtist();
   }
 }
 
-class _stateArtist extends State<Artists> {
+class _StateArtist extends State<Artists> {
   List<Song> songs;
   var f;
   bool isLoading = true;

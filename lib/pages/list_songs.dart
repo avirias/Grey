@@ -9,21 +9,20 @@ import 'package:musicplayer/pages/now_playing.dart';
 import 'package:musicplayer/util/AAppBar.dart';
 import 'package:musicplayer/util/lastplay.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:musicplayer/util/utility.dart';
 
 class ListSongs extends StatefulWidget {
-  DatabaseClient db;
-  int mode;
-  Orientation orientation;
+  final DatabaseClient db;
+  final int mode;
+  final Orientation orientation;
   // mode =1=>recent, 2=>top, 3=>fav
   ListSongs(this.db, this.mode, this.orientation);
   @override
   State<StatefulWidget> createState() {
-    return new _listSong();
+    return new _ListSong();
   }
 }
 
-class _listSong extends State<ListSongs> {
+class _ListSong extends State<ListSongs> {
   List<Song> songs, allSongs;
   bool isLoading = true;
   dynamic getImage(Song song) {
@@ -34,7 +33,6 @@ class _listSong extends State<ListSongs> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initSongs();
   }
@@ -57,6 +55,12 @@ class _listSong extends State<ListSongs> {
     setState(() {
       isLoading = false;
     });
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   String getTitle(int mode) {
@@ -155,7 +159,7 @@ class _listSong extends State<ListSongs> {
       backgroundColor: Color(0xFFFAFAFA),
       appBar: widget.orientation == Orientation.portrait
           ? AAppBar(
-              title: getTitle(widget.mode),
+              title: getTitle(widget.mode).toLowerCase(),
               isBack: true,
             )
           : null,
@@ -166,6 +170,7 @@ class _listSong extends State<ListSongs> {
               )
             : songs.length != 0
                 ? new ListView.builder(
+                    physics: BouncingScrollPhysics(),
                     itemCount: songs.length,
                     itemBuilder: (context, i) => new Column(
                           children: <Widget>[
@@ -238,7 +243,7 @@ class _listSong extends State<ListSongs> {
                     ),
                   ),
       ),
-      floatingActionButton: songs.length != 0
+      floatingActionButton: songs != null
           ? FloatingActionButton(
               onPressed: () {
                 if (widget.mode != 3) {

@@ -11,6 +11,7 @@ dependencies:
   flute_music_player:
   sqflite:
   path_provider:
+  flutter_local_notifications: ^0.4.2+1
   shimmer: ^0.0.5
   material_search_bar: ^1.0.0
   url_launcher: 3.0.1

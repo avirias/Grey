@@ -10,8 +10,8 @@ class DatabaseClient {
   Song song;
   Future create() async {
     Directory path = await getApplicationDocumentsDirectory();
-    String dbpath = join(path.path, "database.db");
-    _db = await openDatabase(dbpath, version: 1, onCreate: this._create);
+    String dbPath = join(path.path, "database.db");
+    _db = await openDatabase(dbPath, version: 1, onCreate: this._create);
   }
 
   Future _create(Database db, int version) async {
@@ -92,7 +92,6 @@ class DatabaseClient {
   Future<bool> alreadyLoaded() async {
     var count =
         Sqflite.firstIntValue(await _db.rawQuery("SELECT COUNT(*) FROM songs"));
-    print("count=$count");
     if (count > 0) {
       return true;
     } else {
@@ -318,7 +317,6 @@ class DatabaseClient {
     results.forEach((s) {
       song = new Song.fromMap(s);
     });
-    print(song.title);
     return song;
   }
 

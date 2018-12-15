@@ -263,33 +263,34 @@ class _MusicState extends State<MusicHome> {
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           child: Container(
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(5.0),
-                  topRight: Radius.circular(5.0)
-                )
-              ),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                tileMode: TileMode.clamp,
-                colors: [
-                  Colors.blueGrey.shade200.withOpacity(0.5),
-                  Colors.blueGrey.shade100.withOpacity(0.5),
-                  Colors.grey.shade300.withOpacity(0.8),
-                  Colors.grey.shade100.withOpacity(0.9),
-                ]
-              )
-            ),
+//            decoration: ShapeDecoration(
+//              shape: RoundedRectangleBorder(
+//                borderRadius: BorderRadius.only(
+//                  topLeft: Radius.circular(5.0),
+//                  topRight: Radius.circular(5.0)
+//                )
+//              ),
+//              gradient: LinearGradient(
+//                begin: Alignment.topLeft,
+//                end: Alignment.bottomRight,
+//                tileMode: TileMode.clamp,
+//                colors: [
+//                  Colors.blueGrey.shade200.withOpacity(0.5),
+//                  Colors.blueGrey.shade100.withOpacity(0.5),
+//                  Colors.grey.shade300.withOpacity(0.8),
+//                  Colors.grey.shade100.withOpacity(0.9),
+//                ]
+//              )
+//            ),
+          color: Colors.transparent,
             height: 55.0,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: bottomOptions),
           ),
-          notchMargin: 8.0,
+          notchMargin: 10.0,
           elevation: 0.0,
-          color: Colors.transparent,
+          color: Colors.grey.withOpacity(0.25),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
