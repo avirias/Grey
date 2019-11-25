@@ -15,7 +15,9 @@ class ArtistCard extends StatefulWidget {
   int id;
   Song song;
   DatabaseClient db;
+
   ArtistCard(this.db, this.song);
+
   @override
   State<StatefulWidget> createState() {
     return new stateCardDetail();
@@ -28,6 +30,7 @@ class stateCardDetail extends State<ArtistCard> {
 
   bool isLoading = true;
   var image;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -58,13 +61,13 @@ class stateCardDetail extends State<ArtistCard> {
         context: context,
         child: Material(
             child: Container(
-              color: Colors.white,
-              margin: EdgeInsets.all(80.0),
+                color: Colors.white,
+                margin: EdgeInsets.all(80.0),
                 child: GetArtistDetail(
-          artist: widget.song.artist,
-          artistSong: widget.song,
-          mode: 2,
-        ))));
+                  artist: widget.song.artist,
+                  artistSong: widget.song,
+                  mode: 2,
+                ))));
   }
 
   @override
@@ -147,68 +150,65 @@ class stateCardDetail extends State<ArtistCard> {
                             itemCount: albums.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, i) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 30.0),
-                                  child: new Card(
-                                    elevation: 15.0,
-                                    child: new InkResponse(
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(6.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            SizedBox(
-                                              child: Hero(
-                                                tag: albums[i].album,
-                                                child:
-                                                    getImage(albums[i]) != null
-                                                        ? new Image.file(
-                                                            getImage(albums[i]),
-                                                            height: 120.0,
-                                                            width: 180.0,
-                                                            fit: BoxFit.cover,
-                                                          )
-                                                        : new Image.asset(
-                                                            "images/back.jpg",
-                                                            height: 120.0,
-                                                            width: 180.0,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 180.0,
-                                              child: Padding(
-                                                // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10.0, 8.0, 5.0, 0.0),
-                                                child: Text(
-                                                  albums[i].album.toUpperCase(),
-                                                  style: new TextStyle(
-                                                      fontSize: 13.5,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.black
-                                                          .withOpacity(0.70)),
-                                                  maxLines: 1,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                              padding: const EdgeInsets.only(bottom: 30.0),
+                              child: new Card(
+                                elevation: 15.0,
+                                child: new InkResponse(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(6.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        SizedBox(
+                                          child: Hero(
+                                            tag: albums[i].album,
+                                            child: getImage(albums[i]) != null
+                                                ? new Image.file(
+                                                    getImage(albums[i]),
+                                                    height: 120.0,
+                                                    width: 180.0,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : new Image.asset(
+                                                    "images/back.jpg",
+                                                    height: 120.0,
+                                                    width: 180.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                          ),
                                         ),
-                                      ),
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            new MaterialPageRoute(
-                                                builder: (context) {
-                                          return new CardDetail(
-                                              widget.db, albums[i]);
-                                        }));
-                                      },
+                                        SizedBox(
+                                          width: 180.0,
+                                          child: Padding(
+                                            // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                                            padding: EdgeInsets.fromLTRB(
+                                                10.0, 8.0, 5.0, 0.0),
+                                            child: Text(
+                                              albums[i].album.toUpperCase(),
+                                              style: new TextStyle(
+                                                  fontSize: 13.5,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black
+                                                      .withOpacity(0.70)),
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        new MaterialPageRoute(
+                                            builder: (context) {
+                                      return new CardDetail(
+                                          widget.db, albums[i]);
+                                    }));
+                                  },
                                 ),
+                              ),
+                            ),
                           ),
                         ),
                         Padding(
@@ -237,11 +237,13 @@ class stateCardDetail extends State<ArtistCard> {
                           child: new ListTile(
                             leading: Hero(
                               tag: songs[i].id,
-                              child: Image.file(
-                                getImage(songs[i]),
-                                width: 55.0,
-                                height: 55.0,
-                              ),
+                              child: songs[i].albumArt != null
+                                  ? Image.file(
+                                      getImage(songs[i]),
+                                      width: 55.0,
+                                      height: 55.0,
+                                    )
+                                  : Icon(Icons.music_note),
                             ),
                             title: new Text(
                               songs[i].title,

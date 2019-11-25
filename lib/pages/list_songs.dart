@@ -14,8 +14,10 @@ class ListSongs extends StatefulWidget {
   final DatabaseClient db;
   final int mode;
   final Orientation orientation;
+
   // mode =1=>recent, 2=>top, 3=>fav
   ListSongs(this.db, this.mode, this.orientation);
+
   @override
   State<StatefulWidget> createState() {
     return new _ListSong();
@@ -25,6 +27,7 @@ class ListSongs extends StatefulWidget {
 class _ListSong extends State<ListSongs> {
   List<Song> songs, allSongs;
   bool isLoading = true;
+
   dynamic getImage(Song song) {
     return song.albumArt == null
         ? null
@@ -56,7 +59,6 @@ class _ListSong extends State<ListSongs> {
       isLoading = false;
     });
   }
-
 
   @override
   void dispose() {
@@ -95,11 +97,11 @@ class _ListSong extends State<ListSongs> {
         builder: (builder) {
           return Container(
             decoration: ShapeDecoration(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(6.0),topRight: Radius.circular(6.0)
-                )),
-                color: Color(0xFFFAFAFA)
-            ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(6.0),
+                        topRight: Radius.circular(6.0))),
+                color: Color(0xFFFAFAFA)),
             child: Scrollbar(
               child: ListView.builder(
                 padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 10.0),
@@ -114,11 +116,13 @@ class _ListSong extends State<ListSongs> {
                           color: Colors.black,
                           fontSize: 16.0,
                         )),
-                    leading: Image.file(
-                      getImage(allSongs[i]),
-                      width: 55.0,
-                      height: 55.0,
-                    ),
+                    leading: allSongs[i].albumArt != null
+                        ? Image.file(
+                            getImage(allSongs[i]),
+                            width: 55.0,
+                            height: 55.0,
+                          )
+                        : Icon(Icons.music_note),
                     subtitle: new Text(
                       allSongs[i].artist,
                       maxLines: 1,
@@ -152,13 +156,14 @@ class _ListSong extends State<ListSongs> {
   }
 
   GlobalKey<ScaffoldState> scaffoldState = new GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     initSongs();
     return new Scaffold(
       backgroundColor: Color(0xFFFAFAFA),
       appBar: widget.orientation == Orientation.portrait
-          ? AAppBar(
+          ? GreyAppBar(
               title: getTitle(widget.mode).toLowerCase(),
               isBack: true,
             )
@@ -173,51 +178,51 @@ class _ListSong extends State<ListSongs> {
                     physics: BouncingScrollPhysics(),
                     itemCount: songs.length,
                     itemBuilder: (context, i) => new Column(
-                          children: <Widget>[
-                            new ListTile(
-                              leading: Hero(
-                                tag: songs[i].id,
-                                child: Image.file(
-                                  getImage(songs[i]),
-                                  width: 55.0,
-                                  height: 55.0,
-                                ),
-                              ),
-                              title: new Text(songs[i].title,
-                                  maxLines: 1,
+                      children: <Widget>[
+                        new ListTile(
+                          leading: Hero(
+                            tag: songs[i].id,
+                            child: songs[i].albumArt != null
+                                ? Image.file(
+                                    getImage(songs[i]),
+                                    width: 55.0,
+                                    height: 55.0,
+                                  )
+                                : Icon(Icons.music_note),
+                          ),
+                          title: new Text(songs[i].title,
+                              maxLines: 1,
+                              style: new TextStyle(
+                                  fontSize: 16.0, color: Colors.black)),
+                          subtitle: new Text(
+                            songs[i].artist,
+                            maxLines: 1,
+                            style: new TextStyle(
+                                fontSize: 12.0, color: Colors.grey),
+                          ),
+                          trailing: widget.mode == 2
+                              ? new Text(
+                                  (i + 1).toString(),
                                   style: new TextStyle(
-                                      fontSize: 16.0, color: Colors.black)),
-                              subtitle: new Text(
-                                songs[i].artist,
-                                maxLines: 1,
-                                style: new TextStyle(
-                                    fontSize: 12.0, color: Colors.grey),
-                              ),
-                              trailing: widget.mode == 2
-                                  ? new Text(
-                                      (i + 1).toString(),
-                                      style: new TextStyle(
-                                          fontSize: 12.0, color: Colors.grey),
-                                    )
-                                  : new Text(
-                                      new Duration(
-                                              milliseconds: songs[i].duration)
-                                          .toString()
-                                          .split('.')
-                                          .first
-                                          .substring(3, 7),
-                                      style: new TextStyle(
-                                          fontSize: 12.0, color: Colors.grey)),
-                              onTap: () {
-                                MyQueue.songs = songs;
-                                Navigator.of(context).push(
-                                    new MaterialPageRoute(
-                                        builder: (context) => new NowPlaying(
-                                            widget.db, MyQueue.songs, i, 0)));
-                              },
-                            ),
-                          ],
+                                      fontSize: 12.0, color: Colors.grey),
+                                )
+                              : new Text(
+                                  new Duration(milliseconds: songs[i].duration)
+                                      .toString()
+                                      .split('.')
+                                      .first
+                                      .substring(3, 7),
+                                  style: new TextStyle(
+                                      fontSize: 12.0, color: Colors.grey)),
+                          onTap: () {
+                            MyQueue.songs = songs;
+                            Navigator.of(context).push(new MaterialPageRoute(
+                                builder: (context) => new NowPlaying(
+                                    widget.db, MyQueue.songs, i, 0)));
+                          },
                         ),
+                      ],
+                    ),
                   )
                 : Center(
                     child: Column(

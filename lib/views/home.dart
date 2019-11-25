@@ -15,16 +15,18 @@ import 'package:musicplayer/util/lastplay.dart';
 import 'package:flutter/cupertino.dart';
 
 class Home extends StatefulWidget {
-  DatabaseClient db;
+  final DatabaseClient db;
+
   Home(this.db);
+
   @override
   State<StatefulWidget> createState() {
-    return new stateHome();
+    return new HomeState();
   }
 }
 
-class stateHome extends State<Home> {
-  List<Song> albums, recents, songs, favorites, topAlbum, topArtist;
+class HomeState extends State<Home> {
+  List<Song> songs;
   bool isLoading = true;
   int noOfFavorites;
   Song last;
@@ -47,93 +49,74 @@ class stateHome extends State<Home> {
   }
 
   void init() async {
-    albums = await widget.db.fetchRandomAlbum();
-    recents = await widget.db.fetchRecentSong();
-    favorites = await widget.db.fetchFavSong();
-    topAlbum = await widget.db.fetchTopAlbum();
     noOfFavorites = await widget.db.noOfFavorites();
-    topArtist = await widget.db.fetchTopArtists();
-
-    recents.removeAt(0); // as it is showing in header
     last = await widget.db.fetchLastSong();
     songs = await widget.db.fetchSongs();
-    print(last.title);
     setState(() {
       isLoading = false;
     });
   }
-  aboutPart(){
+
+  aboutPart() {
     showAboutDialog(
       context: context,
       applicationName: "Grey",
-      applicationVersion: "0.3.0",
+      applicationVersion: "0.3.1",
       applicationLegalese: "MIT License",
       applicationIcon: FlutterLogo(colors: Colors.blueGrey),
       children: <Widget>[
         Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5.0),
-            child: RichText(text: TextSpan(
-              children: [
+              padding: const EdgeInsets.symmetric(vertical: 5.0),
+              child: RichText(
+                  text: TextSpan(children: [
                 TextSpan(
                   style: TextStyle(
-                      fontSize: 19.0, fontWeight: FontWeight.w600,color: Colors.black,
+                      fontSize: 19.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
                       fontFamily: 'Quicksand',
-                      letterSpacing: 1.5
-                  ),
+                      letterSpacing: 1.5),
                   text: '{}',
                 ),
                 TextSpan(
-                  text: ' with ',
-                  style: TextStyle(
-                    fontFamily: 'Quicksand',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 18.0,
-                    color: Colors.black
-                  )
-                ),
-                TextSpan(
-                  text: '♥',
-                  style: TextStyle(
-                    fontFamily: 'Quicksand',
-                      fontSize: 18.0
-                  )
-                ),
-                TextSpan(
-                  text: ' by',
+                    text: ' with ',
                     style: TextStyle(
                         fontFamily: 'Quicksand',
                         fontWeight: FontWeight.w400,
                         fontSize: 18.0,
-                        color: Colors.black
-                    )
-                ),
+                        color: Colors.black)),
                 TextSpan(
-                  text: ' @avirias',
+                    text: '♥',
+                    style: TextStyle(fontFamily: 'Quicksand', fontSize: 18.0)),
+                TextSpan(
+                    text: ' by',
+                    style: TextStyle(
+                        fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18.0,
+                        color: Colors.black)),
+                TextSpan(
+                    text: ' @avirias',
                     style: TextStyle(
                         fontFamily: 'Quicksand',
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
-                        fontSize: 18.0
-
-                    )
-                )
-              ]
-            ))
+                        fontSize: 18.0))
+              ]))
 //            Text(
 //              "Developed by Avinash Kumar",
 //              style: TextStyle(
 //                  ),
 //            ),
-          ),
+              ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
               child: IconButton(
-                icon: ImageIcon(
-                    AssetImage("images/GitHub-Mark.png")),
+                icon: ImageIcon(AssetImage("images/GitHub-Mark.png")),
                 onPressed: () {
                   launchUrl(1);
                 },
@@ -151,8 +134,7 @@ class stateHome extends State<Home> {
             ),
             Container(
               child: IconButton(
-                icon:
-                ImageIcon(AssetImage("images/instalogo.png")),
+                icon: ImageIcon(AssetImage("images/instalogo.png")),
                 onPressed: () {
                   launchUrl(3);
                 },
@@ -457,155 +439,197 @@ class stateHome extends State<Home> {
     );
   }
 
+  // Done
   Widget topArtists() {
     return new Container(
-      //aspectRatio: 16/15,
       height: 180.0,
-      child: new ListView.builder(
-        itemCount: topArtist.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, i) => Padding(
-              padding: const EdgeInsets.only(bottom: 10.0, right: 0.0),
-              child: Column(
-                children: <Widget>[
-                  new InkResponse(
-                    child: SizedBox(
-                      child: Hero(
-                        tag: topArtist[i].artist,
-                        child: getImage(topArtist[i]) != null //Artist Image
-                            ? Container(
-                              height: 130.0,
-                              width: 130.0,
-                              child: Material(
-                                elevation: 25.0,
-                                color: Colors.transparent,
-                                shape: CircleBorder(),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(65.0),child: GetArtistDetail(artist: topArtist[i].artist,artistSong: topArtist[i],)),
-                              ),
-                            )
-                            : CircleAvatar(
-                                backgroundImage: AssetImage("images/back.jpg"),
-                          radius: 60.0,
-                            ),
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.of(context)
-                          .push(new MaterialPageRoute(builder: (context) {
-                        return new ArtistCard(widget.db, topArtist[i]);
-                      }));
-                    },
-                  ),
-                  SizedBox(
-                    width: 150.0,
-                    child: Padding(
-                      // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                      padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Center(
-                            child: Text(
-                              topArtist[i].artist.toUpperCase(),
-                              style: new TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black.withOpacity(0.70)),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+      child: FutureBuilder(
+        future: widget.db.fetchTopArtists(),
+        builder: (context, AsyncSnapshot<List<Song>> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              break;
+            case ConnectionState.waiting:
+              break;
+            case ConnectionState.active:
+              return CircularProgressIndicator();
+            case ConnectionState.done:
+              List<Song> topArtist = snapshot.data;
+              return ListView.builder(
+                itemCount: topArtist.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, i) => Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0, right: 0.0),
+                  child: Column(
+                    children: <Widget>[
+                      new InkResponse(
+                        child: SizedBox(
+                          child: Hero(
+                            tag: topArtist[i].artist,
+                            child: getImage(topArtist[i]) != null //Artist Image
+                                ? Container(
+                                    height: 130.0,
+                                    width: 130.0,
+                                    child: Material(
+                                      elevation: 25.0,
+                                      color: Colors.transparent,
+                                      shape: CircleBorder(),
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(65.0),
+                                          child: GetArtistDetail(
+                                            artist: topArtist[i].artist,
+                                            artistSong: topArtist[i],
+                                          )),
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage("images/back.jpg"),
+                                    radius: 60.0,
+                                  ),
                           ),
-                          SizedBox(height: 0.0),
-                        ],
+                        ),
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(new MaterialPageRoute(builder: (context) {
+                            return new ArtistCard(widget.db, topArtist[i]);
+                          }));
+                        },
                       ),
-                    ),
+                      SizedBox(
+                        width: 150.0,
+                        child: Padding(
+                          // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                          padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  topArtist[i].artist,
+                                  style: new TextStyle(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black.withOpacity(0.70)),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              SizedBox(height: 0.0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+          }
+          return Text('end');
+        },
       ),
     );
   }
 
+  // Done
   Widget topAlbums() {
     return new Container(
-      //aspectRatio: 16/15,
       height: 215.0,
-      child: new ListView.builder(
-        itemCount: topAlbum.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, i) => Padding(
-              padding: const EdgeInsets.only(bottom: 35.0),
-              child: new Card(
-                elevation: 12.0,
-                child: new InkResponse(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          child: Hero(
-                            tag: topAlbum[i].album,
-                            child: getImage(topAlbum[i]) != null
-                                ? new Image.file(
-                                    getImage(topAlbum[i]),
-                                    height: 120.0,
-                                    width: 180.0,
-                                    fit: BoxFit.cover,
-                                  )
-                                : new Image.asset(
-                                    "images/back.jpg",
-                                    height: 120.0,
-                                    width: 180.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 180.0,
-                          child: Padding(
-                            // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                            padding: EdgeInsets.fromLTRB(10.0, 8.0, 0.0, 0.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  topAlbum[i].album,
-                                  style: new TextStyle(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black.withOpacity(0.70)),
-                                  maxLines: 1,
-                                ),
-                                SizedBox(height: 5.0),
-                                Padding(
-                                  padding:
-                                      EdgeInsetsDirectional.only(bottom: 5.0),
-                                  child: Text(
-                                    topAlbum[i].artist,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black.withOpacity(0.75)),
-                                  ),
-                                )
-                              ],
+      child: FutureBuilder(
+        future: widget.db.fetchTopAlbum(),
+        builder: (context, AsyncSnapshot<List<Song>> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              break;
+            case ConnectionState.waiting:
+              return CircularProgressIndicator();
+            case ConnectionState.active:
+              break;
+            case ConnectionState.done:
+              List<Song> topAlbum = snapshot.data;
+              return ListView.builder(
+                itemCount: topAlbum.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, i) => Padding(
+                  padding: const EdgeInsets.only(bottom: 35.0),
+                  child: new Card(
+                    elevation: 12.0,
+                    child: new InkResponse(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              child: Hero(
+                                tag: topAlbum[i].album,
+                                child: getImage(topAlbum[i]) != null
+                                    ? new Image.file(
+                                        getImage(topAlbum[i]),
+                                        height: 120.0,
+                                        width: 180.0,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : new Image.asset(
+                                        "images/back.jpg",
+                                        height: 120.0,
+                                        width: 180.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
                             ),
-                          ),
+                            SizedBox(
+                              width: 180.0,
+                              child: Padding(
+                                // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                                padding:
+                                    EdgeInsets.fromLTRB(10.0, 8.0, 0.0, 0.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      topAlbum[i].album,
+                                      style: new TextStyle(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w500,
+                                          color:
+                                              Colors.black.withOpacity(0.70)),
+                                      maxLines: 1,
+                                    ),
+                                    SizedBox(height: 5.0),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.only(
+                                          bottom: 5.0),
+                                      child: Text(
+                                        topAlbum[i].artist,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            fontSize: 10.0,
+                                            color:
+                                                Colors.black.withOpacity(0.75)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(new MaterialPageRoute(builder: (context) {
+                          return new CardDetail(widget.db, topAlbum[i]);
+                        }));
+                      },
                     ),
                   ),
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(new MaterialPageRoute(builder: (context) {
-                      return new CardDetail(widget.db, topAlbum[i]);
-                    }));
-                  },
                 ),
-              ),
-            ),
+              );
+          }
+          return Text('end');
+        },
       ),
     );
   }
@@ -631,162 +655,202 @@ class stateHome extends State<Home> {
     );
   }
 
+  // Done
   Widget favoritesList() {
     return new Container(
       //aspectRatio: 16/15,
       height: 215.0,
-      child: new ListView.builder(
-        itemCount: favorites.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, i) => Padding(
-              padding: const EdgeInsets.only(bottom: 35.0),
-              child: new Card(
-                elevation: 12.0,
-                child: new InkResponse(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          child: getImage(favorites[i]) != null
-                              ? new Image.file(
-                                  getImage(favorites[i]),
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                )
-                              : new Image.asset(
-                                  "images/back.jpg",
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                        SizedBox(
-                          width: 180.0,
-                          child: Padding(
-                            // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                            padding: EdgeInsets.fromLTRB(10.0, 8.0, 0.0, 0.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  favorites[i].title,
-                                  style: new TextStyle(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black.withOpacity(0.70)),
-                                  maxLines: 1,
-                                ),
-                                SizedBox(height: 5.0),
-                                Padding(
-                                  padding:
-                                      EdgeInsetsDirectional.only(bottom: 5.0),
-                                  child: Text(
-                                    favorites[i].artist,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black.withOpacity(0.75)),
-                                  ),
-                                )
-                              ],
+      child: FutureBuilder(
+        future: widget.db.fetchFavSong(),
+        builder: (context, AsyncSnapshot<List<Song>> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              break;
+            case ConnectionState.waiting:
+              return CircularProgressIndicator();
+            case ConnectionState.active:
+              break;
+            case ConnectionState.done:
+              List<Song> favorites = snapshot.data;
+              return ListView.builder(
+                itemCount: favorites.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, i) => Padding(
+                  padding: const EdgeInsets.only(bottom: 35.0),
+                  child: new Card(
+                    elevation: 12.0,
+                    child: new InkResponse(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              child: getImage(favorites[i]) != null
+                                  ? new Image.file(
+                                      getImage(favorites[i]),
+                                      height: 120.0,
+                                      width: 180.0,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : new Image.asset(
+                                      "images/back.jpg",
+                                      height: 120.0,
+                                      width: 180.0,
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
-                          ),
+                            SizedBox(
+                              width: 180.0,
+                              child: Padding(
+                                // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                                padding:
+                                    EdgeInsets.fromLTRB(10.0, 8.0, 0.0, 0.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      favorites[i].title,
+                                      style: new TextStyle(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w500,
+                                          color:
+                                              Colors.black.withOpacity(0.70)),
+                                      maxLines: 1,
+                                    ),
+                                    SizedBox(height: 5.0),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.only(
+                                          bottom: 5.0),
+                                      child: Text(
+                                        favorites[i].artist,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            fontSize: 10.0,
+                                            color:
+                                                Colors.black.withOpacity(0.75)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(new MaterialPageRoute(builder: (context) {
+                          return new NowPlaying(widget.db, favorites, i, 0);
+                        }));
+                      },
                     ),
                   ),
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(new MaterialPageRoute(builder: (context) {
-                      return new NowPlaying(widget.db, favorites, i, 0);
-                    }));
-                  },
                 ),
-              ),
-            ),
+              );
+          }
+          return Text('end');
+        },
       ),
     );
   }
 
   Widget randomW() {
     return new Container(
-      //aspectRatio: 16/15,
       height: 215.0,
-      child: new ListView.builder(
-        itemCount: albums.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, i) => Padding(
-              padding: const EdgeInsets.only(bottom: 35.0),
-              child: new Card(
-                elevation: 12.0,
-                child: new InkResponse(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          child: getImage(albums[i]) != null
-                              ? new Image.file(
-                                  getImage(albums[i]),
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                )
-                              : new Image.asset(
-                                  "images/back.jpg",
-                                  height: 120.0,
-                                  width: 180.0,
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                        SizedBox(
-                          width: 180.0,
-                          child: Padding(
-                            // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                            padding: EdgeInsets.fromLTRB(10.0, 8.0, 0.0, 0.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  albums[i].album,
-                                  style: new TextStyle(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black.withOpacity(0.70)),
-                                  maxLines: 1,
-                                ),
-                                SizedBox(height: 5.0),
-                                Padding(
-                                  padding:
-                                      EdgeInsetsDirectional.only(bottom: 5.0),
-                                  child: Text(
-                                    albums[i].artist,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black.withOpacity(0.75)),
-                                  ),
-                                )
-                              ],
+      child: FutureBuilder(
+        future: widget.db.fetchRandomAlbum(),
+        builder: (context, AsyncSnapshot<List<Song>> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              // TODO: Handle this case.
+              break;
+            case ConnectionState.waiting:
+              return CircularProgressIndicator();
+            case ConnectionState.active:
+              // TODO: Handle this case.
+              break;
+            case ConnectionState.done:
+              List<Song> albums = snapshot.data;
+              return ListView.builder(
+                itemCount: albums.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, i) => Padding(
+                  padding: const EdgeInsets.only(bottom: 35.0),
+                  child: new Card(
+                    elevation: 12.0,
+                    child: new InkResponse(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              child: getImage(albums[i]) != null
+                                  ? new Image.file(
+                                      getImage(albums[i]),
+                                      height: 120.0,
+                                      width: 180.0,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : new Image.asset(
+                                      "images/back.jpg",
+                                      height: 120.0,
+                                      width: 180.0,
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
-                          ),
+                            SizedBox(
+                              width: 180.0,
+                              child: Padding(
+                                // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                                padding:
+                                    EdgeInsets.fromLTRB(10.0, 8.0, 0.0, 0.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      albums[i].album,
+                                      style: new TextStyle(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w500,
+                                          color:
+                                              Colors.black.withOpacity(0.70)),
+                                      maxLines: 1,
+                                    ),
+                                    SizedBox(height: 5.0),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.only(
+                                          bottom: 5.0),
+                                      child: Text(
+                                        albums[i].artist,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            fontSize: 10.0,
+                                            color:
+                                                Colors.black.withOpacity(0.75)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(new MaterialPageRoute(builder: (context) {
+                          return new CardDetail(widget.db, albums[i]);
+                        }));
+                      },
                     ),
                   ),
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(new MaterialPageRoute(builder: (context) {
-                      return new CardDetail(widget.db, albums[i]);
-                    }));
-                  },
                 ),
-              ),
-            ),
+              );
+          }
+          return Text('end');
+        },
       ),
     );
   }
@@ -794,86 +858,106 @@ class stateHome extends State<Home> {
   Widget recentW() {
     return new Container(
       height: 215.0,
-      child: new ListView.builder(
-        itemCount: recents.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, i) => Padding(
-              padding: const EdgeInsets.only(bottom: 35.0),
-              child: InkWell(
-                onTap: () {
-                  MyQueue.songs = recents;
-                  Navigator.of(context)
-                      .push(new MaterialPageRoute(builder: (context) {
-                    return new NowPlaying(widget.db, recents, i, 0);
-                  }));
-                },
-                child: new Card(
-                  elevation: 12.0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          child: Hero(
-                            tag: recents[i].id,
-                            child: getImage(recents[i]) != null
-                                ? Container(
-                                    height: 120.0,
-                                    width: 180.0,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                      image: FileImage(
-                                        getImage(recents[i]),
+      child: FutureBuilder(
+        future: widget.db.fetchRecentSong(),
+        builder: (context, AsyncSnapshot<List<Song>> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              break;
+            case ConnectionState.waiting:
+              return CircularProgressIndicator();
+            case ConnectionState.active:
+              break;
+            case ConnectionState.done:
+              List<Song> recents = snapshot.data;
+              return ListView.builder(
+                itemCount: recents.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, i) => Padding(
+                  padding: const EdgeInsets.only(bottom: 35.0),
+                  child: InkWell(
+                    onTap: () {
+                      MyQueue.songs = recents;
+                      Navigator.of(context)
+                          .push(new MaterialPageRoute(builder: (context) {
+                        return new NowPlaying(widget.db, recents, i, 0);
+                      }));
+                    },
+                    child: new Card(
+                      elevation: 12.0,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              child: Hero(
+                                tag: recents[i].id,
+                                child: getImage(recents[i]) != null
+                                    ? Container(
+                                        height: 120.0,
+                                        width: 180.0,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                          image: FileImage(
+                                            getImage(recents[i]),
+                                          ),
+                                          fit: BoxFit.cover,
+                                        )),
+                                      )
+                                    : new Image.asset(
+                                        "images/back.jpg",
+                                        height: 120.0,
+                                        width: 180.0,
+                                        fit: BoxFit.cover,
                                       ),
-                                      fit: BoxFit.cover,
-                                    )),
-                                  )
-                                : new Image.asset(
-                                    "images/back.jpg",
-                                    height: 120.0,
-                                    width: 180.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                        ),
-                        SizedBox(
-                            width: 180.0,
-                            child: Padding(
-                              // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                              padding: EdgeInsets.fromLTRB(10.0, 8.0, 0.0, 0.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    recents[i].title,
-                                    style: new TextStyle(
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black.withOpacity(0.70)),
-                                    maxLines: 1,
-                                  ),
-                                  SizedBox(height: 5.0),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 5.0),
-                                    child: Text(
-                                      recents[i].artist,
-                                      style: TextStyle(
-                                          fontSize: 10.0,
-                                          color:
-                                              Colors.black.withOpacity(0.75)),
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                ],
                               ),
-                            ))
-                      ],
+                            ),
+                            SizedBox(
+                                width: 180.0,
+                                child: Padding(
+                                  // padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                                  padding:
+                                      EdgeInsets.fromLTRB(10.0, 8.0, 0.0, 0.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        recents[i].title,
+                                        style: new TextStyle(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                                Colors.black.withOpacity(0.70)),
+                                        maxLines: 1,
+                                      ),
+                                      SizedBox(height: 5.0),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 5.0),
+                                        child: Text(
+                                          recents[i].artist,
+                                          style: TextStyle(
+                                              fontSize: 10.0,
+                                              color: Colors.black
+                                                  .withOpacity(0.75)),
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
+              );
+          }
+          return Text('end');
+        },
       ),
     );
   }

@@ -8,7 +8,9 @@ import 'package:musicplayer/util/artistInfo.dart';
 
 class Artists extends StatefulWidget {
   final DatabaseClient db;
+
   Artists(this.db);
+
   @override
   State<StatefulWidget> createState() {
     return new _StateArtist();
@@ -16,22 +18,13 @@ class Artists extends StatefulWidget {
 }
 
 class _StateArtist extends State<Artists> {
-  List<Song> songs;
   var f;
-  bool isLoading = true;
 
   @override
   initState() {
     super.initState();
-    initArtists();
   }
 
-  void initArtists() async {
-    songs = await widget.db.fetchArtist();
-    setState(() {
-      isLoading = false;
-    });
-  }
 
   dynamic getImage(Song song) {
     return song.albumArt == null
@@ -39,7 +32,7 @@ class _StateArtist extends State<Artists> {
         : new File.fromUri(Uri.parse(song.albumArt));
   }
 
-  List<Card> _buildGridCards(BuildContext context) {
+  List<Card> _buildGridCards(BuildContext context, List<Song> songs ) {
     return songs.map((song) {
       return Card(
         color: Colors.transparent,
@@ -54,19 +47,25 @@ class _StateArtist extends State<Artists> {
                 AspectRatio(
                   aspectRatio: 18 / 16,
                   child: Hero(
-                    tag: song.artist,
-                    child: GetArtistDetail(artist: song.artist,artistSong: song,)
-                  ),
+                      tag: song.artist,
+                      child: GetArtistDetail(
+                        artist: song.artist,
+                        artistSong: song,
+                      )),
                 ),
                 Expanded(
                   child: Container(
                     color: Colors.white,
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Text(
                           song.artist.toUpperCase(),
-                          style: new TextStyle(fontFamily: "Quicksand",fontSize: 13.0,fontWeight: FontWeight.w600,letterSpacing: 2.0),
+                          style: new TextStyle(
+                              fontFamily: "Quicksand",
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 2.0),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -78,8 +77,7 @@ class _StateArtist extends State<Artists> {
             ),
           ),
           onTap: () {
-            Navigator
-                .of(context)
+            Navigator.of(context)
                 .push(new MaterialPageRoute(builder: (context) {
               return new ArtistCard(widget.db, song);
             }));
@@ -91,18 +89,32 @@ class _StateArtist extends State<Artists> {
 
   @override
   Widget build(BuildContext context) {
-    final Orientation orientation=MediaQuery.of(context).orientation;
+    final Orientation orientation = MediaQuery.of(context).orientation;
     return new Container(
-        child: isLoading
-            ? new Center(child: new CircularProgressIndicator())
-            : Scrollbar(
+        child: FutureBuilder(
+          future: widget.db.fetchArtist(),
+          builder: (context,AsyncSnapshot<List<Song>> snapshot){
+            switch(snapshot.connectionState){
+
+              case ConnectionState.none:
+                break;
+              case ConnectionState.waiting:
+                return CircularProgressIndicator();
+              case ConnectionState.active:
+                break;
+              case ConnectionState.done:
+                return Scrollbar(
                   child: new GridView.count(
                     physics: BouncingScrollPhysics(),
-                  crossAxisCount:orientation==Orientation.portrait? 2:4,
-                  children: _buildGridCards(context),
-                  padding: EdgeInsets.all(10.0),
-                  childAspectRatio: 8.0 / 9.5,
-                ),
-            ));
+                    crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+                    children: _buildGridCards(context,snapshot.data),
+                    padding: EdgeInsets.all(10.0),
+                    childAspectRatio: 8.0 / 9.5,
+                  ),
+                );
+            }
+            return Text('end');
+          },
+        ));
   }
 }

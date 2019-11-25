@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AAppBar extends StatelessWidget implements PreferredSizeWidget {
-  AAppBar({this.title, this.isBack = false});
+class GreyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  GreyAppBar({this.title, this.isBack = false});
   final String title;
   final bool isBack;
   @override
@@ -16,12 +16,10 @@ class AAppBar extends StatelessWidget implements PreferredSizeWidget {
       decoration: BoxDecoration(
           gradient: LinearGradient(
         colors: [
+          Colors.blueGrey.shade700,
           Colors.blueGrey.shade500,
-          Colors.blueGrey.shade400,
           Colors.blueGrey.shade300,
-          Colors.blueGrey.shade200,
           Colors.blueGrey.shade100,
-          Colors.blueGrey.shade50,
           Colors.grey.shade100,
           Colors.grey.shade50,
           Color(0xFFFAFAFA)
@@ -57,7 +55,7 @@ class AAppBar extends StatelessWidget implements PreferredSizeWidget {
                   title,
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 42.0,
+                    fontSize: 38.0,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2.0,
                   ),
