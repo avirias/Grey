@@ -80,17 +80,15 @@ class _StatePlaylist extends State<Playlist> {
             "Recently played",
             style: TextStyle(
                 fontSize: 20.0,
-                fontWeight: FontWeight.w500,
-                letterSpacing: 1.0,
-                fontFamily: "Quicksand"),
+                fontWeight: FontWeight.w500),
           ),
           subtitle: new Text(
-            "Includes  ${atFirst!=null?atFirst:nu} and more",
+            "Includes ${atFirst!=null?atFirst:nu} and more",
             maxLines: 1,
           ),
           onTap: () {
             Navigator.of(context)
-                .push(new MaterialPageRoute(builder: (context) {
+                .push(new CupertinoPageRoute(builder: (context) {
               return new ListSongs(widget.db, 1, orientation);
             }));
           },
@@ -104,8 +102,6 @@ class _StatePlaylist extends State<Playlist> {
             "Top tracks",
             style: TextStyle(
                 fontSize: 20.0,
-                letterSpacing: 1.0,
-                fontFamily: "Quicksand",
                 fontWeight: FontWeight.w500),
           ),
           subtitle: new Text(
@@ -114,7 +110,7 @@ class _StatePlaylist extends State<Playlist> {
           ),
           onTap: () {
             Navigator.of(context)
-                .push(new MaterialPageRoute(builder: (context) {
+                .push(new CupertinoPageRoute(builder: (context) {
               return new ListSongs(widget.db, 2, orientation);
             }));
           },
@@ -129,7 +125,6 @@ class _StatePlaylist extends State<Playlist> {
             style: TextStyle(
                 fontSize: 20.0,
                 letterSpacing: 1.0,
-                fontFamily: "Quicksand",
                 fontWeight: FontWeight.w500),
           ),
           subtitle: new Text(
@@ -138,7 +133,7 @@ class _StatePlaylist extends State<Playlist> {
           ),
           onTap: () {
             Navigator.of(context)
-                .push(new MaterialPageRoute(builder: (context) {
+                .push(new CupertinoPageRoute(builder: (context) {
               return new ListSongs(widget.db, 3, orientation);
             }));
           },

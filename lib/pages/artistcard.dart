@@ -96,7 +96,6 @@ class stateCardDetail extends State<ArtistCard> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20.0,
-                          fontFamily: "Quicksand",
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1.0),
                       maxLines: 1,
@@ -137,7 +136,6 @@ class stateCardDetail extends State<ArtistCard> {
                             style: TextStyle(
                                 fontSize: 17.0,
                                 fontWeight: FontWeight.w600,
-                                fontFamily: "Quicksand",
                                 letterSpacing: 1.8),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -218,7 +216,6 @@ class stateCardDetail extends State<ArtistCard> {
                               style: TextStyle(
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.w600,
-                                  fontFamily: "Quicksand",
                                   letterSpacing: 1.8),
                               maxLines: 1),
                         ),

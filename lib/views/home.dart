@@ -75,31 +75,27 @@ class HomeState extends State<Home> {
                       fontSize: 19.0,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
-                      fontFamily: 'Quicksand',
                       letterSpacing: 1.5),
                   text: '{}',
                 ),
                 TextSpan(
                     text: ' with ',
                     style: TextStyle(
-                        fontFamily: 'Quicksand',
                         fontWeight: FontWeight.w400,
                         fontSize: 18.0,
                         color: Colors.black)),
                 TextSpan(
                     text: '♥',
-                    style: TextStyle(fontFamily: 'Quicksand', fontSize: 18.0)),
+                    style: TextStyle( fontSize: 18.0)),
                 TextSpan(
                     text: ' by',
                     style: TextStyle(
-                        fontFamily: 'Quicksand',
                         fontWeight: FontWeight.w400,
                         fontSize: 18.0,
                         color: Colors.black)),
                 TextSpan(
                     text: ' @avirias',
                     style: TextStyle(
-                        fontFamily: 'Quicksand',
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
                         fontSize: 18.0))
@@ -174,7 +170,6 @@ class HomeState extends State<Home> {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
-                  fontFamily: "Quicksand",
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.0)),
           backgroundColor: Colors.white30,
@@ -234,7 +229,6 @@ class HomeState extends State<Home> {
                         style: TextStyle(
                             color: Colors.blueGrey[900],
                             fontSize: 14.0,
-                            fontFamily: "Quicksand",
                             fontStyle: FontStyle.normal,
                             fontWeight: FontWeight.w500,
                             letterSpacing: 1.5),

@@ -76,7 +76,6 @@ class _GetArtistDetailState extends State<GetArtistDetail> {
                   style: TextStyle(
                       fontSize: 17.0,
                       fontWeight: FontWeight.w600,
-                      fontFamily: "Quicksand",
                       letterSpacing: 1.8),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

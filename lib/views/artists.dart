@@ -62,7 +62,6 @@ class _StateArtist extends State<Artists> {
                         child: Text(
                           song.artist.toUpperCase(),
                           style: new TextStyle(
-                              fontFamily: "Quicksand",
                               fontSize: 13.0,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 2.0),

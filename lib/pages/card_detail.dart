@@ -104,7 +104,7 @@ class _StateCardDetail extends State<CardDetail> {
                                   style: new TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.w600,
-                                      fontFamily: "Quicksand"),
+                                      ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
