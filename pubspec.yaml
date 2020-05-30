@@ -1,5 +1,6 @@
 name: musicplayer
 description: A new Flutter project.
+version: 0.4.0+2
 
 dependencies:
   flutter:
@@ -17,6 +18,10 @@ dependencies:
   xml: "^3.0.0"
   http:
   swipedetector: ^1.2.0
+  flutter_stetho: ^0.5.2
+  flutter_audio_query:
+    git:
+      url: https://github.com/shayan4shayan/flutter_audio_query.git
 
 
 

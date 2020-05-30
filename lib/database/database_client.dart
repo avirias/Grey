@@ -81,8 +81,8 @@ class DatabaseClient {
       song.isFav = 0;
     }
     if (_db == null) await create();
-    int count = Sqflite.firstIntValue(await _db
-        .rawQuery("SELECT COUNT(*) FROM songs WHERE id = ${song.id}"));
+    int count = Sqflite.firstIntValue(
+        await _db.rawQuery("SELECT COUNT(*) FROM songs WHERE id = ${song.id}"));
     if (count == 0) {
       return await _db.insert("songs", song.toMap());
     }
@@ -102,60 +102,6 @@ class DatabaseClient {
         await _db.rawQuery("SELECT COUNT(*) FROM songs where isFav = 1"));
   }
 
-  Future<List<Song>> fetchSongs() async {
-    List<Map> results =
-        await _db.query("songs", columns: Song.Columns, orderBy: "title");
-    List<Song> songs = new List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      songs.add(song);
-    });
-    return songs;
-  }
-
-  Future<List<Song>> fetchSongsFromAlbum(int id) async {
-    List<Map> results = await _db
-        .rawQuery("select * from songs where albumid=$id order by count");
-    List<Song> songs = new List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      songs.add(song);
-    });
-    return songs;
-  }
-
-  Future<List<Song>> fetchAlbum() async {
-    List<Map> results = await _db.rawQuery(
-        "select distinct albumid,album,artist ,albumArt from songs group by album order by album");
-    List<Song> songs = new List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      songs.add(song);
-    });
-    return songs;
-  }
-
-  Future<List<Song>> fetchArtist() async {
-    List<Map> results = await _db.rawQuery(
-        "select distinct artist,album,albumArt from songs group by artist order by artist");
-    List<Song> songs = new List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      songs.add(song);
-    });
-    return songs;
-  }
-
-  Future<List<Song>> fetchSongsByArtist(String artist) async {
-    List<Map> results = await _db.rawQuery(
-        "select * from songs where artist='$artist' order by timestamp desc");
-    List<Song> songs = new List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      songs.add(song);
-    });
-    return songs;
-  }
 
   Future<List<Song>> fetchAlbumByArtist(String artist) async {
     List<Map> results = await _db.rawQuery(
@@ -223,25 +169,9 @@ class DatabaseClient {
     return songs;
   }
 
-  Future<int> updateSong(Song song) async {
-    int id = 0;
-    var count = Sqflite.firstIntValue(await _db
-        .rawQuery("SELECT COUNT(*) FROM songs WHERE id = ?", [song.id]));
-    if (count == 0) {
-      print("count=" + count.toString());
-      id = await _db.insert("songs", song.toMap());
-    } else {
-      print("count=" + count.toString());
-      await _db
-          .update("songs", song.toMap(), where: "id= ?", whereArgs: [song.id]);
-      // await _db.rawQuery("update songs set count =count +1 where id=${song.id}");
-      print("updated");
-    }
+ 
 
-    return id;
-  }
-
-  Future<int> isfav(Song song) async {
+  Future<int> isFavorite(Song song) async {
     var c = Sqflite.firstIntValue(
         await _db.rawQuery("select isFav from songs where is=${song.id}"));
     if (c == 0) {
@@ -255,7 +185,7 @@ class DatabaseClient {
     }
   }
 
-  Future<int> favSong(Song song) async {
+  Future<int> favoriteSongsList(Song song) async {
     var c = Sqflite.firstIntValue(
         await _db.rawQuery("select isFav from songs where id=${song.id}"));
     if (c == 0) {
@@ -279,62 +209,4 @@ class DatabaseClient {
     return song;
   }
 
-  Future<List<Song>> fetchFavSong() async {
-    //  List<Map> results = await _db.query("songs",
-    // distinct: true,
-    //columns: Song.Columns );
-    List<Map> results = await _db.rawQuery("select * from songs where isFav=1");
-    List<Song> songs = new List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      songs.add(song);
-    });
-    return songs;
-  }
-
-  Future<List<Song>> searchSongByTitle(String q) async {
-    //  List<Map> results = await _db.query("songs",
-    // distinct: true,
-    //columns: Song.Columns );
-    List<Map> results =
-        await _db.rawQuery("select * from songs where title like '%$q%'");
-    List<Song> songs = new List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      songs.add(song);
-    });
-    return songs;
-  }
-
-  Future<List<String>> searchAlbum(String query) async {
-    List<Map> results =
-        await _db.rawQuery("select * from songs where album like '%$query%'");
-    List<String> albums = List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      albums.add(song.album);
-    });
-    return albums;
-  }
-
-  Future<List<String>> searchArtist(String query) async {
-    List<Map> results =
-        await _db.rawQuery("select * from songs where artist like '%$query%'");
-    List<String> artists = List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      artists.add(song.artist);
-    });
-    return artists;
-  }
-
-  Future<List<Song>> fetchSongById(int id) async {
-    List<Map> results = await _db.rawQuery("select * from songs where id=$id");
-    List<Song> songs = new List();
-    results.forEach((s) {
-      Song song = new Song.fromMap(s);
-      songs.add(song);
-    });
-    return songs;
-  }
 }

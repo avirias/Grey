@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
-import 'package:musicplayer/database/database_client.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:musicplayer/pages/now_playing.dart';
-import 'package:musicplayer/util/AAppBar.dart';
-import 'package:musicplayer/util/lastplay.dart';
-import 'package:musicplayer/views/album.dart';
+import 'package:musicplayer/widgets/app_bar.dart';
+import 'package:musicplayer/model/queue.dart';
+import 'package:musicplayer/views/albums.dart';
 import 'package:musicplayer/views/artists.dart';
 import 'package:musicplayer/views/home.dart';
 import 'package:musicplayer/views/playlists.dart';
@@ -13,23 +13,22 @@ import 'package:musicplayer/views/songs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BodySelection extends StatelessWidget {
-  BodySelection(this._selectedIndex, this.db);
+  BodySelection(this._selectedIndex);
 
-  final DatabaseClient db;
   final int _selectedIndex;
 
   _selectionPage(int pos) {
     switch (pos) {
       case 0:
-        return Home(db);
+        return Home();
       case 2:
-        return Songs(db);
+        return Songs();
       case 3:
-        return Artists(db);
+        return Artists();
       case 1:
-        return Album(db);
+        return Albums();
       case 4:
-        return Playlist(db);
+        return Playlists();
       default:
         return Text("Error");
     }
@@ -42,7 +41,6 @@ class BodySelection extends StatelessWidget {
 }
 
 class MusicHome extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return new _MusicState();
@@ -54,9 +52,7 @@ class _MusicState extends State<MusicHome> {
   int serIndex;
   List<Song> songs;
   List<String> title = ["", "Albums", "Songs", "Artists", "Playlists"];
-  DatabaseClient db;
   bool isLoading = true;
-  Song last;
   List<BottomItem> bottomItems;
   List<dynamic> bottomOptions;
 
@@ -110,34 +106,7 @@ class _MusicState extends State<MusicHome> {
   @override
   void initState() {
     super.initState();
-    initPlayer();
-  }
-
-  void initPlayer() async {
-    db = new DatabaseClient();
-    await db.create();
-    if (await db.alreadyLoaded()) {
-      setState(() {
-        isLoading = false;
-        getLast();
-      });
-    } else {
-      var songs;
-      try {
-        songs = await MusicFinder.allSongs();
-      } catch (e) {
-        print("failed to get songs");
-      }
-      List<Song> list = new List.from(songs);
-      for (Song song in list) db.insertOrUpdateSong(song);
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        isLoading = false;
-        getLast();
-      });
-    }
+    isLoading = false;
   }
 
   @override
@@ -145,37 +114,6 @@ class _MusicState extends State<MusicHome> {
     super.dispose();
   }
 
-  void getLast() async {
-    last = await db.fetchLastSong();
-    songs = await db.fetchSongs();
-    setState(() {
-      songs = songs;
-    });
-  }
-
-  Future<Null> refreshData() async {
-    var db = new DatabaseClient();
-    await MusicFinder.allSongs().then((songs) {
-      List<Song> newSongs = List.from(songs);
-      for (Song song in newSongs)  db.insertOrUpdateSong(song);
-    }).then((val) {
-      scaffoldState.currentState.showSnackBar(new SnackBar(
-        content: Text(
-          "Database Updated",
-        ),
-        duration: Duration(milliseconds: 1500),
-      ));
-    }).catchError((error) {
-      scaffoldState.currentState.showSnackBar(new SnackBar(
-        content: Text(
-          "Failed to update database",
-        ),
-        duration: Duration(milliseconds: 1500),
-      ));
-    });
-  }
-
-  var refreshKey = GlobalKey<RefreshIndicatorState>();
   GlobalKey<ScaffoldState> scaffoldState = new GlobalKey();
 
   @override
@@ -198,33 +136,28 @@ class _MusicState extends State<MusicHome> {
             backgroundColor: Colors.white,
             onPressed: () async {
               var pref = await SharedPreferences.getInstance();
+              FlutterAudioQuery audio = FlutterAudioQuery();
               var fp = pref.getBool("played");
               if (fp == null) {
-                scaffoldState.currentState.showSnackBar(
-                    new SnackBar(content: Text("Play your first song.")));
+                scaffoldState.currentState.showSnackBar(new SnackBar(
+                  content: Text("Play your first song."),
+                  duration: Duration(milliseconds: 1500),
+                ));
               } else {
+                if (MyQueue.songs == null) {
+                  List<SongInfo> list = await audio.getSongs();
+                  MyQueue.songs = list;
+                }
+                // TODO: Play last song
                 Navigator.of(context)
                     .push(new MaterialPageRoute(builder: (context) {
-                  if (MyQueue.songs == null) {
-                    List<Song> list = new List();
-                    list.add(last);
-                    MyQueue.songs = list;
-                    return new NowPlaying(db, list, 0, 0);
-                  } else
-                    return new NowPlaying(db, MyQueue.songs, MyQueue.index, 1);
+                  return new NowPlaying(MyQueue.songs, 0, 1);
                 }));
               }
             }),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
-            : _selectedIndex == 0
-                ? RefreshIndicator(
-                    child: BodySelection(_selectedIndex, db),
-                    color: Colors.blueGrey,
-                    onRefresh: refreshData,
-                    backgroundColor: Colors.white,
-                  )
-                : BodySelection(_selectedIndex, db),
+            : BodySelection(_selectedIndex),
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           child: Container(

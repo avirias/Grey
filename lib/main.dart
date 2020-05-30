@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:musicplayer/musichome.dart';
-void main() => runApp(new MyApp());
+import 'package:flutter_stetho/flutter_stetho.dart';
+import 'package:musicplayer/home_page.dart';
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stetho.initialize();
+  runApp(new MyApp());
+
+}
 
 
 class MyApp extends StatelessWidget {
@@ -17,7 +23,6 @@ class MyApp extends StatelessWidget {
         errorColor: Colors.transparent,
         fontFamily: "Google Sans"
       ),
-      darkTheme: ThemeData.dark(),
       home: MusicHome(),
     );
   }

@@ -1,24 +1,20 @@
-import 'dart:io';
-
-import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
-import 'package:musicplayer/database/database_client.dart';
-import 'package:musicplayer/pages/card_detail.dart';
-import 'package:musicplayer/util/utility.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:musicplayer/pages/album_detail.dart';
+import 'package:musicplayer/util/image_utility.dart';
 
-class Album extends StatefulWidget {
-  DatabaseClient db;
-  Album(this.db);
+class Albums extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new _stateAlbum();
+    return new _AlbumsState();
   }
 }
 
-class _stateAlbum extends State<Album> {
-  List<Song> songs;
-  var f;
+class _AlbumsState extends State<Albums> {
   bool isLoading = true;
+  FlutterAudioQuery audioQuery = FlutterAudioQuery();
+  List<AlbumInfo> albums;
+
   @override
   initState() {
     super.initState();
@@ -26,8 +22,10 @@ class _stateAlbum extends State<Album> {
   }
 
   void initAlbum() async {
-    // songs=await widget.db.fetchSongs();
-    songs = await widget.db.fetchAlbum();
+    albums = await audioQuery.getAlbums();
+
+    /// Removing WhatsApp audio
+    albums.removeWhere((f) => f.title == 'WhatsApp Audio');
     setState(() {
       isLoading = false;
     });
@@ -35,7 +33,7 @@ class _stateAlbum extends State<Album> {
 
   List<Card> _buildGridCards(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
-    return songs.map((song) {
+    return albums.map((album) {
       return Card(
         color: Colors.transparent,
         elevation: 8.0,
@@ -43,30 +41,14 @@ class _stateAlbum extends State<Album> {
           onTap: () {
             Navigator.of(context)
                 .push(new MaterialPageRoute(builder: (context) {
-              return new CardDetail(widget.db, song);
+              return new AlbumDetail(album);
             }));
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(6.0),
             child: Stack(
               children: <Widget>[
-                Hero(
-                  tag: song.album,
-                  child: getImage(song) != null
-                      ? Container(
-                    color: Colors.blueGrey.shade300,
-                        child: new Image.file(
-                            getImage(song),
-                            height: double.infinity,
-                            fit: BoxFit.fitHeight,
-                          ),
-                      )
-                      : new Image.asset(
-                          "images/back.jpg",
-                          height: double.infinity,
-                          fit: BoxFit.fitHeight,
-                        ),
-                ),
+                Hero(tag: album.title, child: GetImage.byAlbum(album: album)),
                 Positioned(
                   bottom: 0.0,
                   child: Container(
@@ -81,7 +63,7 @@ class _stateAlbum extends State<Album> {
                         Padding(
                           padding: const EdgeInsets.only(left: 7.0, right: 7.0),
                           child: Text(
-                            song.album,
+                            album.title,
                             style: new TextStyle(
                                 fontSize: 15.5,
                                 color: Colors.black.withOpacity(0.8),
@@ -95,7 +77,7 @@ class _stateAlbum extends State<Album> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 7.0, right: 7.0),
                             child: Text(
-                              song.artist,
+                              album.artist,
                               maxLines: 1,
                               style: TextStyle(
                                 fontSize: 14.0,

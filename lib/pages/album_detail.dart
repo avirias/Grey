@@ -1,46 +1,39 @@
-import 'dart:io';
 
-import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:musicplayer/database/database_client.dart';
-import 'package:musicplayer/pages/artistcard.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:musicplayer/pages/artist_detail.dart';
 import 'package:musicplayer/pages/now_playing.dart';
-import 'package:musicplayer/util/lastplay.dart';
+import 'package:musicplayer/util/image_utility.dart';
+import 'package:musicplayer/model/queue.dart';
 
-class CardDetail extends StatefulWidget {
-  var album;
-  final Song song;
-  DatabaseClient db;
-  CardDetail(this.db, this.song);
+class AlbumDetail extends StatefulWidget {
+  final AlbumInfo album;
+
+  AlbumDetail(this.album);
+
   @override
   State<StatefulWidget> createState() {
     return new _StateCardDetail();
   }
 }
 
-class _StateCardDetail extends State<CardDetail> {
-  List<Song> songs;
+class _StateCardDetail extends State<AlbumDetail> {
 
+  List<SongInfo> songs;
+  FlutterAudioQuery audioQuery = FlutterAudioQuery();
   bool isLoading = true;
-  var image;
+
   @override
   void initState() {
     super.initState();
     initAlbum();
   }
 
-  dynamic getImage(Song song) {
-    return song.albumArt == null
-        ? null
-        : new File.fromUri(Uri.parse(song.albumArt));
-  }
 
   void initAlbum() async {
-    image = widget.song.albumArt == null
-        ? null
-        : new File.fromUri(Uri.parse(widget.song.albumArt));
-    songs = await widget.db.fetchSongsFromAlbum(widget.song.albumId);
+
+    songs = await audioQuery.getSongsFromAlbum(albumId: widget.album.id);
     setState(() {
       isLoading = false;
     });
@@ -48,9 +41,7 @@ class _StateCardDetail extends State<CardDetail> {
 
   @override
   Widget build(BuildContext context) {
-    int length;
-    if (songs != null)
-      length = songs.length;
+
     return new Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -72,14 +63,8 @@ class _StateCardDetail extends State<CardDetail> {
                       fit: StackFit.expand,
                       children: <Widget>[
                         Hero(
-                          tag: widget.song.album,
-                          child: widget.song.albumArt != null
-                              ?  Image.file(
-                                  image,
-                                  fit: BoxFit.cover,
-                                )
-                              : new Image.asset("images/back.jpg",
-                                  fit: BoxFit.cover),
+                          tag: widget.album.title,
+                          child: GetImage.byAlbum(album: widget.album),
                         ),
                       ],
                     ),
@@ -100,11 +85,11 @@ class _StateCardDetail extends State<CardDetail> {
                                 padding: const EdgeInsets.only(
                                     left: 15.0, top: 15.0, right: 10.0),
                                 child: new Text(
-                                  widget.song.album,
+                                  widget.album.title,
                                   style: new TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w600,
-                                      ),
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -115,7 +100,7 @@ class _StateCardDetail extends State<CardDetail> {
                                   onTap: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(builder: (context) {
-                                     return ArtistCard(widget.db, widget.song);
+                                      return ArtistDetail(widget.album.artist);
                                     }));
                                   },
                                   child: Row(
@@ -133,13 +118,13 @@ class _StateCardDetail extends State<CardDetail> {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             new Text(
-                                              widget.song.artist,
+                                              widget.album.artist,
                                               style: new TextStyle(
                                                   fontSize: 18.0,
                                                   fontWeight: FontWeight.w500),
                                               maxLines: 1,
                                             ),
-                                            length != 1
+                                            songs.length != 1
                                                 ? new Text(
                                                     songs.length.toString() +
                                                         " Songs",
@@ -177,12 +162,7 @@ class _StateCardDetail extends State<CardDetail> {
                           child: new ListTile(
                             leading: Hero(
                                 tag: songs[i].id,
-                                child: songs[i].albumArt != null
-                                 ? Image.file(
-                                  getImage(songs[i]),
-                                  width: 50.0,
-                                  height: 50.0,
-                                ) : Icon(Icons.music_note)),
+                                child: GetImage.byAlbumAllSongs(album: widget.album) ),
 
                             title: new Text(
                               songs[i].title,
@@ -192,7 +172,7 @@ class _StateCardDetail extends State<CardDetail> {
                               overflow: TextOverflow.ellipsis,
                             ),
                             subtitle: new Text(
-                                new Duration(milliseconds: songs[i].duration)
+                                new Duration(milliseconds: int.parse(songs[i].duration))
                                     .toString()
                                     .split('.')
                                     .first
@@ -204,7 +184,7 @@ class _StateCardDetail extends State<CardDetail> {
                               MyQueue.songs = songs;
                               Navigator.of(context).push(new MaterialPageRoute(
                                   builder: (context) =>
-                                      new NowPlaying(widget.db, songs, i, 0)));
+                                      new NowPlaying(songs, i, 0)));
                             },
                           ),
                         ),
@@ -219,7 +199,7 @@ class _StateCardDetail extends State<CardDetail> {
           MyQueue.songs = songs;
           Navigator.of(context).push(new MaterialPageRoute(
               builder: (context) =>
-                  new NowPlaying(widget.db, MyQueue.songs, 0, 0)));
+                  new NowPlaying(MyQueue.songs, 0, 0)));
         },
         child: new Icon(CupertinoIcons.shuffle_thick),
         backgroundColor: Colors.white,
