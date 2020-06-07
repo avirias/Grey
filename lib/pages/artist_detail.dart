@@ -1,18 +1,20 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:music_player/music_player.dart';
 import 'package:musicplayer/pages/album_detail.dart';
 import 'package:musicplayer/pages/now_playing.dart';
 import 'package:musicplayer/util/image_utility.dart';
-import 'package:musicplayer/model/queue.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:musicplayer/util/queue_generator.dart';
+import 'package:musicplayer/util/theme.dart';
 import 'package:musicplayer/widgets/artist/artist_bio.dart';
 import 'package:musicplayer/widgets/artist/artist_image.dart';
 import 'package:musicplayer/widgets/artist/similar_artist.dart';
+import 'package:musicplayer/widgets/player/player.dart';
 
 class ArtistDetail extends StatefulWidget {
-  
   final String artistName;
 
   ArtistDetail(this.artistName);
@@ -29,17 +31,15 @@ class _StateCardDetail extends State<ArtistDetail> {
 
   FlutterAudioQuery audioQuery = FlutterAudioQuery();
 
-  bool isLoading = false;
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-//    initInformation();
+    initInformation();
   }
-  
 
   void initInformation() async {
-    print(widget.artistName);
     songs = await audioQuery.getSongsFromArtist(artist: widget.artistName);
     albums = await audioQuery.getAlbumsFromArtist(artist: widget.artistName);
     setState(() {
@@ -77,7 +77,7 @@ class _StateCardDetail extends State<ArtistDetail> {
                   pinned: true,
                   backgroundColor: Colors.transparent,
                   actions: <Widget>[
-                    IconButton(icon: Icon(Icons.more_vert), onPressed: showBio)
+                    IconButton(icon: Icon(Icons.more_vert), onPressed: null)
                   ],
                   flexibleSpace: new FlexibleSpaceBar(
                     title: Text(
@@ -146,9 +146,9 @@ class _StateCardDetail extends State<ArtistDetail> {
                                       children: <Widget>[
                                         SizedBox(
                                           child: Hero(
-                                            tag: albums[i].title,
-                                            child: GetImage.byAlbum(album: albums[i])
-                                          ),
+                                              tag: albums[i].title,
+                                              child: GetImage.byAlbum(
+                                                  album: albums[i])),
                                         ),
                                         SizedBox(
                                           width: 180.0,
@@ -228,7 +228,9 @@ class _StateCardDetail extends State<ArtistDetail> {
                               ],
                             ),
                             trailing: new Text(
-                              new Duration(milliseconds: int.parse(songs[i].duration))
+                              new Duration(
+                                      milliseconds:
+                                          int.parse(songs[i].duration))
                                   .toString()
                                   .split('.')
                                   .first
@@ -238,10 +240,12 @@ class _StateCardDetail extends State<ArtistDetail> {
                               softWrap: true,
                             ),
                             onTap: () {
-                              MyQueue.songs = songs;
+                              PlayQueue queue = QueueGenerate().fromSongs(
+                                  songs: songs);
+                              PlayerWidget.player(context).setPlayQueue(queue);
                               Navigator.of(context).push(new MaterialPageRoute(
                                   builder: (context) =>
-                                      new NowPlaying(songs, i, 0)));
+                                      new NowPlaying()));
                             },
                           ),
                         ),
@@ -253,14 +257,12 @@ class _StateCardDetail extends State<ArtistDetail> {
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          MyQueue.songs = songs;
           Navigator.of(context).push(new MaterialPageRoute(
-              builder: (context) => new NowPlaying(MyQueue.songs,
-                  new Random().nextInt(songs.length), 0)));
+              builder: (context) => new NowPlaying()));
         },
         child: new Icon(CupertinoIcons.shuffle_thick),
         backgroundColor: Colors.white,
-        foregroundColor: Colors.blueGrey,
+        foregroundColor: accentColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

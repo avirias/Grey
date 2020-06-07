@@ -1,11 +1,14 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:music_player/music_player.dart';
 import 'package:musicplayer/pages/artist_detail.dart';
 import 'package:musicplayer/pages/now_playing.dart';
 import 'package:musicplayer/util/image_utility.dart';
-import 'package:musicplayer/model/queue.dart';
+import 'package:musicplayer/util/queue_generator.dart';
+import 'package:musicplayer/util/theme.dart';
+import 'package:musicplayer/widgets/player/player.dart';
+import 'package:musicplayer/widgets/extensions/music_metadata.dart';
 
 class AlbumDetail extends StatefulWidget {
   final AlbumInfo album;
@@ -19,7 +22,6 @@ class AlbumDetail extends StatefulWidget {
 }
 
 class _StateCardDetail extends State<AlbumDetail> {
-
   List<SongInfo> songs;
   FlutterAudioQuery audioQuery = FlutterAudioQuery();
   bool isLoading = true;
@@ -30,9 +32,7 @@ class _StateCardDetail extends State<AlbumDetail> {
     initAlbum();
   }
 
-
   void initAlbum() async {
-
     songs = await audioQuery.getSongsFromAlbum(albumId: widget.album.id);
     setState(() {
       isLoading = false;
@@ -41,7 +41,6 @@ class _StateCardDetail extends State<AlbumDetail> {
 
   @override
   Widget build(BuildContext context) {
-
     return new Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -162,7 +161,8 @@ class _StateCardDetail extends State<AlbumDetail> {
                           child: new ListTile(
                             leading: Hero(
                                 tag: songs[i].id,
-                                child: GetImage.byAlbumAllSongs(album: widget.album) ),
+                                child: GetImage.byAlbumAllSongs(
+                                    album: widget.album)),
 
                             title: new Text(
                               songs[i].title,
@@ -172,7 +172,9 @@ class _StateCardDetail extends State<AlbumDetail> {
                               overflow: TextOverflow.ellipsis,
                             ),
                             subtitle: new Text(
-                                new Duration(milliseconds: int.parse(songs[i].duration))
+                                new Duration(
+                                        milliseconds:
+                                            int.parse(songs[i].duration))
                                     .toString()
                                     .split('.')
                                     .first
@@ -181,10 +183,12 @@ class _StateCardDetail extends State<AlbumDetail> {
                                     fontSize: 12.0, color: Colors.grey)),
                             //trailing:
                             onTap: () {
-                              MyQueue.songs = songs;
+                              PlayQueue queue =
+                                  QueueGenerate().fromSongs(songs: songs);
+                              PlayerWidget.player(context).playWithQueue(queue,
+                                  metadata: songs[i].toMusic());
                               Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) =>
-                                      new NowPlaying(songs, i, 0)));
+                                  builder: (context) => new NowPlaying()));
                             },
                           ),
                         ),
@@ -196,14 +200,16 @@ class _StateCardDetail extends State<AlbumDetail> {
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          MyQueue.songs = songs;
-          Navigator.of(context).push(new MaterialPageRoute(
-              builder: (context) =>
-                  new NowPlaying(MyQueue.songs, 0, 0)));
+          PlayQueue queue = QueueGenerate().fromSongs(songs: songs);
+          PlayerWidget.transportControls(context).setPlayMode(PlayMode.shuffle);
+          PlayerWidget.player(context).playWithQueue(queue);
+
+          Navigator.of(context).push(
+              new MaterialPageRoute(builder: (context) => new NowPlaying()));
         },
         child: new Icon(CupertinoIcons.shuffle_thick),
         backgroundColor: Colors.white,
-        foregroundColor: Colors.blueGrey,
+        foregroundColor: accentColor,
       ),
     );
   }

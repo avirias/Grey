@@ -1,11 +1,14 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:music_player/music_player.dart';
 import 'package:musicplayer/pages/now_playing.dart';
+import 'package:musicplayer/util/queue_generator.dart';
+import 'package:musicplayer/util/theme.dart';
 import 'package:musicplayer/widgets/app_bar.dart';
-import 'package:musicplayer/model/queue.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:musicplayer/widgets/player/player.dart';
 
 class ListSongs extends StatefulWidget {
   final List<SongInfo> songs;
@@ -138,10 +141,11 @@ class _ListSong extends State<ListSongs> {
                           style: new TextStyle(
                               fontSize: 12.0, color: Colors.grey)),
                       onTap: () {
-                        MyQueue.songs = widget.songs;
+                        PlayQueue queue =
+                            QueueGenerate().fromSongs(songs: widget.songs);
+                        PlayerWidget.player(context).setPlayQueue(queue);
                         Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (context) =>
-                                new NowPlaying(MyQueue.songs, i, 0)));
+                            builder: (context) => new NowPlaying()));
                       },
                     ),
                   ],
@@ -162,10 +166,9 @@ class _ListSong extends State<ListSongs> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0)),
                       onPressed: () {},
-                      color: Colors.blueGrey.shade500,
+                      color: accentColor,
                       highlightedBorderColor: Color(0xFF373737),
-                      borderSide:
-                          BorderSide(width: 2.0, color: Colors.blueGrey),
+                      borderSide: BorderSide(width: 2.0, color: accentColor),
                     )
                   ],
                 ),
@@ -174,13 +177,14 @@ class _ListSong extends State<ListSongs> {
       floatingActionButton: widget.songs != null
           ? FloatingActionButton(
               onPressed: () {
-                MyQueue.songs = widget.songs;
+                PlayQueue queue =
+                    QueueGenerate().fromSongs(songs: widget.songs);
+                PlayerWidget.player(context).setPlayQueue(queue);
                 Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => new NowPlaying(MyQueue.songs,
-                        new Random().nextInt(widget.songs.length), 0)));
+                    builder: (context) => new NowPlaying()));
               },
               backgroundColor: Colors.white,
-              foregroundColor: Colors.blueGrey,
+              foregroundColor: accentColor,
               child: Icon(CupertinoIcons.shuffle_thick),
             )
           : null,

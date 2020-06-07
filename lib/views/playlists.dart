@@ -1,8 +1,7 @@
-
-import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:music_player/music_player.dart';
 import 'package:musicplayer/pages/list_songs.dart';
 
 class Playlists extends StatefulWidget {
@@ -14,11 +13,12 @@ class Playlists extends StatefulWidget {
 
 class _StatePlaylist extends State<Playlists> {
   var mode;
-  List<Song> songs;
+  List<SongInfo> songs;
   var selected;
   String atFirst, atSecond, atThir;
   String nu = "null";
   Orientation orientation;
+  FlutterAudioQuery audioQuery;
 
   @override
   void initState() {
@@ -28,6 +28,10 @@ class _StatePlaylist extends State<Playlists> {
 //    });
     mode = 1;
     selected = 1;
+    audioQuery = FlutterAudioQuery();
+    init();
+
+    MusicPlayer musicPlayer = MusicPlayer();
   }
 
   @override
@@ -150,6 +154,18 @@ class _StatePlaylist extends State<Playlists> {
         ),
       ],
     );
+  }
+
+  init() async {
+    await audioQuery.getPlaylists().then((val) {
+      print("size${val.length}");
+      val.forEach((f) {
+        print("object");
+        print(f.name);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
   }
 
 //  Widget landscape() {

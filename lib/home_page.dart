@@ -1,15 +1,16 @@
 import 'dart:async';
-import 'package:flute_music_player/flute_music_player.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:musicplayer/pages/now_playing.dart';
-import 'package:musicplayer/widgets/app_bar.dart';
-import 'package:musicplayer/model/queue.dart';
+import 'package:musicplayer/util/theme.dart';
 import 'package:musicplayer/views/albums.dart';
 import 'package:musicplayer/views/artists.dart';
 import 'package:musicplayer/views/home.dart';
 import 'package:musicplayer/views/playlists.dart';
 import 'package:musicplayer/views/songs.dart';
+import 'package:musicplayer/widgets/app_bar.dart';
+import 'package:musicplayer/widgets/player/player.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BodySelection extends StatelessWidget {
@@ -50,7 +51,7 @@ class MusicHome extends StatefulWidget {
 class _MusicState extends State<MusicHome> {
   int _selectedIndex = 0;
   int serIndex;
-  List<Song> songs;
+  List<SongInfo> songs;
   List<String> title = ["", "Albums", "Songs", "Artists", "Playlists"];
   bool isLoading = true;
   List<BottomItem> bottomItems;
@@ -130,13 +131,12 @@ class _MusicState extends State<MusicHome> {
               ),
         floatingActionButton: new FloatingActionButton(
             child: new FlutterLogo(
-              colors: Colors.blueGrey,
+              colors: accentColor,
               style: FlutterLogoStyle.markOnly,
             ),
             backgroundColor: Colors.white,
             onPressed: () async {
               var pref = await SharedPreferences.getInstance();
-              FlutterAudioQuery audio = FlutterAudioQuery();
               var fp = pref.getBool("played");
               if (fp == null) {
                 scaffoldState.currentState.showSnackBar(new SnackBar(
@@ -144,14 +144,10 @@ class _MusicState extends State<MusicHome> {
                   duration: Duration(milliseconds: 1500),
                 ));
               } else {
-                if (MyQueue.songs == null) {
-                  List<SongInfo> list = await audio.getSongs();
-                  MyQueue.songs = list;
-                }
                 // TODO: Play last song
                 Navigator.of(context)
                     .push(new MaterialPageRoute(builder: (context) {
-                  return new NowPlaying(MyQueue.songs, 0, 1);
+                  return new NowPlaying();
                 }));
               }
             }),
@@ -188,6 +184,9 @@ class _MusicState extends State<MusicHome> {
             context: context,
             builder: (context) {
               return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)
+                ),
                 title: new Text('Are you sure?'),
                 content: new Text('Grey will be stopped..'),
                 actions: <Widget>[
@@ -199,7 +198,7 @@ class _MusicState extends State<MusicHome> {
                   ),
                   new FlatButton(
                     onPressed: () {
-                      MyQueue.player.stop();
+                      PlayerWidget.transportControls(context).pause();
                       Navigator.of(context).pop(true);
                     },
                     child: new Text('Yes'),

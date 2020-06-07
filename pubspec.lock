@@ -64,13 +64,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
-  flute_music_player:
-    dependency: "direct main"
-    description:
-      name: flute_music_player
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.6"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -92,13 +85,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.8"
-  flutter_stetho:
-    dependency: "direct main"
-    description:
-      name: flutter_stetho
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -146,6 +132,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.8"
+  music_player:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "8663cb010d48c5b4ef0df1d83741f2957bea8ea0"
+      url: "https://github.com/boyan01/flutter-music-player.git"
+    source: git
+    version: "0.0.1"
+  overlay_support:
+    dependency: "direct main"
+    description:
+      name: overlay_support
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   path:
     dependency: transitive
     description:
@@ -263,13 +265,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  swipedetector:
-    dependency: "direct main"
-    description:
-      name: swipedetector
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.0"
   synchronized:
     dependency: transitive
     description:
@@ -320,7 +315,7 @@ packages:
     source: hosted
     version: "2.0.8"
   xml:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: xml
       url: "https://pub.dartlang.org"

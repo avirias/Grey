@@ -1,17 +1,14 @@
-import 'dart:io';
-import 'dart:math';
-
-import 'package:flute_music_player/flute_music_player.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:musicplayer/util/artist_info.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:musicplayer/database/database_client.dart';
-import 'package:musicplayer/pages/artist_detail.dart';
 import 'package:musicplayer/pages/album_detail.dart';
+import 'package:musicplayer/pages/artist_detail.dart';
 import 'package:musicplayer/pages/list_songs.dart';
 import 'package:musicplayer/pages/now_playing.dart';
-import 'package:musicplayer/model/queue.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:musicplayer/util/artist_info.dart';
+import 'package:musicplayer/util/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
 
@@ -22,10 +19,9 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  List<Song> songs;
+  List<SongInfo> songs;
   bool isLoading = true;
   int noOfFavorites;
-  Song last;
 
   @override
   void initState() {
@@ -54,7 +50,7 @@ class HomeState extends State<Home> {
       applicationName: "Grey",
       applicationVersion: "0.3.1",
       applicationLegalese: "MIT License",
-      applicationIcon: FlutterLogo(colors: Colors.blueGrey),
+      applicationIcon: FlutterLogo(colors: accentColor),
       children: <Widget>[
         Center(
           child: Padding(

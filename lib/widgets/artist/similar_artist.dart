@@ -25,22 +25,6 @@ class _SimilarArtistsState extends State<SimilarArtists> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _greyRepository.fetchArtistInfo(artist: widget.artist),
-      builder: (context, AsyncSnapshot<ArtistInformation> snapshot){
-        switch(snapshot.connectionState){
-
-          case ConnectionState.none:
-            break;
-          case ConnectionState.waiting:
-            break;
-          case ConnectionState.active:
-            break;
-          case ConnectionState.done:
-            break;
-        }
-        return Text('end');
-      },
-    );
+    return Container();
   }
 }

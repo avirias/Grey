@@ -14,51 +14,32 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="Fixed bugs 2">
-      <change afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/avirias.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/model/artist_information.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/model/queue.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/repository/repository.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/util/artist_info.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/util/constants.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/util/image_utility.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/widgets/artist/artist_bio.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/widgets/artist/artist_image.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/widgets/artist/similar_artist.dart" afterDir="false" />
+    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="Refactoring code">
+      <change afterPath="$PROJECT_DIR$/lib/util/queue_generator.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/util/random.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/extensions/music_metadata.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/player/player.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/player/playing_progress.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/yourcompany/musicplayer/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/avirias/grey/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/database/database_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/database/database_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/musichome.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/artistcard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/artist_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/card_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/album_detail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/queue.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/album_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/album_detail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/artist_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/artist_detail.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/list_songs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/list_songs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/material_search.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/material_search.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/now_playing.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/now_playing.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/util/theme.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/AAppBar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/app_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/artistInfo.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/lastplay.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/utility.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/album.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/albums.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/artists.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/artists.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/util/theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/util/theme.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/home.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/playlists.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/playlists.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/songs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/songs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/app_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/artist/similar_artist.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/artist/similar_artist.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
@@ -80,10 +61,18 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="PUSH_TAGS">
-      <GitPushTagMode />
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
     </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -481,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574700877203</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Refactoring code">
+      <created>1590856847175</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1590856847175</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -505,6 +501,17 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="dev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -515,7 +522,13 @@
       <map>
         <entry key="Branch">
           <value>
-            <list />
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="dev" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
         <entry key="User">
@@ -545,7 +558,8 @@
     <MESSAGE value="Update README.md" />
     <MESSAGE value="Fixed bugs" />
     <MESSAGE value="Fixed bugs 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bugs 2" />
+    <MESSAGE value="Refactoring code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring code" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

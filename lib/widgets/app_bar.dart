@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:musicplayer/util/theme.dart';
 
 class GreyAppBar extends StatelessWidget implements PreferredSizeWidget {
   GreyAppBar({this.title, this.isBack = false});
+
   final String title;
   final bool isBack;
+
   @override
   Size get preferredSize => Size.fromHeight(110.0);
 
@@ -17,7 +20,7 @@ class GreyAppBar extends StatelessWidget implements PreferredSizeWidget {
           gradient: LinearGradient(
         colors: [
           Colors.blueGrey.shade700,
-          Colors.blueGrey.shade500,
+          accentColor,
           Colors.blueGrey.shade300,
           Colors.blueGrey.shade100,
           Colors.grey.shade100,

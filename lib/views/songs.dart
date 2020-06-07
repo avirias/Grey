@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:music_player/music_player.dart';
 import 'package:musicplayer/pages/now_playing.dart';
-import 'package:musicplayer/model/queue.dart';
+import 'package:musicplayer/util/queue_generator.dart';
+import 'package:musicplayer/widgets/player/player.dart';
+import 'package:musicplayer/widgets/extensions/music_metadata.dart';
 
 class Songs extends StatefulWidget {
   @override
@@ -24,7 +27,7 @@ class _SongsState extends State<Songs> {
             case ConnectionState.none:
               break;
             case ConnectionState.waiting:
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             case ConnectionState.active:
               break;
             case ConnectionState.done:
@@ -34,7 +37,6 @@ class _SongsState extends State<Songs> {
                   physics: BouncingScrollPhysics(),
                   itemCount: songs.length,
                   itemBuilder: (context, i) {
-                    print(songs[i].albumArtwork);
                     return new Column(
                       children: <Widget>[
                         new ListTile(
@@ -65,10 +67,14 @@ class _SongsState extends State<Songs> {
                               style: new TextStyle(
                                   fontSize: 12.0, color: Colors.black54)),
                           onTap: () {
-                            MyQueue.songs = songs;
+                            PlayQueue queue =
+                                QueueGenerate().fromSongs(songs: songs);
+                            PlayerWidget.player(context).playWithQueue(queue,
+                                metadata: songs[i].toMusic());
+//                            PlayerWidget.transportControls(context)
+//                                .playFromMediaId(songs[i].id);
                             Navigator.of(context).push(new MaterialPageRoute(
-                                builder: (context) =>
-                                    new NowPlaying(MyQueue.songs, i, 0)));
+                                builder: (context) => NowPlaying()));
                           },
                         ),
                       ],
