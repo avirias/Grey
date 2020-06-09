@@ -14,30 +14,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="Removed flute_music_player plugin">
-      <change afterPath="$PROJECT_DIR$/lib/model/artist_image.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/model/artist_info.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/util/mapper/artist_mapper.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/util/mapper/similar_artist.dart" afterDir="false" />
+    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="Added Apple music API for artist detail">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/artist_information.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/album_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/album_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/artist_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/artist_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/now_playing.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/now_playing.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/util/constants.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/image_utility.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/util/image_utility.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/albums.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/albums.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/artists.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/artists.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/songs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/songs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/app_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/artist/artist_bio.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/artist/artist_image.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/artist/artist_image.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/artist/similar_artist.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/player/playing_progress.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/player/playing_progress.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -480,7 +458,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591490187727</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Added Apple music API for artist detail">
+      <created>1591712445815</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1591712445815</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -563,7 +548,8 @@
     <MESSAGE value="Fixed bugs 2" />
     <MESSAGE value="Refactoring code" />
     <MESSAGE value="Removed flute_music_player plugin" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed flute_music_player plugin" />
+    <MESSAGE value="Added Apple music API for artist detail" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Apple music API for artist detail" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
