@@ -58,7 +58,7 @@ class GreyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   title,
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 38.0,
+                    fontSize: 36.0,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2.0,
                   ),

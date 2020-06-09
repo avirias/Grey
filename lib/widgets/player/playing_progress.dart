@@ -23,7 +23,7 @@ class _PlayingProgressContState extends State<PlayingProgressCont> {
       data: SliderThemeData(
           thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5)),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 14),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[

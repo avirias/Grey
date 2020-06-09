@@ -17,7 +17,7 @@ class Artists extends StatelessWidget {
           case ConnectionState.none:
             break;
           case ConnectionState.waiting:
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           case ConnectionState.active:
             break;
           case ConnectionState.done:
@@ -40,7 +40,7 @@ class Artists extends StatelessWidget {
                             aspectRatio: 18 / 16,
                             child: Hero(
                                 tag: artist.name,
-                                child: ArtistImage(
+                                child: ArtistImageFuture(
                                   artist: artist.name,
                                 )),
                           ),
@@ -52,10 +52,8 @@ class Artists extends StatelessWidget {
                                   padding: const EdgeInsets.only(
                                       left: 8.0, right: 8.0),
                                   child: Text(
-                                    artist.name.toUpperCase(),
+                                    artist.name,
                                     style: new TextStyle(
-                                        fontSize: 13.0,
-                                        fontWeight: FontWeight.w600,
                                         letterSpacing: 1),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -86,74 +84,3 @@ class Artists extends StatelessWidget {
   }
 }
 
-class ArtistGrids extends StatefulWidget {
-  final List<ArtistInfo> artists;
-
-  const ArtistGrids({Key key, this.artists}) : super(key: key);
-
-  @override
-  _ArtistGridsState createState() => _ArtistGridsState();
-}
-
-class _ArtistGridsState extends State<ArtistGrids> {
-  @override
-  Widget build(BuildContext context) {
-    final Orientation orientation = MediaQuery.of(context).orientation;
-    return GridView.count(
-      physics: BouncingScrollPhysics(),
-      crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-      children: widget.artists.map((artist) {
-        return Card(
-          color: Colors.transparent,
-          margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 18.0),
-          elevation: 10.0,
-          child: new InkWell(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(6.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  AspectRatio(
-                    aspectRatio: 18 / 16,
-                    child: Hero(
-                        tag: artist.name,
-                        child: ArtistImage(
-                          artist: artist.name,
-                        )),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.white,
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: Text(
-                            artist.name.toUpperCase(),
-                            style: new TextStyle(
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 2.0),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onTap: () {
-              Navigator.of(context)
-                  .push(new MaterialPageRoute(builder: (context) {
-                return ArtistDetail(artist.name);
-              }));
-            },
-          ),
-        );
-      }).toList(),
-      padding: EdgeInsets.all(10.0),
-      childAspectRatio: 8.0 / 9.5,
-    );
-  }
-}

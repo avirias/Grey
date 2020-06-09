@@ -16,9 +16,7 @@ class AlbumDetail extends StatefulWidget {
   AlbumDetail(this.album);
 
   @override
-  State<StatefulWidget> createState() {
-    return new _StateCardDetail();
-  }
+  State<StatefulWidget> createState() => _StateCardDetail();
 }
 
 class _StateCardDetail extends State<AlbumDetail> {
@@ -63,7 +61,8 @@ class _StateCardDetail extends State<AlbumDetail> {
                       children: <Widget>[
                         Hero(
                           tag: widget.album.title,
-                          child: GetImage.byAlbum(album: widget.album),
+                          child: GetImage.byAlbum(
+                              album: widget.album, fit: BoxFit.cover),
                         ),
                       ],
                     ),
@@ -159,10 +158,7 @@ class _StateCardDetail extends State<AlbumDetail> {
                         child: Container(
                           color: Colors.white,
                           child: new ListTile(
-                            leading: Hero(
-                                tag: songs[i].id,
-                                child: GetImage.byAlbumAllSongs(
-                                    album: widget.album)),
+                            leading: Icon(Icons.music_note),
 
                             title: new Text(
                               songs[i].title,

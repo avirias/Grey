@@ -5,9 +5,7 @@ import 'package:musicplayer/util/image_utility.dart';
 
 class Albums extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new _AlbumsState();
-  }
+  State<StatefulWidget> createState() => _AlbumsState();
 }
 
 class _AlbumsState extends State<Albums> {

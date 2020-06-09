@@ -3,16 +3,13 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:music_player/music_player.dart';
-import 'package:musicplayer/pages/artist_detail.dart';
 import 'package:musicplayer/util/theme.dart';
 import 'package:musicplayer/widgets/player/player.dart';
 import 'package:musicplayer/widgets/player/playing_progress.dart';
 
 class NowPlaying extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new _StateNowPlaying();
-  }
+  State<StatefulWidget> createState() => _StateNowPlaying();
 }
 
 class _StateNowPlaying extends State<NowPlaying>
@@ -64,15 +61,12 @@ class _StateNowPlaying extends State<NowPlaying>
     _animationController.reverse();
   }
 
-  GlobalKey<ScaffoldState> scaffoldState = new GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     final metadata = context.listenPlayerValue.metadata;
-    final double cutRadius = 8.0;
+    final double cutRadius = 5.0;
     return new Scaffold(
-      key: scaffoldState,
       backgroundColor: Colors.transparent,
       body: Stack(
         children: <Widget>[
@@ -150,9 +144,7 @@ class _StateNowPlaying extends State<NowPlaying>
             ),
           ),
 
-          /**
-           *  Slider and all buttons with texts
-           */
+          ///  Slider and all buttons with texts
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
@@ -163,47 +155,37 @@ class _StateNowPlaying extends State<NowPlaying>
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    /// Slider
                     ProgressTrackingContainer(
                         builder: (context) => PlayingProgressCont(),
                         player: context.player),
 
-                    /**
-                     * Song title and Artist name
-                     */
+                    /// Song title and Artist name
                     Expanded(
                       child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10.0, right: 10.0, top: 5),
-                              child: new Text(
-                                '${context.listenPlayerValue.metadata.title.toUpperCase()}\n',
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(left: 10.0, right: 10.0, top: 5),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              new Text(
+                                '${metadata.title.toUpperCase()}',
                                 style: new TextStyle(
                                     color: Colors.black.withOpacity(0.65),
                                     fontSize: 17,
                                     fontFamily: "Quicksand",
                                     letterSpacing: 3,
                                     fontWeight: FontWeight.w700),
-                                maxLines: 1,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.center,
                               ),
-                            ),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                    new MaterialPageRoute(builder: (context) {
-                                  return new ArtistDetail(context
-                                      .listenPlayerValue.metadata.subtitle);
-                                }));
-                              },
-                              child: new Text(
-                                "${context.listenPlayerValue.metadata.subtitle.toUpperCase()}\n",
+                              SizedBox(
+                                height: 12,
+                              ),
+                              Text(
+                                "${metadata.subtitle.toUpperCase()}",
                                 style: new TextStyle(
                                     color: Colors.black.withOpacity(0.7),
                                     fontFamily: "Quicksand",
@@ -214,15 +196,13 @@ class _StateNowPlaying extends State<NowPlaying>
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.center,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
 
-                    /**
-                     * Control buttons
-                     */
+                    /// Control buttons
                     Expanded(
                       child: Container(
                         child: Padding(
@@ -308,13 +288,11 @@ class _StateNowPlaying extends State<NowPlaying>
                       ),
                     ),
 
-                    /**
-                     * Up next
-                     */
+                    /// Up next
                     Center(
                       child: FlatButton(
                         shape: StadiumBorder(),
-                        onPressed: _showBottomSheet,
+                        onPressed: _upNextBottomSheet,
                         highlightColor: Colors.blueGrey[200].withOpacity(0.1),
                         child: Text(
                           "UP NEXT",
@@ -336,7 +314,7 @@ class _StateNowPlaying extends State<NowPlaying>
     );
   }
 
-  void _showBottomSheet() {
+  _upNextBottomSheet() {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -386,7 +364,8 @@ class _StateNowPlaying extends State<NowPlaying>
                                 : null,
                             onTap: () {
                               setState(() {
-                                //TODO: Play tapped song
+                                context.transportControls
+                                    .playFromMediaId(song.mediaId);
                                 Navigator.pop(context);
                               });
                             },

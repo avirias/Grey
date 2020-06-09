@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +17,6 @@ void playerBackgroundService() {
   runBackgroundService(
     playUriInterceptor: (mediaId, fallbackUrl) async {
       debugPrint("get media play uri : $mediaId , $fallbackUrl");
-      if (mediaId == 'rise') return "asset:///tracks/rise.mp3";
       return fallbackUrl;
     },
     imageLoadInterceptor: (metadata) async {

@@ -120,95 +120,56 @@ class _MusicState extends State<MusicHome> {
   @override
   Widget build(BuildContext context) {
     initBottomItems();
-    return new WillPopScope(
-      child: new Scaffold(
-        backgroundColor: Color(0xFFFAFAFA),
-        key: scaffoldState,
-        appBar: _selectedIndex == 0
-            ? null
-            : GreyAppBar(
-                title: title[_selectedIndex].toLowerCase(),
-              ),
-        floatingActionButton: new FloatingActionButton(
-            child: new FlutterLogo(
-              colors: accentColor,
-              style: FlutterLogoStyle.markOnly,
+    return new Scaffold(
+      backgroundColor: Color(0xFFFAFAFA),
+      key: scaffoldState,
+      appBar: _selectedIndex == 0
+          ? null
+          : GreyAppBar(
+              title: title[_selectedIndex].toLowerCase(),
             ),
-            backgroundColor: Colors.white,
-            onPressed: () async {
-              var pref = await SharedPreferences.getInstance();
-              var fp = pref.getBool("played");
-              if (fp == null) {
-                scaffoldState.currentState.showSnackBar(new SnackBar(
-                  content: Text("Play your first song."),
-                  duration: Duration(milliseconds: 1500),
-                ));
-              } else {
-                // TODO: Play last song
-                Navigator.of(context)
-                    .push(new MaterialPageRoute(builder: (context) {
-                  return new NowPlaying();
-                }));
-              }
-            }),
-        body: isLoading
-            ? Center(child: CircularProgressIndicator())
-            : BodySelection(_selectedIndex),
-        bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          child: Container(
-            color: Colors.transparent,
-            height: 55.0,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: bottomOptions),
+      floatingActionButton: new FloatingActionButton(
+          child: new FlutterLogo(
+            colors: accentColor,
+            style: FlutterLogoStyle.markOnly,
           ),
-          notchMargin: 10.0,
-          elevation: 0.0,
-          color: Colors.grey.withOpacity(0.25),
+          backgroundColor: Colors.white,
+          onPressed: () async {
+            var pref = await SharedPreferences.getInstance();
+            var fp = pref.getBool("played");
+            if (fp == null) {
+              scaffoldState.currentState.showSnackBar(new SnackBar(
+                content: Text("Play your first song."),
+                duration: Duration(milliseconds: 1500),
+              ));
+            } else {
+              // TODO: Play last song
+              Navigator.of(context)
+                  .push(new MaterialPageRoute(builder: (context) {
+                return new NowPlaying();
+              }));
+            }
+          }),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : BodySelection(_selectedIndex),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          color: Colors.transparent,
+          height: 55.0,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: bottomOptions),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        notchMargin: 10.0,
+        elevation: 0.0,
+        color: Colors.grey.withOpacity(0.25),
       ),
-      onWillPop: _onWillPop,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
-  Future<bool> _onWillPop() {
-    if (_selectedIndex != 0) {
-      setState(() {
-        _selectedIndex = 0;
-      });
-      return null;
-    } else
-      return showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)
-                ),
-                title: new Text('Are you sure?'),
-                content: new Text('Grey will be stopped..'),
-                actions: <Widget>[
-                  new FlatButton(
-                    onPressed: () => Navigator.of(context).pop(false),
-                    child: new Text(
-                      'No',
-                    ),
-                  ),
-                  new FlatButton(
-                    onPressed: () {
-                      PlayerWidget.transportControls(context).pause();
-                      Navigator.of(context).pop(true);
-                    },
-                    child: new Text('Yes'),
-                  ),
-                ],
-              );
-            },
-          ) ??
-          false;
-  }
 }
 
 class BottomItem {

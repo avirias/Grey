@@ -13,12 +13,10 @@ import 'package:url_launcher/url_launcher.dart';
 class Home extends StatefulWidget {
 
   @override
-  State<StatefulWidget> createState() {
-    return new HomeState();
-  }
+  State<StatefulWidget> createState() => _HomeState();
 }
 
-class HomeState extends State<Home> {
+class _HomeState extends State<Home> {
   List<SongInfo> songs;
   bool isLoading = true;
   int noOfFavorites;
@@ -127,7 +125,6 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final Orientation orientation = MediaQuery.of(context).orientation;
     return new CustomScrollView(
       slivers: <Widget>[
         new SliverAppBar(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:music_player/music_player.dart';
@@ -8,9 +10,7 @@ import 'package:musicplayer/widgets/extensions/music_metadata.dart';
 
 class Songs extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new _SongsState();
-  }
+  State<StatefulWidget> createState() => _SongsState();
 }
 
 class _SongsState extends State<Songs> {
@@ -42,8 +42,9 @@ class _SongsState extends State<Songs> {
                         new ListTile(
                           leading: Hero(
                               tag: songs[i].id,
-                              //TODO:
-                              child: Icon(Icons.music_note)),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(3),
+                                  child: Image.file(File(songs[i].albumArtwork)))),
                           title: new Text(songs[i].title,
                               maxLines: 1,
                               style: new TextStyle(
@@ -53,8 +54,7 @@ class _SongsState extends State<Songs> {
                           subtitle: new Text(
                             songs[i].artist,
                             maxLines: 1,
-                            style: new TextStyle(
-                                fontSize: 12.0, color: Colors.grey),
+                            style: new TextStyle(color: Colors.grey),
                           ),
                           trailing: new Text(
                               new Duration(
@@ -64,15 +64,12 @@ class _SongsState extends State<Songs> {
                                   .split('.')
                                   .first
                                   .substring(3, 7),
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.black54)),
+                              style: new TextStyle(color: Colors.black54)),
                           onTap: () {
                             PlayQueue queue =
                                 QueueGenerate().fromSongs(songs: songs);
                             PlayerWidget.player(context).playWithQueue(queue,
                                 metadata: songs[i].toMusic());
-//                            PlayerWidget.transportControls(context)
-//                                .playFromMediaId(songs[i].id);
                             Navigator.of(context).push(new MaterialPageRoute(
                                 builder: (context) => NowPlaying()));
                           },
