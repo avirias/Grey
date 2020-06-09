@@ -14,8 +14,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="Added Apple music API for artist detail">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="dd39be39-ff07-4932-9176-f9d4eb887e44" name="Default" comment="Testing CI">
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -465,7 +465,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591712445815</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Testing CI">
+      <created>1591713582672</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1591713582672</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -549,7 +556,8 @@
     <MESSAGE value="Refactoring code" />
     <MESSAGE value="Removed flute_music_player plugin" />
     <MESSAGE value="Added Apple music API for artist detail" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Apple music API for artist detail" />
+    <MESSAGE value="Testing CI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing CI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
